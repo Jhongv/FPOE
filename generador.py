@@ -27,6 +27,7 @@ def Generardatos(event):
     sexo = entry_sexo.get()
     email=entry_email.get()
     fecha_nacimiento= entry_fecha_nacimiento.get()
+    
     if not nombre or not apellido or not edad or not sexo or not email or not fecha_nacimiento:
         entry_nombre.config(state="disabled")
         entry_apellido.config(state="disabled")
@@ -37,7 +38,8 @@ def Generardatos(event):
         messagebox.showerror("Error", "Complete todos los campos. Presione Click derecho")
         return
 
-    if len(nombre) < 4 or len(apellido) < 4 or len(edad) < 0:
+
+    if len(nombre) < 3 or len(apellido) < 4 or len(edad) < 0:
         messagebox.showerror("Error", "Para nombre y apellido se deben colocar al menos 4 caracteres, en la edad > 0")
         return
 
@@ -47,8 +49,8 @@ def Generardatos(event):
         return
 
 #def Genero(event):
-    if sexo not in ["H", "M"]:
-        messagebox.showerror("Error", "El género debe ser 'H' o 'M'.")
+    if sexo not in ["H", "M", "Otro"]:
+        messagebox.showerror("Error", "El género debe ser 'H', 'M', u 'Otro'.")
         return
 
 def habilitarCampos(event):
@@ -57,8 +59,17 @@ def habilitarCampos(event):
     entry_edad.config(state="normal")
     entry_sexo.config(state="normal")
     entry_email.config(state="normal")
+    entry_fecha_nacimiento.config(state="normal")
     messagebox.showinfo("Alerta", "Proceda a completarlos.")
     return
+
+
+def validar_correo(event):
+    correo = entry_email.get()
+    if '@' not in correo:
+        labelErrorEmail.config(text="Correo inválido", fg="red")
+    else:
+        labelErrorEmail.config(text="")
 
 
     
@@ -89,10 +100,12 @@ label_email = Label(frame, text="E*mail*:")
 label_email.grid(row=3, column=0)
 entry_email = Entry(frame)
 entry_email.grid(row=3, column=1, padx=10, pady=10)
+labelErrorEmail= Label(frame, text="", fg="red")
+labelErrorEmail.grid(row=3, column=2)
 
 label_sexo = Label(frame, text="Sexo*:")
 label_sexo.grid(row=4, column=0)
-entry_sexo = ttk.Combobox(frame, values=[ "H", "M"])
+entry_sexo = ttk.Combobox(frame, values=[ "H", "M", "Otro"])
 entry_sexo.grid(row=4, column=1, padx=10, pady=10)
 
 label_fecha_nacimiento = Label(frame, text="Fecha de nacimiento*:")
@@ -109,5 +122,6 @@ submit_button.grid(row=6, columnspan=2, padx=10, pady=10)
 
 root.bind('<Return>', Generardatos)
 root.bind('<Button-3>', habilitarCampos)
+entry_email.bind('<FocusOut>', validar_correo)
 
 root.mainloop()

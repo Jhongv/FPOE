@@ -35,17 +35,49 @@ def Generardatos(event):
         entry_sexo.config(state="disabled")
         entry_email.config(state="disabled")
         entry_fecha_nacimiento.config(state="disabled")
-        messagebox.showerror("Error", "Complete todos los campos. Presione Click derecho")
+        labelErrorNAE.config(text="Complete todos los campos", fg="red")
         return
 
+    else:
+        labelErrorNAE.config(text="")
+
+    ventanaDeLosdatos=Toplevel()
+    ventanaDeLosdatos.title("Sus datos")
+    ventanaDeLosdatos.geometry("300x300")
+    lblFrame=LabelFrame(ventanaDeLosdatos, text="Mira")
+    lblFrame.grid(row=0, column=0, padx=10, pady=10)
+    lblNombre=Label(lblFrame, text=nombre)
+    lblNombre.grid(row=1, column=0, padx=10, pady=10)
+    lblApellido=Label(lblFrame, text=apellido)
+    lblApellido.grid(row=2, column=0, padx=10, pady=10)
+    lblSexo=Label(lblFrame, text=sexo)
+    lblSexo.grid(row=3, column=0, padx=10, pady=10)
+    lblEmail=Label(lblFrame, text=email)
+    lblEmail.grid(row=4, column=0, padx=10, pady=10)
+    lblFN=Label(lblFrame, text=fecha_nacimiento)
+    lblFN.grid(row=5, column=0, padx=10, pady=10)
+
+
+
+
+def generarFecha(event):
+    fecha_nacimiento= entry_fecha_nacimiento.get()
     if not re.match(r"^\d{2}-\d{2}-\d{4}$", fecha_nacimiento):
-        messagebox.showerror("Error", "La fecha de nacimiento debe tener el formato DD-MM-AAAA.")
-        return
+        labelErrorFecha.config(text="El orden de laa fecha está mal")
+        entry_fecha_nacimiento.delete(0, "end")
+        
+    else:
+        labelErrorFecha.config(text="")
 
-#def Genero(event):
+
+def Genero(event):
+    sexo=entry_sexo.get()
     if sexo not in ["H", "M", "Otro"]:
-        messagebox.showerror("Error", "El género debe ser 'H', 'M', u 'Otro'.")
-        return
+        labelErrorSexo.config(text="Géneros permitidos: H o M u Otro")
+        entry_sexo.delete(0,"end")
+        
+    else:
+        labelErrorSexo.config(text="")
 
 def habilitarCampos(event):
     entry_nombre.config(state="normal")
@@ -62,6 +94,7 @@ def validar_correo(event):
     email = entry_email.get()
     if '@' not in email:
         labelErrorEmail.config(text="Correo inválido", fg="red")
+        entry_email.delete(0, "end")
     else:
         labelErrorEmail.config(text="")
 
@@ -89,6 +122,7 @@ def funcionValidadNAE(event):
 
 root = Tk()
 root.title("Formulario")
+root.resizable(0,0)
 frame = Frame(root)
 frame.grid(row=0, column=0)
 lblTitulo = LabelFrame(frame, text="Ingrese sus datos básicos")
@@ -125,6 +159,8 @@ label_sexo = Label(frame, text="Sexo*:")
 label_sexo.grid(row=4, column=0)
 entry_sexo = ttk.Combobox(frame, values=[ "H", "M", "Otro"])
 entry_sexo.grid(row=4, column=1, padx=10, pady=10)
+labelErrorSexo=Label(frame, text="", fg="red")
+labelErrorSexo.grid(row=4, column=2)
 
 label_fecha_nacimiento = Label(frame, text="Fecha de nacimiento*:")
 label_fecha_nacimiento.grid(row=5, column=0, padx=10, pady=10)
@@ -134,9 +170,10 @@ entry_fecha_nacimiento.grid(row=5, column=1, padx=10, pady=10)
 btnNacimiento = Button(frame, text="Inserta la fecha", command=obtener_fecha_nacimiento)
 btnNacimiento.grid(row=5, column=2, padx=10, pady=10)
 
+labelErrorFecha=Label(frame, text="", fg="red")
+labelErrorFecha.grid(row=6, column=1)
 
-submit_button = Button(frame, text="Enviar")
-submit_button.grid(row=6, columnspan=2, padx=10, pady=10)
+
 
 root.bind('<Return>', Generardatos)
 root.bind('<Button-3>', habilitarCampos)
@@ -144,6 +181,8 @@ entry_email.bind('<FocusOut>', validar_correo)
 entry_nombre.bind('<FocusOut>', funcionValidadNAE)
 entry_apellido.bind('<FocusOut>', funcionValidadNAE)
 entry_edad.bind('<FocusOut>', funcionValidadNAE)
+entry_fecha_nacimiento.bind('<FocusOut>', generarFecha)
+entry_sexo.bind('<FocusOut>', Genero)
 
 
 root.mainloop()

@@ -38,12 +38,6 @@ def Generardatos(event):
         messagebox.showerror("Error", "Complete todos los campos. Presione Click derecho")
         return
 
-
-    if len(nombre) < 3 or len(apellido) < 4 or len(edad) < 0:
-        messagebox.showerror("Error", "Para nombre y apellido se deben colocar al menos 4 caracteres, en la edad > 0")
-        return
-
-
     if not re.match(r"^\d{2}-\d{2}-\d{4}$", fecha_nacimiento):
         messagebox.showerror("Error", "La fecha de nacimiento debe tener el formato DD-MM-AAAA.")
         return
@@ -65,12 +59,31 @@ def habilitarCampos(event):
 
 
 def validar_correo(event):
-    correo = entry_email.get()
-    if '@' not in correo:
+    email = entry_email.get()
+    if '@' not in email:
         labelErrorEmail.config(text="Correo inválido", fg="red")
     else:
         labelErrorEmail.config(text="")
 
+def funcionValidadNAE(event):
+    nombre = entry_nombre.get()
+    apellido = entry_apellido.get()
+    edad = entry_edad.get()
+
+    if nombre and apellido and edad:
+        if len(nombre) < 3 or len(apellido) < 4:
+            labelErrorNAE.config(text="Nombre con min 3 caracteres, apellido min 4 carácteres", fg="red")
+            return
+        if not edad.isdigit():
+            labelErrorEdad.config(text="La edad debe ser un valor numérico", fg="red")
+            return
+
+        if int(edad) < 0:
+            labelErrorEdad.config(text="Edad >= 0", fg="red")
+        else:
+            labelErrorNAE.config(text="")
+            labelErrorEdad.config(text="")
+        
 
     
 
@@ -86,6 +99,9 @@ label_nombre.grid(row=0, column=0)
 entry_nombre = Entry(frame)
 entry_nombre.grid(row=0, column=1, padx=10, pady=10)
 
+labelErrorNAE=Label(frame, text="", fg="red")
+labelErrorNAE.grid(row=0, column=2, rowspan=2, padx=5)
+
 label_apellido = Label(frame, text="Apellido*:")
 label_apellido.grid(row=1, column=0)
 entry_apellido = Entry(frame)
@@ -95,8 +111,10 @@ label_edad = Label(frame, text="Edad*:")
 label_edad.grid(row=2, column=0)
 entry_edad = Entry(frame)
 entry_edad.grid(row=2, column=1, padx=10, pady=10)
+labelErrorEdad=Label(frame, text="", fg="red")
+labelErrorEdad.grid(row=2, column=2)
 
-label_email = Label(frame, text="E*mail*:")
+label_email = Label(frame, text="E-mail*:")
 label_email.grid(row=3, column=0)
 entry_email = Entry(frame)
 entry_email.grid(row=3, column=1, padx=10, pady=10)
@@ -123,5 +141,9 @@ submit_button.grid(row=6, columnspan=2, padx=10, pady=10)
 root.bind('<Return>', Generardatos)
 root.bind('<Button-3>', habilitarCampos)
 entry_email.bind('<FocusOut>', validar_correo)
+entry_nombre.bind('<FocusOut>', funcionValidadNAE)
+entry_apellido.bind('<FocusOut>', funcionValidadNAE)
+entry_edad.bind('<FocusOut>', funcionValidadNAE)
+
 
 root.mainloop()

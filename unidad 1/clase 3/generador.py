@@ -7,6 +7,8 @@ import re
 
 textoVemail = ""
 textoVnombre=""
+textoVApellido=""
+textoVEdad=""
 
 def obtener_fecha_nacimiento(): 
     def seleccionarFecha():
@@ -85,7 +87,7 @@ def habilitarCampos(event):
     messagebox.showinfo("Alerta", "Proceda a completarlos.")
 
 def validarCorreo(valor):
-    patron = r"^[a-zA-Z0-9._%+-]+@(gmail\.com|hotmail\.com|yahoo\.com)$"
+    patronC = r"^[a-zA-Z0-9._%+-]+@(gmail\.com|hotmail\.com|yahoo\.com)$"
     return re.fullmatch(patron, valor) is not None
 
 def generarCorreo(event):
@@ -98,9 +100,9 @@ def generarCorreo(event):
     labelErrorEmail.config(text=textoVemail)
 
 def validarNombre(valor):
-    patron = re.compile("^[A-Za-zñÑ ]*$")
-    resultado = patron.match(valor.get()) is not None
-    if not resultado:
+    patronN = re.compile("^[A-Za-zñÑ ]*$")
+    resultadoN = patronN.match(valor.get()) is not None
+    if not resultadoN:
         return False
     return True
 def eventoVnombre(event):
@@ -111,12 +113,38 @@ def eventoVnombre(event):
         textoVnombre="Nombre debe tener solo letras"
     labelErrorNAE.config(text=textoVnombre)
 
+
+def validarApellido(valorApellido):
+    patronA= re.compile("^[A-Za-zñÑ ]*$")
+    resultadoA = patronA.match(valorApellido.get()) is not None
+    if not resultadoA:
+        return False
+    return True 
+
+def eventoVApellido(event):
+    global apellido
+    if validarApellido(apellido):
+        textoVApellido=""
+    else:
+        textoVApellido="Apellido debe tener solo letras"
+    labelErrorNAE.config(text=textoVApellido)
+
+def validarEdad(valorEdad):
+    patron = r'^\d+$'
+    
+    if re.match(patron, valorEdad):
+        edad = int(valorEdad)
+        if edad > 0:
+            return True
+    return False
 root = Tk()
 root.title("Formulario")
 root.resizable(0, 0)
 frame = Frame(root)
 frame.grid(row=0, column=0)
 nombre=StringVar(frame)
+apellido=StringVar(frame)
+edad=IntVar()
 lblTitulo = LabelFrame(frame, text="Ingrese sus datos básicos")
 lblTitulo.grid(row=0, column=0)
 
@@ -130,7 +158,7 @@ labelErrorNAE.grid(row=0, column=2, rowspan=2, padx=5)
 
 label_apellido = Label(frame, text="Apellido*:")
 label_apellido.grid(row=1, column=0)
-entry_apellido = Entry(frame)
+entry_apellido = Entry(frame, textvariable=apellido)
 entry_apellido.grid(row=1, column=1, padx=10, pady=10)
 
 label_edad = Label(frame, text="Edad*:")
@@ -169,9 +197,10 @@ root.bind('<Return>', Generardatos)
 root.bind('<Button-3>', habilitarCampos)
 entry_email.bind('<KeyRelease>', generarCorreo)
 entry_nombre.bind('<KeyRelease>', eventoVnombre)
-#entry_apellido.bind('<FocusOut>', )
-#entry_edad.bind('<FocusOut>', )
+entry_apellido.bind('<KeyRelease>', eventoVApellido)
+entry_edad.bind('<KeyRelease>', validarEdad)
 entry_fecha_nacimiento.bind('<FocusOut>', generarFecha)
 entry_sexo.bind('<FocusOut>', Genero)
 
 root.mainloop()
+

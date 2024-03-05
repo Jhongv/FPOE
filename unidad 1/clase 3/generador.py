@@ -6,6 +6,7 @@ from tkinter import ttk
 import re
 
 textoVemail = ""
+textoVnombre=""
 
 def obtener_fecha_nacimiento(): 
     def seleccionarFecha():
@@ -96,39 +97,32 @@ def generarCorreo(event):
         textoVemail = "Solo es permitido @ seguido de gmail.com, yahoo.com o hotmail.com"
     labelErrorEmail.config(text=textoVemail)
 
-def funcionValidadNAE(event):
-    nombre = entry_nombre.get()
-    apellido = entry_apellido.get()
-    edad = entry_edad.get()
-
-    if nombre and apellido and edad:
-        if len(nombre) < 3 or len(apellido) < 4:
-            labelErrorNAE.config(text="Nombre con min 3 caracteres, apellido min 4 caracteres", fg="red")
-            return
-        if nombre.isdigit():
-            labelErrorNAE.config(text="Nombre no debe tener números", fg="red")
-
-        if not edad.isdigit():
-            labelErrorEdad.config(text="La edad debe ser un valor numérico", fg="red")
-            return
-
-        if int(edad) < 0:
-            labelErrorEdad.config(text="Edad >= 0", fg="red")
-        else:
-            labelErrorNAE.config(text="")
-            labelErrorEdad.config(text="")
+def validarNombre(valor):
+    patron = re.compile("^[A-Za-zñÑ ]*$")
+    resultado = patron.match(valor.get()) is not None
+    if not resultado:
+        return False
+    return True
+def eventoVnombre(event):
+    global nombre
+    if validarNombre(nombre):
+        textoVnombre=""
+    else:
+        textoVnombre="Nombre debe tener solo letras"
+    labelErrorNAE.config(text=textoVnombre)
 
 root = Tk()
 root.title("Formulario")
 root.resizable(0, 0)
 frame = Frame(root)
 frame.grid(row=0, column=0)
+nombre=StringVar(frame)
 lblTitulo = LabelFrame(frame, text="Ingrese sus datos básicos")
 lblTitulo.grid(row=0, column=0)
 
 label_nombre = Label(frame, text="Nombre*:")
 label_nombre.grid(row=0, column=0)
-entry_nombre = Entry(frame)
+entry_nombre = Entry(frame, textvariable=nombre)
 entry_nombre.grid(row=0, column=1, padx=10, pady=10)
 
 labelErrorNAE = Label(frame, text="", fg="red")
@@ -174,9 +168,9 @@ labelErrorFecha.grid(row=6, column=1)
 root.bind('<Return>', Generardatos)
 root.bind('<Button-3>', habilitarCampos)
 entry_email.bind('<KeyRelease>', generarCorreo)
-entry_nombre.bind('<FocusOut>', funcionValidadNAE)
-entry_apellido.bind('<FocusOut>', funcionValidadNAE)
-entry_edad.bind('<FocusOut>', funcionValidadNAE)
+entry_nombre.bind('<KeyRelease>', eventoVnombre)
+#entry_apellido.bind('<FocusOut>', )
+#entry_edad.bind('<FocusOut>', )
 entry_fecha_nacimiento.bind('<FocusOut>', generarFecha)
 entry_sexo.bind('<FocusOut>', Genero)
 

@@ -6,9 +6,15 @@ from tkinter import ttk
 import re
 
 textoVemail = ""
+<<<<<<< HEAD
 textoVnombre = ""
 textoVApellido = ""
 textoVEdad = ""
+=======
+textoVnombre=""
+textoVApellido=""
+textoVEdad=""
+>>>>>>> db6100781d7ece184fcc9b396132cbfb7b822cd0
 
 def obtener_fecha_nacimiento(): 
     def seleccionarFecha():
@@ -32,7 +38,8 @@ def Generardatos(event):
     sexo = entry_sexo.get()
     email = entry_email.get()
     fecha_nacimiento = entry_fecha_nacimiento.get()
-    
+
+
     if not nombre or not apellido or not edad or not sexo or not email or not fecha_nacimiento:
         entry_nombre.config(state="disabled")
         entry_apellido.config(state="disabled")
@@ -40,10 +47,11 @@ def Generardatos(event):
         entry_sexo.config(state="disabled")
         entry_email.config(state="disabled")
         entry_fecha_nacimiento.config(state="disabled")
-        labelErrorNAE.config(text="Complete todos los campos", fg="red")
+        labelErrorNombre.config(text="Complete todos los campos", fg="red")
         return
     else:
-        labelErrorNAE.config(text="")
+        labelErrorNombre.config(text="")
+
 
     ventanaDeLosdatos = Toplevel()
     ventanaDeLosdatos.title("Sus datos")
@@ -60,7 +68,7 @@ def Generardatos(event):
     lblEmail.grid(row=4, column=0, padx=10, pady=10)
     lblFN = Label(lblFrame, text=fecha_nacimiento)
     lblFN.grid(row=5, column=0, padx=10, pady=10)
-
+    
 def generarFecha(event):
     fecha_nacimiento = entry_fecha_nacimiento.get()
     if not re.match(r"^\d{2}-\d{2}-\d{4}$", fecha_nacimiento):
@@ -111,7 +119,39 @@ def eventoVnombre(event):
         textoVnombre=""
     else:
         textoVnombre="Nombre debe tener solo letras"
-    labelErrorNAE.config(text=textoVnombre)
+    labelErrorNombre.config(text=textoVnombre)
+
+
+def validarApellido(valorApellido):
+    patronA= re.compile("^[A-Za-zñÑ ]*$")
+    resultadoA = patronA.match(valorApellido.get()) is not None
+    if not resultadoA:
+        return False
+    return True 
+
+def eventoVApellido(event):
+    global apellido
+    if validarApellido(apellido):
+        textoVApellido=""
+    else:
+        textoVApellido="Apellido debe tener solo letras"
+    labelErrorApellido.config(text=textoVApellido)
+
+def validar_edad():
+    try:
+        edad = int(entry_edad.get())
+        if edad < 0 or edad > 120:  # Establecer un rango aceptable para la edad (por ejemplo, entre 0 y 120 años)
+            labelErrorEdad.config(text="La edad debe estar entre 0 y 120 años", fg="red")
+            return False
+        else:
+            labelErrorEdad.config(text="")
+            return True
+    except ValueError:
+        labelErrorEdad.config(text="Por favor, ingrese un número entero válido para la edad", fg="red")
+        return False
+
+def eventoVEdad(event):
+    validar_edad()
 
 
 def validarApellido(valorApellido):
@@ -154,6 +194,7 @@ frame = Frame(root)
 frame.grid(row=0, column=0)
 nombre=StringVar(frame)
 apellido=StringVar(frame)
+<<<<<<< HEAD
 edad=IntVar()
 
 
@@ -163,19 +204,27 @@ main_title = Label(text = "Formulario de registro Python", font = ("Cambria", 13
 main_title.grid(row = 0, column = 0)"""
 
 
+=======
+edad=IntVar(frame)
+lblTitulo = LabelFrame(frame, text="Ingrese sus datos básicos")
+lblTitulo.grid(row=0, column=0)
+>>>>>>> db6100781d7ece184fcc9b396132cbfb7b822cd0
 
 label_nombre = Label(frame, text="Nombre*:")
 label_nombre.grid(row=0, column=0)
 entry_nombre = Entry(frame, textvariable=nombre)
 entry_nombre.grid(row=0, column=1, padx=10, pady=10)
+labelErrorNombre=Label(frame, text="", fg="red")
+labelErrorNombre.grid(row=0, column=2)
 
-labelErrorNAE = Label(frame, text="", fg="red")
-labelErrorNAE.grid(row=0, column=2, rowspan=2, padx=5)
+
 
 label_apellido = Label(frame, text="Apellido*:")
 label_apellido.grid(row=1, column=0)
 entry_apellido = Entry(frame, textvariable=apellido)
 entry_apellido.grid(row=1, column=1, padx=10, pady=10)
+labelErrorApellido=Label(frame, text="", fg="red")
+labelErrorApellido.grid(row=1, column=2)
 
 label_edad = Label(frame, text="Edad*:")
 label_edad.grid(row=2, column=0)
@@ -214,9 +263,18 @@ root.bind('<Button-3>', habilitarCampos)
 entry_email.bind('<KeyRelease>', generarCorreo)
 entry_nombre.bind('<KeyRelease>', eventoVnombre)
 entry_apellido.bind('<KeyRelease>', eventoVApellido)
+<<<<<<< HEAD
 
+=======
+entry_edad.bind('<KeyRelease>', eventoVEdad)
+>>>>>>> db6100781d7ece184fcc9b396132cbfb7b822cd0
 entry_fecha_nacimiento.bind('<FocusOut>', generarFecha)
 entry_sexo.bind('<FocusOut>', Genero)
 entry_edad.bind('<KeyRelease>', eventoVEdad)
 
+<<<<<<< HEAD
 root.mainloop()
+=======
+root.mainloop()
+
+>>>>>>> db6100781d7ece184fcc9b396132cbfb7b822cd0

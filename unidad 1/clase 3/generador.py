@@ -64,12 +64,14 @@ def Generardatos(event):
     lblFN.grid(row=5, column=0, padx=10, pady=10)
     
 def generarFecha(event):
-    fecha_nacimiento = entry_fecha_nacimiento.get()
-    if not re.match(r"^\d{2}-\d{2}-\d{4}$", fecha_nacimiento):
-        labelErrorFecha.config(text="El orden de la fecha está mal")
-        entry_fecha_nacimiento.delete(0, "end")
+    global fecha_nacimiento
+    if seleccionarFecha():
+            textoVFN=""
+            entry_fecha_nacimiento.delete(0, "end")
     else:
-        labelErrorFecha.config(text="")
+        textoVFN="Esta mal fecha de nacimiento dd-mm-yyyy"
+    labelErrorFecha.config(text=textoVFN)
+        
 
 def Genero(event):
     sexo = entry_sexo.get()
@@ -154,7 +156,7 @@ frame = Frame(root)
 frame.grid(row=0, column=0)
 nombre=StringVar(frame)
 apellido=StringVar(frame)
-edad=IntVar(frame)
+fecha_nacimiento=StringVar(frame)
 lblTitulo = LabelFrame(frame, text="Ingrese sus datos básicos")
 lblTitulo.grid(row=0, column=0)
 
@@ -205,6 +207,9 @@ btnNacimiento.grid(row=5, column=2, padx=10, pady=10)
 
 labelErrorFecha = Label(frame, text="", fg="red")
 labelErrorFecha.grid(row=6, column=1)
+
+labelEnter=Label(frame, text="ENTER para ver sus datos")
+labelEnter.grid(row=7, column=1, pady=10)
 
 root.bind('<Return>', Generardatos)
 root.bind('<Button-3>', habilitarCampos)

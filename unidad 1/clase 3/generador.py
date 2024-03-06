@@ -11,10 +11,6 @@ textoVnombre = ""
 textoVApellido = ""
 textoVEdad = ""
 
-textoVnombre=""
-textoVApellido=""
-textoVEdad=""
-
 def obtener_fecha_nacimiento(): 
     def seleccionarFecha():
         fechaSelect = calendario.selection_get()
@@ -138,37 +134,6 @@ def eventoVApellido(event):
         textoVApellido="Apellido debe tener solo letras"
     labelErrorApellido.config(text=textoVApellido)
 
-def validar_edad():
-    try:
-        edad = int(entry_edad.get())
-        if edad < 0 or edad > 120:  # Establecer un rango aceptable para la edad (por ejemplo, entre 0 y 120 años)
-            labelErrorEdad.config(text="La edad debe estar entre 0 y 120 años", fg="red")
-            return False
-        else:
-            labelErrorEdad.config(text="")
-            return True
-    except ValueError:
-        labelErrorEdad.config(text="Por favor, ingrese un número entero válido para la edad", fg="red")
-        return False
-
-def eventoVEdad(event):
-    validar_edad()
-
-
-def validarApellido(valorApellido):
-    patronA= re.compile("^[A-Za-zñÑ ]*$")
-    resultadoA = patronA.match(valorApellido.get()) is not None
-    if not resultadoA:
-        return False
-    return True 
-
-def eventoVApellido(event):
-    global apellido
-    if validarApellido(apellido):
-        textoVApellido=""
-    else:
-        textoVApellido="Apellido debe tener solo letras"
-    labelErrorNAE.config(text=textoVApellido)
 
 def validar_edad():
     try:
@@ -265,17 +230,13 @@ root.bind('<Button-3>', habilitarCampos)
 entry_email.bind('<KeyRelease>', generarCorreo)
 entry_nombre.bind('<KeyRelease>', eventoVnombre)
 entry_apellido.bind('<KeyRelease>', eventoVApellido)
-
-
-
 entry_edad.bind('<KeyRelease>', eventoVEdad)
-
 entry_fecha_nacimiento.bind('<FocusOut>', generarFecha)
 entry_sexo.bind('<FocusOut>', Genero)
 entry_edad.bind('<KeyRelease>', eventoVEdad)
 
 
-root.mainloop()
+
 
 root.mainloop()
 

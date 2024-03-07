@@ -67,8 +67,8 @@ def Generardatos(event):
 def generarFecha(event):
     global fecha_nacimiento
     if seleccionarFecha():
-            textoVFN=""
-            entry_fecha_nacimiento.delete(0, "end")
+        textoVFN=""
+        entry_fecha_nacimiento.delete(0, "end")
     else:
         textoVFN="Esta mal fecha de nacimiento dd-mm-yyyy"
     labelErrorFecha.config(text=textoVFN)

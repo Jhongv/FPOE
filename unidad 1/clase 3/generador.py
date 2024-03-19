@@ -6,15 +6,14 @@ from tkinter import ttk
 import re
 
 textoVemail = ""
-<<<<<<< HEAD
+
 textoVnombre = ""
 textoVApellido = ""
 textoVEdad = ""
-=======
+
 textoVnombre=""
 textoVApellido=""
 textoVEdad=""
->>>>>>> db6100781d7ece184fcc9b396132cbfb7b822cd0
 
 def obtener_fecha_nacimiento(): 
     def seleccionarFecha():
@@ -167,7 +166,7 @@ def eventoVApellido(event):
         textoVApellido=""
     else:
         textoVApellido="Apellido debe tener solo letras"
-    labelErrorNAE.config(text=textoVApellido)
+    labelErrorApellido.config(text=textoVApellido)
 
 def validar_edad():
     try:
@@ -194,7 +193,7 @@ frame = Frame(root)
 frame.grid(row=0, column=0)
 nombre=StringVar(frame)
 apellido=StringVar(frame)
-<<<<<<< HEAD
+
 edad=IntVar()
 
 
@@ -204,11 +203,11 @@ main_title = Label(text = "Formulario de registro Python", font = ("Cambria", 13
 main_title.grid(row = 0, column = 0)"""
 
 
-=======
+
 edad=IntVar(frame)
 lblTitulo = LabelFrame(frame, text="Ingrese sus datos básicos")
 lblTitulo.grid(row=0, column=0)
->>>>>>> db6100781d7ece184fcc9b396132cbfb7b822cd0
+
 
 label_nombre = Label(frame, text="Nombre*:")
 label_nombre.grid(row=0, column=0)
@@ -263,18 +262,18 @@ root.bind('<Button-3>', habilitarCampos)
 entry_email.bind('<KeyRelease>', generarCorreo)
 entry_nombre.bind('<KeyRelease>', eventoVnombre)
 entry_apellido.bind('<KeyRelease>', eventoVApellido)
-<<<<<<< HEAD
 
-=======
+
+
 entry_edad.bind('<KeyRelease>', eventoVEdad)
->>>>>>> db6100781d7ece184fcc9b396132cbfb7b822cd0
+
 entry_fecha_nacimiento.bind('<FocusOut>', generarFecha)
 entry_sexo.bind('<FocusOut>', Genero)
 entry_edad.bind('<KeyRelease>', eventoVEdad)
 
-<<<<<<< HEAD
-root.mainloop()
-=======
+
 root.mainloop()
 
->>>>>>> db6100781d7ece184fcc9b396132cbfb7b822cd0
+root.mainloop()
+
+

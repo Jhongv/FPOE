@@ -17,6 +17,7 @@ def obtener_fecha_nacimiento():
         entry_fecha_nacimiento.delete(0, "end")
         entry_fecha_nacimiento.insert(0, fechaSelect.strftime("%d-%m-%Y"))
         ventana_calendario.destroy()
+        return fechaSelect
 
     ventana_calendario = Toplevel(root) 
     ventana_calendario.title("Seleccionar Fecha de Nacimiento")
@@ -66,7 +67,7 @@ def Generardatos(event):
     
 def generarFecha(event):
     global fecha_nacimiento
-    if seleccionarFecha():
+    if fecha_nacimiento:
         textoVFN=""
         entry_fecha_nacimiento.delete(0, "end")
     else:
@@ -239,4 +240,3 @@ entry_edad.bind('<KeyRelease>', eventoVEdad)
 
 
 root.mainloop()
-

@@ -28,6 +28,6 @@ urlpatterns = [
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('v1/persona', Post_APIView.as_view()), 
-    path('v1/persona/<int:pk>/', Post_APIView_Detail.as_view()),
+    path('v1/persona', Persona_APIView.as_view()), 
+    path('v1/persona/<int:pk>/', Persona_APIView_Detail.as_view()),
 ]

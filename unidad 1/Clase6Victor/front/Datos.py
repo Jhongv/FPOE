@@ -1,6 +1,8 @@
 from tkinter import *
 from tkinter import ttk
 import re
+import requests
+from tkinter import messagebox
 
 def validarNombre(valor):
     patronN = re.compile("^[A-Za-zñÑ ]*$")
@@ -31,11 +33,11 @@ def eventoVApellido(event):
     labelErrorApellido.config(text=textoVapellido)
 
 def validarEstatura(valor):
-    patron=r'^\d{1,2}(\.\d{1,2})?$'
-    if re.match(patron, valor):
-        return True
-    else:
+    patronA = re.compile("^\d*$")
+    resultadoN = patronA.match(valor.get()) is not None
+    if not resultadoN:
         return False
+    return True
 
 def eventoVEstatura(event):
     global estatura
@@ -47,11 +49,11 @@ def eventoVEstatura(event):
     lblErrorEstatura.config(text=textoVEstatura)
 
 def validarPeso(valor):
-    patron=r'^\d{1,2}(\.\d{1,2})?$'
-    if re.match(patron, valor):
-        return True
-    else:
+    patronA = re.compile("^\d*$")
+    resultadoN = patronA.match(valor.get()) is not None
+    if not resultadoN:
         return False
+    return True
 
 def eventoVPeso(event):
     global peso
@@ -61,6 +63,29 @@ def eventoVPeso(event):
     else:
         textoVpeso="Estatura no cumple con lo establesido"
     lblErrorPeso.config(text=textoVpeso)
+
+
+def validarInformacion():
+    nombreV = re.match("^[A-Za-zñÑ ]*$", nombre.get())
+    apellidoV = re.match("^[A-Za-zñÑ ]*$", apellido.get())
+    estaturaV = re.match("^\d*$", estatura.get())  # Corregir esta línea
+    pesoV = re.match("^\d*$", peso.get())
+
+    if nombreV and apellidoV and estaturaV and pesoV:
+        messagebox.showinfo("Informacion", "Se guardo correctamente")
+
+        data = {
+            "nombre": nombreV.get(),
+            "apellido": apellidoV.get(),
+            "estatura": estaturaV.get(),
+            "peso": pesoV.get()
+        }
+        respuesta = requests.post("http://localhost:8000/v1/persona", data)
+        print(respuesta.status_code)
+        print(respuesta.content)
+    else:
+        messagebox.showerror("Informacion", "No se pudo guardar debe confirmar si está correcta")
+
 
 root=Tk()
 root.title("Clase persona")
@@ -116,7 +141,7 @@ txtAtr4=Entry(marcoAtr4)
 txtAtr4.grid(row=0, column=1, padx=10, pady=10)
 lblErrorPeso=Label(marcoAtr4, text="", fg="red")
 lblErrorPeso.grid(row=1, column=1)
-btnGuardar=Button(root, text="Guardar", padx=10, pady=10)
+btnGuardar=Button(root, text="Guardar", padx=10, pady=10, command=validarInformacion())
 btnGuardar.grid(row=3, column=1, padx=10, pady=10)
 
 

@@ -35,7 +35,7 @@ def eventoVApellido(event):
     labelErrorApellido.config(text=textoVapellido)
 
 def validarEstatura(valor):
-    patronA = re.compile(r"^\d{1,2}(\.\d{0,2})?$")
+    patronA = re.compile(r"^\d{1}(\.\d{0,2})?$")
     resultadoN = patronA.match(valor) is not None
     if not resultadoN:
         return False
@@ -53,7 +53,7 @@ def eventoVEstatura(event):
     lblErrorEstatura.config(text=textoVEstatura)
 
 def validarPeso(valor):
-    patronA = re.compile(r"^\d{1,2}(\.\d{0,2})?$")
+    patronA = re.compile(r"^\d{1,3}(\.\d{0,2})?$")
     resultadoN = patronA.match(valor) is not None
     if not resultadoN:
         return False
@@ -73,8 +73,8 @@ def eventoVPeso(event):
 def validarInformacion():
     nombreV = re.match(r"^[A-Za-zñÑ ]*$", nombre.get())
     apellidoV = re.match(r"^[A-Za-zñÑ ]*$", apellido.get())
-    estaturaV = re.match(r"^\d{1,2}(\.\d{0,2})?$", estatura.get()).group()
-    pesoV = re.match(r"^\d{1,2}(\.\d{0,2})?$", peso.get()).group()
+    estaturaV = re.match(r"^\d{1}(\.\d{0,2})?$", estatura.get())
+    pesoV = re.match(r"^\d{1,3}(\.\d{0,2})?$", peso.get())
 
 
     if nombreV and apellidoV and estaturaV and pesoV:
@@ -110,7 +110,7 @@ lblTitulo.grid(row=0, column=0, padx=10, pady=10)
 marcoAtr1=LabelFrame(root)
 marcoAtr1.grid(row=1, column=0, padx=5, pady=5)
 
-lblAtr1=Label(marcoAtr1, text="Ingrese el 1er atributo de Cl/Persona(Nombre)*:")
+lblAtr1=Label(marcoAtr1, text="Ingrese el 1er atributo de Cl/Persona(Nombre)*\nTenga en cuenta que solo son letras, sin caracteres especiales o números:")
 lblAtr1.grid(row=0, column=0)
 txtAtr1=Entry(marcoAtr1, textvariable=nombre)
 txtAtr1.grid(row=0,column=1, padx=10, pady=10)
@@ -120,7 +120,7 @@ labelErrorNombre.grid(row=1, column=1)
 marcoAtr2=LabelFrame(root)
 marcoAtr2.grid(row=2, column=0, padx=5, pady=5)
 
-lblAtr2=Label(marcoAtr2, text="Ingrese el 2do atributo de Cl/Persona(Apellido)*:")
+lblAtr2=Label(marcoAtr2, text="Ingrese el 2do atributo de Cl/Persona(Apellido)*\nTenga en cuenta que solo son letras, sin caracteres especiales o números:")
 lblAtr2.grid(row=0,column=0)
 txtAtr2=Entry(marcoAtr2, textvariable=apellido)
 txtAtr2.grid(row=0, column=1, padx=10, pady=10)
@@ -130,7 +130,7 @@ labelErrorApellido.grid(row=1, column=1)
 marcoAtr3=LabelFrame(root)
 marcoAtr3.grid(row=1, column=2, padx=5, pady=5)
 
-lblAtr3=Label(marcoAtr3, text="Ingrese el 3er atributo de Cl/Persona(Estatura(Cm)/float)*:")
+lblAtr3=Label(marcoAtr3, text="Ingrese el 3er atributo de Cl/Persona(Estatura(metros)/Decimal)\nTenga en cuenta esta forma de inserción\nd--> dígito; 1d unico antes del punto y max 2d después de este:")
 lblAtr3.grid(row=0,column=0)
 txtAtr3=Entry(marcoAtr3, textvariable=estatura)
 txtAtr3.grid(row=0, column=1, padx=10, pady=10)
@@ -140,7 +140,7 @@ lblErrorEstatura.grid(row=1, column=1)
 marcoAtr4=LabelFrame(root)
 marcoAtr4.grid(row=2,column=2, padx=5, pady=5)
 
-lblAtr4=Label(marcoAtr4, text="Ingrese el 4to atributo de Cl/Persona(Peso(Kg)/int)*:")
+lblAtr4=Label(marcoAtr4, text="Ingrese el 4to atributo de Cl/Persona(Peso(Kg)/Decimal)*\nTenga en cuenta esta forma de inserción\nd--> dígito max 3d antes del . y max 2d después de este:")
 lblAtr4.grid(row=0,column=0)
 txtAtr4=Entry(marcoAtr4, textvariable=peso)
 txtAtr4.grid(row=0, column=1, padx=10, pady=10)

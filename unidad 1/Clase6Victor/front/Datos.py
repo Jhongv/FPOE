@@ -43,13 +43,11 @@ def validarEstatura(valor):
 
 def eventoVEstatura(event):
     global estatura
-    valor_estatura = estatura.get()
-    if not valor_estatura.replace('.', ''):
-        textoVEstatura = "Por favor, ingrese solo números y un punto para los decimales"
-    elif validarEstatura(valor_estatura):
+    valor_estatura = txtAtr3.get() 
+    if validarEstatura(valor_estatura):
         textoVEstatura=""
     else:
-        textoVEstatura="Estatura no cumple con lo establecido"
+        textoVEstatura="Estatura no cumple con lo establesido"
     lblErrorEstatura.config(text=textoVEstatura)
 
 def validarPeso(valor):
@@ -61,13 +59,11 @@ def validarPeso(valor):
 
 def eventoVPeso(event):
     global peso
-    valorPeso = peso.get() 
-    if not valorPeso.replace('.', ''):
-        textoVpeso = "Por favor, ingrese solo números y un punto para los decimales"
-    elif validarPeso(valorPeso):
+    valorPeso = txtAtr4.get() 
+    if validarPeso(valorPeso):
         textoVpeso=""
     else:
-        textoVpeso="Peso no cumple con lo establecido"
+        textoVpeso="Estatura no cumple con lo establesido"
     lblErrorPeso.config(text=textoVpeso)
 
 def validarInformacion():

@@ -16,8 +16,8 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('nombre', models.TextField()),
                 ('apellido', models.TextField()),
-                ('estatura', models.TextField()),
-                ('peso', models.TextField()),
+                ('estatura', models.DecimalField(max_digits=5, decimal_places=2)),
+                ('peso', models.DecimalField(max_digits=5, decimal_places=2)),
             ],
         ),
     ]

@@ -146,7 +146,7 @@ txtAtr4=Entry(marcoAtr4, textvariable=peso)
 txtAtr4.grid(row=0, column=1, padx=10, pady=10)
 lblErrorPeso=Label(marcoAtr4, text="", fg="red")
 lblErrorPeso.grid(row=1, column=1)
-btnGuardar=Button(root, text="Guardar", padx=10, pady=10)
+btnGuardar=Button(root, text="Guardar", padx=10, pady=10, command=validarInformacion)
 btnGuardar.grid(row=3, column=1, padx=10, pady=10)
 
 

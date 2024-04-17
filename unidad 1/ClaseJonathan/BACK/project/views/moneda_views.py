@@ -19,7 +19,8 @@ class Moneda_APIView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-class Post_APIView_Detail(APIView):
+    
+class Moneda_APIView_Detail(APIView):
     def get_object(self, pk):
         try:
             return Moneda.objects.get(pk=pk)

@@ -21,8 +21,12 @@ from .views.post_views import *
 
 app_name = 'api'
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('v1/post', Post_APIView.as_view()), 
     path('v1/post/<int:pk>/', Post_APIView_Detail.as_view()),
+    path('v1/moneda', Moneda_APIView.as_view()), 
+    path('v1/moneda/<int:pk>/', Moneda_APIView_Detail.as_view()),
 ]
+

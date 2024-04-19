@@ -1,5 +1,4 @@
 from django.db import models
-from django.db import models
 from model_utils.models import TimeStampedModel, SoftDeletableModel
 class Post(TimeStampedModel, SoftDeletableModel):
 	title 				= models.CharField(max_length=50, null=False, blank=True) #'CharField' Campo de texto
@@ -9,4 +8,3 @@ class Post(TimeStampedModel, SoftDeletableModel):
 	slug 				= models.SlugField(blank=True, unique=True)
 	def __str__(self):
 		return self.title
-# Create your models here.

@@ -11,16 +11,13 @@ textoVnombre = ""
 textoVApellido = ""
 textoVEdad = ""
 
-textoVnombre=""
-textoVApellido=""
-textoVEdad=""
-
 def obtener_fecha_nacimiento(): 
     def seleccionarFecha():
         fechaSelect = calendario.selection_get()
         entry_fecha_nacimiento.delete(0, "end")
         entry_fecha_nacimiento.insert(0, fechaSelect.strftime("%d-%m-%Y"))
         ventana_calendario.destroy()
+        return fechaSelect
 
     ventana_calendario = Toplevel(root) 
     ventana_calendario.title("Seleccionar Fecha de Nacimiento")
@@ -69,12 +66,14 @@ def Generardatos(event):
     lblFN.grid(row=5, column=0, padx=10, pady=10)
     
 def generarFecha(event):
-    fecha_nacimiento = entry_fecha_nacimiento.get()
-    if not re.match(r"^\d{2}-\d{2}-\d{4}$", fecha_nacimiento):
-        labelErrorFecha.config(text="El orden de la fecha está mal")
+    global fecha_nacimiento
+    if fecha_nacimiento:
+        textoVFN=""
         entry_fecha_nacimiento.delete(0, "end")
     else:
-        labelErrorFecha.config(text="")
+        textoVFN="Esta mal fecha de nacimiento dd-mm-yyyy"
+    labelErrorFecha.config(text=textoVFN)
+        
 
 def Genero(event):
     sexo = entry_sexo.get()
@@ -168,19 +167,6 @@ def eventoVApellido(event):
         textoVApellido="Apellido debe tener solo letras"
     labelErrorApellido.config(text=textoVApellido)
 
-def validar_edad():
-    try:
-        edad = int(entry_edad.get())
-        if edad < 0 or edad > 120:  # Establecer un rango aceptable para la edad (por ejemplo, entre 0 y 120 años)
-            labelErrorEdad.config(text="La edad debe estar entre 0 y 120 años", fg="red")
-            return False
-        else:
-            labelErrorEdad.config(text="")
-            return True
-    except ValueError:
-        labelErrorEdad.config(text="Por favor, ingrese un número entero válido para la edad", fg="red")
-        return False
-
 def eventoVEdad(event):
     validar_edad()
 
@@ -196,15 +182,8 @@ apellido=StringVar(frame)
 
 edad=IntVar()
 
-
-
-"""root.title("Registro | Python Tkinter")
-main_title = Label(text = "Formulario de registro Python", font = ("Cambria", 13), bg = "#56CD63", fg = "white", width = "46", height = "2")
-main_title.grid(row = 0, column = 0)"""
-
-
-
 edad=IntVar(frame)
+
 lblTitulo = LabelFrame(frame, text="Ingrese sus datos básicos")
 lblTitulo.grid(row=0, column=0)
 
@@ -257,6 +236,9 @@ btnNacimiento.grid(row=5, column=2, padx=10, pady=10)
 labelErrorFecha = Label(frame, text="", fg="red")
 labelErrorFecha.grid(row=6, column=1)
 
+labelEnter=Label(frame, text="ENTER para ver sus datos")
+labelEnter.grid(row=7, column=1, pady=10)
+
 root.bind('<Return>', Generardatos)
 root.bind('<Button-3>', habilitarCampos)
 entry_email.bind('<KeyRelease>', generarCorreo)
@@ -271,8 +253,6 @@ entry_fecha_nacimiento.bind('<FocusOut>', generarFecha)
 entry_sexo.bind('<FocusOut>', Genero)
 entry_edad.bind('<KeyRelease>', eventoVEdad)
 
-
-root.mainloop()
 
 root.mainloop()
 

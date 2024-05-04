@@ -63,7 +63,7 @@ def eventoVPeso(event):
     if validarPeso(valorPeso):
         textoVpeso=""
     else:
-        textoVpeso="Estatura no cumple con lo establesido"
+        textoVpeso="Peso no cumple con lo establesido"
     lblErrorPeso.config(text=textoVpeso)
 
 def validarInformacion():

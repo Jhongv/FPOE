@@ -2,6 +2,10 @@ from tkinter import *
 
 root = Tk()
 
+root.geometry("800x600")
+root.minsize(400, 300)
+
+
 menu = Menu(root)
 root.config(menu = menu)
 

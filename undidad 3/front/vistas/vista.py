@@ -147,7 +147,7 @@ class Interfaz():
         lblConsultarNombre.grid(row=0, column=0)
         lblConsultarId=Label(marco5, text="")
         lblConsultarId.grid(row=0,column=1)
-        btnGuardar2=Button(marco5,text="Guardar 2", command=lambda: self.accion_consultar_boton(txtAtr1.get(), txtAtr2.get(), txtAtr3.get(), txtAtr4.get()))
+        btnGuardar2=Button(marco5,text="Guardar 2", command=lambda: self.accion_guardar_boton(txtAtr1.get(), txtAtr2.get(), txtAtr3.get(), txtAtr4.get()))
         btnGuardar2.grid(row=1,column=0, padx=10, pady=10)
         btnConsultar1=Button(marco5, text="Consultar 1", command=lambda:self.accion_consultar_boton(lblConsultarNombre, lblConsultarId,txtAtr4.get()))
         btnConsultar1.grid(row=1, column=1, padx=10, pady=10)

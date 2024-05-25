@@ -7,15 +7,28 @@ class ActualizarCliente():
         self.ventana=tk.Toplevel(menuSecundario)
 
 
-    def selectCombobox(self, event, combobox, lblNombre, txtNombre):
+    def selectCombobox(self, event, combobox, lblNombre, txtNombre, lblApellido, txtApellido, lblCedula, txtCedula, lblTelefono, txtTelefono, lblEmail, txtEmail):
         select=combobox.get()
         if select == "Nombre":
             lblNombre.grid(row=0, column=0)
             txtNombre.grid(row=0, column=1)
 
-        else:
-            lblNombre.grid_forget()
-            txtNombre.grid_forget()
+        elif select=="Apellido":
+            lblApellido.grid(row=0, column=0)
+            txtApellido.grid(row=0, column=1)
+
+        elif select=="Cédula":
+            lblCedula.grid(row=0, column=0)
+            txtCedula.grid(row=0, column=1)
+
+        elif select=="Teléfono":
+            lblTelefono.grid(row=0, column=0)
+            txtTelefono.grid(row=0, column=1)
+
+        elif select == "Email":
+            lblEmail.grid(row=0, column=0)
+            txtEmail.grid(row=0, column=1)
+
 
 
     #Marco del titulo
@@ -54,8 +67,50 @@ class ActualizarCliente():
         txtNombreCliente=Entry(marco2)
         txtNombreCliente.grid_forget()
 
+        marco3=LabelFrame(self.ventana)
+        marco3.grid(row=3, column=0, padx=10, pady=10)
+
+
+        lblApellidoCliente=Label(marco3, text="Apellido*:")
+        lblApellidoCliente.grid_forget()
+
+        txtApellidoCliente=Entry(marco3)
+        txtApellidoCliente.grid_forget()
+
+        marco4=LabelFrame(self.ventana)
+        marco4.grid(row=4, column=0, padx=10, pady=10)
+
+        lblCedulaCliente=Label(marco4, text="Cédula*:")
+        lblCedulaCliente.grid_forget()
+
+        txtCedulaCliente=Entry(marco4)
+        txtCedulaCliente.grid_forget()
+
+        marco5=LabelFrame(self.ventana)
+        marco5.grid(row=5, column=0, padx=10, pady=10)
+
+        lblTelefonoCliente=Label(marco5, text="Teléfono*:")
+        lblTelefonoCliente.grid_forget()
+
+        txtTelefonoCliente=Entry(marco5)
+        txtTelefonoCliente.grid_forget()
+
+        marco6=LabelFrame(self.ventana)
+        marco6.grid(row=6, column=0, padx=10, pady=10)
+
+        lblEmailCliente=Label(marco6, text="Email*:")
+        lblEmailCliente.grid_forget()
+
+        txtEmailCliente=Entry(marco6)
+        txtEmailCliente.grid_forget()
         
-        cbxSeleccionarCampoActualizar.bind("<<ComboboxSelected>>", lambda event: self.selectCombobox(event, cbxSeleccionarCampoActualizar, lblNombreCliente, txtNombreCliente))
+
+
+        btnActualizarDatosCliente=Button(self.ventana, text="Actualizar")
+        btnActualizarDatosCliente.grid(row=7, column=0, padx=10, pady=10)
+        cbxSeleccionarCampoActualizar.bind("<<ComboboxSelected>>", lambda event: self.selectCombobox(event, cbxSeleccionarCampoActualizar, lblNombreCliente, txtNombreCliente,lblApellidoCliente,
+                                                                                                     txtApellidoCliente, lblCedulaCliente, txtCedulaCliente,lblTelefonoCliente, txtTelefonoCliente,
+                                                                                                     lblEmailCliente, txtEmailCliente))
         
         
 

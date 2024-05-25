@@ -1,6 +1,7 @@
 from agregarcliente import AgregarCliente
 from eliminarcliente import EliminarCliente
 from actualizarcliente import ActualizarCliente
+from consultarcliente import ConsultarCliente
 from tkinter import *
 class Menu2():
 
@@ -15,6 +16,10 @@ class Menu2():
     def actualizarCliente(self):
         actualizar_cliente=ActualizarCliente(self.root)
         actualizar_cliente.mostrarInterfaz()
+
+    def consultarCliente(self):
+        consultar_cliente=ConsultarCliente(self.root)
+        consultar_cliente.mostrarInterfaz()
 
     def __init__(self):
         
@@ -32,7 +37,7 @@ class Menu2():
         Gestionar_clientes = Menu(menu, tearoff = 0)
         Gestionar_clientes.add_command(label = 'Registrar clientes', command=lambda:self.agregarCliente())
         Gestionar_clientes.add_command(label = 'Actualizar clientes', command=lambda:self.actualizarCliente())
-        Gestionar_clientes.add_command(label = 'Consultar clientes')
+        Gestionar_clientes.add_command(label = 'Consultar clientes', command=lambda:self.consultarCliente())
         Gestionar_clientes.add_command(label = 'Borrar clientes', command=lambda:self.eliminarCliente())
 
 

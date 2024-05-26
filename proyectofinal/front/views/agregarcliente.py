@@ -1,5 +1,7 @@
 from tkinter import *
 import tkinter as tk
+from controler.controlador import Validaciones
+from models.modelos import Cliente
 class AgregarCliente():
     def __init__(self, menuSecundario):
         self.ventana=tk.Toplevel(menuSecundario)
@@ -7,13 +9,52 @@ class AgregarCliente():
 
     #Marco del titulo
     def mostrarInterfaz(self):
+        def eventoVnombre(event):
+            global nombre
+            if Validaciones.validarNombre(cliente.nombre):
+                textoVnombre=""
+            else:
+                textoVnombre="Nombre debe tener solo letras"
+            lblErrorNombre.config(text=textoVnombre)
+
+        def eventoVapellido(event):
+            global apellido
+            if Validaciones.validarApellido(cliente.apellido):
+                textVapellido=""
+            else:
+                textVapellido="Apellido debe tener solo letras"
+            lblErrorApellidoCliente.config(text=textVapellido)
+
+        def eventoVCedula(event):
+            global cedula
+            if Validaciones.validarCedula(cliente.cedula):
+                textoVCedula=""
+            else:
+                textoVCedula="Cédula debe tener entre 7 a 10 dígitos"
+            lblErrorCedulaCliente.config(text=textoVCedula)
+
+        def eventoVTelefono(event):
+            global telefono
+            if Validaciones.validarTelefono(cliente.telefono):
+                textoVtelefono=""
+            else:
+                textoVtelefono="el teléfono debe empezar con el prefijo 3 y max 10 dígitos"
+            lblErrorTelefonoCliente.config(text=textoVtelefono)
+
+        def eventoVemail(event):
+            global email
+            if Validaciones.validarNombre(cliente.nombre):
+                textoVemail=""
+            else:
+                textoVemail="Debe ser con carácteres alfanuméricos antes del @ y con dominios gmail o hotmail.com"
+            lblErrorEmailCliente.config(text=textoVemail)
 
         def validarInformacion():
             pass
         self.ventana.focus_set()
         self.ventana.title("Agregar al cliente")
         self.ventana.resizable(0,0)
-
+        cliente=Cliente(self.ventana)
 
     #Se establece el contenido del marco1
         marcoTitulo=LabelFrame(self.ventana)
@@ -28,7 +69,7 @@ class AgregarCliente():
         lblNombreCliente=Label(marco1, text="Nombre*:")
         lblNombreCliente.grid(row=0, column=0)
 
-        txtNombreCliente=Entry(marco1)
+        txtNombreCliente=Entry(marco1, textvariable=cliente.nombre)
         txtNombreCliente.grid(row=0,column=1)
 
         lblErrorNombre=Label(marco1, text='', fg="red")
@@ -40,7 +81,7 @@ class AgregarCliente():
         lblApellidoCliente=Label(marco2, text="Apellido*:")
         lblApellidoCliente.grid(row=0, column=0)
 
-        txtApellidoCliente=Entry(marco2)
+        txtApellidoCliente=Entry(marco2, textvariable=cliente.apellido)
         txtApellidoCliente.grid(row=0, column=1)
 
         lblErrorApellidoCliente=Label(marco2, text='', fg="red")
@@ -53,7 +94,7 @@ class AgregarCliente():
         lblCedulaCliente=Label(marco3, text="Cédula*:")
         lblCedulaCliente.grid(row=0, column=0)
 
-        txtCedulaCliente=Entry(marco3)
+        txtCedulaCliente=Entry(marco3, textvariable=cliente.cedula)
         txtCedulaCliente.grid(row=0, column=1)
 
         lblErrorCedulaCliente=Label(marco3, text='', fg="red")
@@ -65,7 +106,7 @@ class AgregarCliente():
         lblTelefonoCliente=Label(marco4, text="Teléfono*:")
         lblTelefonoCliente.grid(row=0, column=0)
 
-        txtTelefonoCliente=Entry(marco4)
+        txtTelefonoCliente=Entry(marco4, textvariable=cliente.telefono)
         txtTelefonoCliente.grid(row=0, column=1)
 
         lblErrorTelefonoCliente=Label(marco4, text='', fg="red")
@@ -77,7 +118,7 @@ class AgregarCliente():
         lblEmailCliente=Label(marco5, text="Email*:")
         lblEmailCliente.grid(row=0, column=0)
 
-        txtEmailCliente=Entry(marco5)
+        txtEmailCliente=Entry(marco5, textvariable=cliente.email)
         txtEmailCliente.grid(row=0, column=1)
 
         lblErrorEmailCliente=Label(marco5, text='', fg="red")
@@ -87,6 +128,12 @@ class AgregarCliente():
         btnGuardar=Button(self.ventana, text="Guardar", padx=10, pady=10,command=validarInformacion)
         btnGuardar.grid(row=6,column=0, padx=10, pady=10)
 
+
+        txtNombreCliente.bind("<KeyRelease>", eventoVnombre)
+        txtApellidoCliente.bind("<KeyRelease>", eventoVapellido)
+        txtCedulaCliente.bind("<KeyRelease>", eventoVCedula)
+        txtTelefonoCliente.bind("<KeyRelease>", eventoVTelefono)
+        txtEmailCliente.bind("<KeyRelease>", eventoVemail)
 
 
 

@@ -1,7 +1,8 @@
-from agregarcliente import AgregarCliente
-from eliminarcliente import EliminarCliente
-from actualizarcliente import ActualizarCliente
-from consultarcliente import ConsultarCliente
+from .agregarcliente import AgregarCliente #Como todos estos archivos relacionados a la manipulación al cliente estan dentro del mismo directorio que 'menusecundario' entonces se debe colocar el punto al principio del n/archivo. en c/u
+from .eliminarcliente import EliminarCliente
+from .actualizarcliente import ActualizarCliente
+from .consultarcliente import ConsultarCliente
+from .serviciosdelavbrilasp import Servicio1lvbrlasp
 from tkinter import *
 class Menu2():
 
@@ -20,6 +21,10 @@ class Menu2():
     def consultarCliente(self):
         consultar_cliente=ConsultarCliente(self.root)
         consultar_cliente.mostrarInterfaz()
+
+    def accederAServicio1(self):
+        acceder_servicio_1=Servicio1lvbrlasp(self.root)
+        acceder_servicio_1.mostrarInterfaz()
 
     def __init__(self):
         
@@ -42,7 +47,7 @@ class Menu2():
 
 
         Acceder_a_servicios = Menu(menu, tearoff = 0)
-        Acceder_a_servicios.add_command(label = 'Lavado + Brillado + Aspirado')
+        Acceder_a_servicios.add_command(label = 'Lavado + Brillado + Aspirado', command=lambda:self.accederAServicio1())
         Acceder_a_servicios.add_command(label = 'Lavado + Limpieza del motor + Porcelanizada + Aspirado')
         Acceder_a_servicios.add_command(label = 'Lavado + Brillado + Lavado de cojineria')
         Acceder_a_servicios.add_command(label = 'Lavado interno + Brillado en lámparas ')

@@ -6,6 +6,7 @@ from tkinter import messagebox
 import requests
 from controladores.comunicacion import Comunicacion
 from .tabla import Tabla
+#Corrigiendo una modificacion
 class Interfaz():
 
     def __init__(self):

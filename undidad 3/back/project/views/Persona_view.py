@@ -4,7 +4,7 @@ from ..Serializers.persona_serializer import ClaseSerializers
 from api.models.persona import Persona
 from rest_framework import status
 from django.http import Http404
-
+#Corriginendo una modificacion
 #Cambiar esto por lo de la clase
 class Persona_APIView(APIView):
     def get(self, request, format=None, *args, **kwargs):

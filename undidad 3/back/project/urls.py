@@ -19,7 +19,7 @@ from django.urls import path
 from .views.Persona_view import *
 from .views.post_view import *
 app_name= 'api'
-
+#Corrigiendo una modificacion
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('v1/post', Post_APIView.as_view()), 

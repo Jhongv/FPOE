@@ -3,4 +3,4 @@ from api.models.persona import Persona
 class ClaseSerializers(serializers.ModelSerializer):
     class Meta:
         model=Persona
-        fields=["id", "nombre", "apellido", "estatura", "peso"]
+        fields='__all__'

@@ -46,17 +46,18 @@ class ServiciosLaveloPues():
             txtDescripcion.delete(0, tk.END)
             txtPrecioestablecido.delete(0, tk.END)
             txtDescripcion.insert(0, "Transforma tu auto:\nLavado exterior,\nbrillado y lavado de\ncojinería para un\nbrillo impecable y una comodidad renovada.")
-            txtPrecioestablecido.insert(0, "$120000")
+            txtPrecioestablecido.insert(0, "$130000")
             lblprecio.grid(row=0, column=0)
             txtPrecioestablecido.grid(row=0, column=1)
             lblDescripcion.grid(row=0, column=0)
             txtDescripcion.grid(row=0, column=1)
 
+
         elif select == "Lavado Interno+Brillado/Lámparas":
             txtDescripcion.delete(0, tk.END)
             txtPrecioestablecido.delete(0, tk.END)
             txtDescripcion.insert(0, "Renueva tu auto por dentro:\nlavado interno, brillado de\nsuperficies y\nlamparaz para un\ninterior reluciente y acogedor.")
-            txtPrecioestablecido.insert(0, "$120000")
+            txtPrecioestablecido.insert(0, "$450000")
             lblprecio.grid(row=0, column=0)
             txtPrecioestablecido.grid(row=0, column=1)
             lblDescripcion.grid(row=0, column=0)
@@ -101,7 +102,7 @@ class ServiciosLaveloPues():
         marco2.grid(row=2, column=0, padx=10, pady=10)
         lblServicio=Label(marco2, text="Servicio*:")
         lblServicio.grid(row=0, column=0)
-        cbxServicio=ttk.Combobox(marco2, values=["Lavado+Brillado+Aspirado","Lavado+Limpieza/Motor+Porcelanizado+Aspirado","Lavado+Brillado+Lavado/Cojinería"+"Lavado Interno+Brillado/Lámparas"], textvariable=servicio.nombreServicio)
+        cbxServicio=ttk.Combobox(marco2, values=["Lavado+Brillado+Aspirado","Lavado+Limpieza/Motor+Porcelanizado+Aspirado","Lavado+Brillado+Lavado/Cojinería","Lavado Interno+Brillado/Lámparas"], textvariable=servicio.nombreServicio)
         cbxServicio.grid(row=0, column=1)
 
         

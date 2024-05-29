@@ -11,25 +11,30 @@ class ServiciosLaveloPues():
         self.listaServicios=[]
 
     def seleccionarServicio(self, event,listaServicios, txtCedula, cbxcomboServicio, lblprecio, txtPrecioestablecido, lblDescripcion,txtDescripcion):
-        #cedula=txtCedula.get()
-        #comboServicio=cbxcomboServicio.get()
-        #precioestablecido=txtPrecioestablecido.get()
-        #descripcion=txtDescripcion.get()
-        select=cbxcomboServicio.get()
-        """
+        """cedula=txtCedula.get()
+        comboServicio=cbxcomboServicio.get()
+        precioestablecido=txtPrecioestablecido.get()
+        descripcion=txtDescripcion.get()
+        
+        
         for servicio in listaServicios:
             servicioCliente=ServiciosLaveloPues(cedula, comboServicio, precioestablecido, descripcion)
             listaServicios.append(servicioCliente)"""
+        select=cbxcomboServicio.get()
         
         if select=="Lavado+Brillado+Aspirado":
+            txtDescripcion.delete(0, tk.END)
+            txtPrecioestablecido.delete(0, tk.END)
             txtDescripcion.insert(0, "Transforma tu auto:\nLavado, brillado y aspirado para un resplandor impecable\ny una frescura interior revitalizante.")
-            txtPrecioestablecido.insert(0, "$120000")
+            txtPrecioestablecido.insert(0, "$1000")
             lblprecio.grid(row=0, column=0)
             txtPrecioestablecido.grid(row=0, column=1)
             lblDescripcion.grid(row=0, column=0)
             txtDescripcion.grid(row=0, column=1)
 
         elif select=="Lavado+Limpieza/Motor+Porcelanizado+Aspirado":
+            txtDescripcion.delete(0, tk.END)
+            txtPrecioestablecido.delete(0, tk.END)
             txtDescripcion.insert(0, "Revitaliza tu auto:\nLavado, limpieza de motor,\nporcelanizado y aspirado para un brillo y\nrendimiento excepcionales, dentro y fuera.")
             txtPrecioestablecido.insert(0, "$120000")
             lblprecio.grid(row=0, column=0)
@@ -38,6 +43,8 @@ class ServiciosLaveloPues():
             txtDescripcion.grid(row=0, column=1)
 
         elif select=="Lavado+Brillado+Lavado/Cojinería":
+            txtDescripcion.delete(0, tk.END)
+            txtPrecioestablecido.delete(0, tk.END)
             txtDescripcion.insert(0, "Transforma tu auto:\nLavado exterior,\nbrillado y lavado de\ncojinería para un\nbrillo impecable y una comodidad renovada.")
             txtPrecioestablecido.insert(0, "$120000")
             lblprecio.grid(row=0, column=0)
@@ -46,13 +53,16 @@ class ServiciosLaveloPues():
             txtDescripcion.grid(row=0, column=1)
 
         elif select == "Lavado Interno+Brillado/Lámparas":
+            txtDescripcion.delete(0, tk.END)
+            txtPrecioestablecido.delete(0, tk.END)
             txtDescripcion.insert(0, "Renueva tu auto por dentro:\nlavado interno, brillado de\nsuperficies y\nlamparaz para un\ninterior reluciente y acogedor.")
             txtPrecioestablecido.insert(0, "$120000")
             lblprecio.grid(row=0, column=0)
             txtPrecioestablecido.grid(row=0, column=1)
             lblDescripcion.grid(row=0, column=0)
             txtDescripcion.grid(row=0, column=1)
-
+        
+    
 
         
     def mostrarInterfaz(self):
@@ -63,7 +73,7 @@ class ServiciosLaveloPues():
             else:
                 textoVCedula="Cédula debe tener entre 7 a 10 dígitos"
             lblErrorCedula.config(text=textoVCedula)
-
+        
             
         self.ventana.focus_set()
         self.ventana.title("Servicios de LaveloPues")
@@ -93,11 +103,14 @@ class ServiciosLaveloPues():
         lblServicio.grid(row=0, column=0)
         cbxServicio=ttk.Combobox(marco2, values=["Lavado+Brillado+Aspirado","Lavado+Limpieza/Motor+Porcelanizado+Aspirado","Lavado+Brillado+Lavado/Cojinería"+"Lavado Interno+Brillado/Lámparas"], textvariable=servicio.nombreServicio)
         cbxServicio.grid(row=0, column=1)
+
+        
         
 
 
         marco3=LabelFrame(self.ventana)
         marco3.grid(row=3, column=0, padx=10, pady=10)
+        
 
         lblDescripcion=Label(marco3, text="Descripción:")
         lblDescripcion.grid_forget()
@@ -112,8 +125,7 @@ class ServiciosLaveloPues():
         txtPrecio=ttk.Entry(marco4, justify=tk.CENTER, textvariable=servicio.precio)
         txtPrecio.grid_forget()
 
-
-
+        
 
         cbxServicio.bind("<<ComboboxSelected>>", lambda event: self.seleccionarServicio(event,self.listaServicios, txtCedulaClienteAccSer, cbxServicio, lblPalabraPrecio, txtPrecio, lblDescripcion, txtDescripcion))
         txtCedulaClienteAccSer.bind("<KeyRelease>", eventoVCedula)        

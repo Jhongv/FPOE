@@ -6,6 +6,11 @@ from tkinter import messagebox
 import requests
 from controladores.comunicacion import Comunicacion
 from .tabla import Tabla
+
+#Corrigiendo una modificacion
+
+
+
 class Interfaz():
 
     def __init__(self):
@@ -38,6 +43,9 @@ class Interfaz():
         for elemento in resultado:
             data.append((elemento.get('id'),elemento.get('nombre'),elemento.get('apellido'),elemento.get('estatura'),elemento.get('peso')))
         self.tabla.refrescar(data)
+
+
+    
 
 
         

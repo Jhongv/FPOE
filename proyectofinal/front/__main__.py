@@ -1,4 +1,4 @@
-from menusecundario import Menu2
+from views.menusecundario import Menu2
 
 class Main():
     def main():

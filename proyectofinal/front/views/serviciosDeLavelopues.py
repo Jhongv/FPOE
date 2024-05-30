@@ -11,7 +11,6 @@ class ServiciosLaveloPues():
         self.listaServicios=[]
 
     def seleccionarServicio(self, event,listaServicios, txtCedula, cbxcomboServicio, lblprecio, txtPrecioestablecido, lblDescripcion,txtDescripcion):
-        
         select=cbxcomboServicio.get()
         
         if select=="Lavado+Brillado+Aspirado":

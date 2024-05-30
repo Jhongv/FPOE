@@ -14,7 +14,7 @@ from django.http import Http404, JsonResponse
 class Servicio_APIView(APIView):
     def get(self, request, format=None, *args, **kwargs):
         queryset = Servicio.objects.all()
-        peso = self.request.query_params.get('peso')
+        peso = self.request.query_params.get('cedula')
         if peso is not None:
             queryset = queryset.filter(peso=peso)
         serializer = ClaseServicioSerializer(queryset, many=True)

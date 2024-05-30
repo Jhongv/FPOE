@@ -2,6 +2,9 @@ from tkinter import *
 import tkinter as tk
 from controler.controlador import Validaciones
 from models.modelos import Cliente
+import re
+from tkinter import messagebox
+import requests
 class AgregarCliente():
     def __init__(self, menuSecundario):
         self.ventana=tk.Toplevel(menuSecundario)
@@ -43,14 +46,36 @@ class AgregarCliente():
 
         def eventoVemail(event):
             global email
-            if Validaciones.validarNombre(cliente.nombre):
+            if Validaciones.validarCorreo(cliente.email):
                 textoVemail=""
             else:
                 textoVemail="Debe ser con carácteres alfanuméricos antes del @ y con dominios gmail o hotmail.com"
             lblErrorEmailCliente.config(text=textoVemail)
 
         def validarInformacion():
-            pass
+            nombreV = re.match(r"^[A-Za-zñÑ ]*$", cliente.nombre.get())
+            apellidoV = re.match(r"^[A-Za-zñÑ ]*$", cliente.apellido.get())
+            cedula= re.match(r"^\d{1}(\.\d{0,2})?$", cliente.cedula.get())
+            telefono = re.match(r"^\d{1,3}(\.\d{0,2})?$", cliente.telefono.get())
+            email=re.match(r"^\w{3,}(\.\w{3,})*?@(gmail\.com|@hotmail\.com)$", cliente.email.get())
+
+
+            if nombreV and apellidoV and cedula and telefono and email:
+                
+                data = {
+                    "nombre": cliente.nombre.get(),
+                    "apellido": cliente.apellido.get(),
+                    "cédula": cliente.cedula.get(),
+                    "teléfono": cliente.telefono.get(),
+                    "email": cliente.email.get()
+                }
+                respuesta = requests.post("http://127.0.0.1:8000/v1/cliente", data)
+                print(respuesta.status_code)
+                print(respuesta.content)
+                
+                messagebox.showinfo("Informacion", "Se guardo correctamente")
+            else:
+                messagebox.showerror("Informacion", "No se pudo guardar, confirme si está correcto")
         self.ventana.focus_set()
         self.ventana.title("Agregar al cliente")
         self.ventana.resizable(0,0)

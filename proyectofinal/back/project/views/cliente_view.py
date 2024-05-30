@@ -5,18 +5,15 @@ from api.models.cliente import Cliente
 from rest_framework import status
 
 from django.http import Http404
-#Corriginendo una modificacion
-#Cambiar esto por lo de la clase
 
-from django.http import Http404, JsonResponse
 
 
 class Cliente_APIView(APIView):
     def get(self, request, format=None, *args, **kwargs):
         queryset = Cliente.objects.all()
-        peso = self.request.query_params.get('peso')
-        if peso is not None:
-            queryset = queryset.filter(peso=peso)
+        cedula = self.request.query_params.get('cedula')
+        if cedula is not None:
+            queryset = queryset.filter(cedula=cedula)
         serializer = ClaseSerializers(queryset, many=True)
         return Response(serializer.data)
     

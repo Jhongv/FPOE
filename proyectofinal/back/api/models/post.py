@@ -6,5 +6,5 @@ class Post(TimeStampedModel, SoftDeletableModel):
 	date_published 		= models.DateTimeField(auto_now_add=True, verbose_name="date published")
 	date_updated 		= models.DateTimeField(auto_now=True, verbose_name="date updated")
 	slug 				= models.SlugField(blank=True, unique=True)
-	def _str_(self):
+	def __str__(self):
 		return self.title

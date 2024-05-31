@@ -6,6 +6,7 @@ class Comunicacion():
         self.url = 'http://127.0.0.1:8000/v1/persona'
 
     def guardar(self, nombre, apellido, estatura, peso):
+        
         try:
             print(nombre, apellido, estatura, peso)
             data={

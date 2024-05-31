@@ -5,7 +5,7 @@ class Cliente(models.Model):
 	apellido = models.TextField()
 	cedula = models.TextField()
 	email = models.TextField()
-	telefono= models.TextField()
+	telefono = models.TextField()
 	
 	def __str__(self):
 		return self.nombre

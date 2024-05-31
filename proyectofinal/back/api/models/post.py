@@ -7,8 +7,4 @@ class Post(TimeStampedModel, SoftDeletableModel):
 	date_updated 		= models.DateTimeField(auto_now=True, verbose_name="date updated") #verbose_name Se usa pa los comentarios
 	slug 				= models.SlugField(blank=True, unique=True)
 	def __str__(self):
-
 		return self.title
-
-
-

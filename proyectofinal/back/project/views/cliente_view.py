@@ -1,8 +1,12 @@
+
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+
 from ..Serializers.cliente_serializer import *
 from api.models.cliente import Cliente
 from rest_framework import status
+
 from django.http import Http404
 
 
@@ -22,12 +26,9 @@ class Cliente_APIView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+
 class Cliente_APIView_Detail(APIView):
-    def get_object(self, pk):
-        try:
-            return Cliente.objects.get(pk=pk)
-        except Cliente.DoesNotExist:
-            raise Http404
 
     def get(self, request, pk, format=None):
         post = self.get_object(pk)

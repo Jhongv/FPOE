@@ -1,10 +1,10 @@
 from django.db import models
 
 class Persona(models.Model):
-	valor = models.TextField() #'CharField' Campo de texto
+	nombre = models.TextField() #'CharField' Campo de texto
+	apellido = models.TextField()
+	estatura = models.TextField()
 	peso = models.TextField()
-	tamaño = models.TextField()
-	color = models.TextField()
 	
 	def __str__(self):
 		return self.nombre

@@ -12,11 +12,11 @@ class Servicio_APIView(APIView):
         cedulaCliente = self.request.query_params.get('cedulaCliente')
         if cedulaCliente is not None:
             queryset = queryset.filter(cedulaCiente=cedulaCliente)
-        serializer = ClaseServicioSerializer(queryset, many=True)
+        serializer = ClaseServicioSerializers(queryset, many=True)
         return Response(serializer.data)
     
     def post(self, request, format=None):
-        serializer = ClaseServicioSerializer(data=request.data)
+        serializer = ClaseServicioSerializers(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -31,12 +31,12 @@ class Servicio_APIView_Detail(APIView):
 
     def get(self, request, pk, format=None):
         post = self.get_object(pk)
-        serializer = ClaseServicioSerializer(post)  
+        serializer = ClaseServicioSerializers(post)  
         return Response(serializer.data)
 
     def put(self, request, pk, format=None):
         post = self.get_object(pk)
-        serializer = ClaseServicioSerializer(post, data=request.data)
+        serializer = ClaseServicioSerializers(post, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

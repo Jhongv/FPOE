@@ -1,49 +1,40 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from ..Serializers.servicio_serializer import *
-from api.models.servicio import Servicio
+from ..Serializers.post_serializar import PostSerializers
+from api.models.post import Post
 from rest_framework import status
 from django.http import Http404
 
-
-class Servicio_APIView(APIView):
+class Post_APIView(APIView):
     def get(self, request, format=None, *args, **kwargs):
-        queryset = Servicio.objects.all()
-        cedulaCliente = self.request.query_params.get('cedulaCliente')
-        if cedulaCliente is not None:
-            queryset = queryset.filter(cedulaCiente=cedulaCliente)
-        serializer = ClaseServicioSerializer(queryset, many=True)
+        post = Post.objects.all()
+        serializer = PostSerializers(post, many=True)
+        
         return Response(serializer.data)
-    
     def post(self, request, format=None):
-        serializer = ClaseServicioSerializer(data=request.data)
+        serializer = PostSerializers(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class Servicio_APIView_Detail(APIView):
+class Post_APIView_Detail(APIView):
     def get_object(self, pk):
         try:
-            return Servicio.objects.get(pk=pk)
-        except Servicio.DoesNotExist:
+            return Post.objects.get(pk=pk)
+        except Post.DoesNotExist:
             raise Http404
-
     def get(self, request, pk, format=None):
         post = self.get_object(pk)
-        serializer = ClaseServicioSerializer(post)  
+        serializer = PostSerializers(post)  
         return Response(serializer.data)
-
     def put(self, request, pk, format=None):
         post = self.get_object(pk)
-        serializer = ClaseServicioSerializer(post, data=request.data)
+        serializer = PostSerializers(post, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
     def delete(self, request, pk, format=None):
         post = self.get_object(pk)
         post.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-

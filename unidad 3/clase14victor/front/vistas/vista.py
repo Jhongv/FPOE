@@ -84,7 +84,7 @@ class Interfaz():
                 textoVpeso="Peso no cumple con lo establesido"
             lblErrorPeso.config(text=textoVpeso)
 
-        def validarInformacion(id):
+        def validarInformacion():
         
             nombreV = re.match(r"^[A-Za-zñÑ ]*$", usuario.nombre.get())
             apellidoV = re.match(r"^[A-Za-zñÑ ]*$", usuario.apellido.get())
@@ -92,7 +92,7 @@ class Interfaz():
             pesoV = re.match(r"^\d{1,3}(\.\d{0,2})?$", usuario.peso.get())
 
 
-            if id and nombreV and apellidoV and estaturaV and pesoV:
+            if nombreV and apellidoV and estaturaV and pesoV:
                 
                 data = {
                     "nombre": usuario.nombre.get(),

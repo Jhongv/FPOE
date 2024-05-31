@@ -55,8 +55,8 @@ class AgregarCliente():
         def validarInformacion():
             nombreV = re.match(r"^[A-Za-zñÑ ]*$", cliente.nombre.get())
             apellidoV = re.match(r"^[A-Za-zñÑ ]*$", cliente.apellido.get())
-            cedula= re.match(r"^\d{1}(\.\d{0,2})?$", cliente.cedula.get())
-            telefono = re.match(r"^\d{1,3}(\.\d{0,2})?$", cliente.telefono.get())
+            cedula = re.match(r"^\d{7,10}$", cliente.cedula.get())
+            telefono = re.match(r"^3\d{9}$", cliente.telefono.get())
             email=re.match(r"^\w{3,}(\.\w{3,})*?@(gmail\.com|@hotmail\.com)$", cliente.email.get())
 
 
@@ -65,8 +65,8 @@ class AgregarCliente():
                 data = {
                     "nombre": cliente.nombre.get(),
                     "apellido": cliente.apellido.get(),
-                    "cédula": cliente.cedula.get(),
-                    "teléfono": cliente.telefono.get(),
+                    "cedula": cliente.cedula.get(), #Lo que esta dentro de las comillas no debe tener acetos
+                    "telefono": cliente.telefono.get(), #Lo que esta dentro de las comillas no debe tener acetos
                     "email": cliente.email.get()
                 }
                 respuesta = requests.post("http://127.0.0.1:8000/v1/cliente", data)

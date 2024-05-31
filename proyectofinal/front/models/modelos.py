@@ -1,4 +1,5 @@
 from tkinter import *
+
 class Cliente():
     def __init__(self, root):
         self.root=root
@@ -8,6 +9,7 @@ class Cliente():
         self.cedula=StringVar()
         self.email=StringVar()
         self.telefono=StringVar()
+        
 class Servicio():
     def __init__(self, root):
         self.root=root

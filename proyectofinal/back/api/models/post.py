@@ -10,5 +10,5 @@ class Post(TimeStampedModel, SoftDeletableModel):
 
 		return self.title
 
-		return self.title
+
 

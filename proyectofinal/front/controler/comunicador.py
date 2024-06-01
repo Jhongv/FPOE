@@ -33,7 +33,7 @@ class Comunicacion():
         return resultado.json()
 
     
-    def actualizar(self, nombre, apellido, cedula, telefono, email):
+    def actualizar(self, id,nombre, apellido, cedula, telefono, email):
         
         try:
             print(nombre, apellido, cedula, telefono, email)
@@ -44,7 +44,7 @@ class Comunicacion():
                 'telefono': telefono,
                 'email': email
             }
-            resultado=requests.post(self.url, json=data)
+            resultado=requests.put(self.url + '/' + id + '/', json=data)
             print(resultado.json())
             return resultado
         except:

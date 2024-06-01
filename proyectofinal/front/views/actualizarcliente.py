@@ -4,6 +4,7 @@ from tkinter import ttk
 from controler.controlador import Validaciones
 from models.modelos import Cliente
 from controler.comunicador import Comunicacion
+from tkinter import messagebox
 from .tabla import Tabla
 
 class ActualizarCliente:
@@ -25,6 +26,17 @@ class ActualizarCliente:
         self.comunicador=Comunicacion(self.ventana)
         self.tabla=Tabla(self.ventana, titulos, columnas, data)
         pass
+
+    def accion_consultar_todo(self, nombre, apellido, cedula, telefono, email):
+        resultado=self.comunicador.consultar_todo(nombre, apellido, cedula, telefono, email)
+        data=[]
+        for elemento in resultado:
+            data.append((elemento.get('id'),elemento.get('nombre'),elemento.get('apellido'),elemento.get('cedula'),elemento.get('telefono'), elemento.get('email')))
+        self.tabla.refrescar(data)
+
+    def actualizar(self,id, nombre, apellido, cedula, telefono, email):
+        self.comunicador.actualizar(id, nombre, apellido, cedula, telefono, email)
+        
 
     def selectCombobox(self, event, combobox, lblNombre, txtNombre, lblApellido, txtApellido, lblCedula, txtCedula, lblTelefono, txtTelefono, lblEmail, txtEmail, lblErrorNombre, lblErrorApellido, lblErrorCedula, lblErrorEmail, lblErrorTelefono):
         """
@@ -75,6 +87,9 @@ class ActualizarCliente:
             txtEmail.grid(row=0, column=1)
             lblErrorEmail.grid(row=1, column=1)
 
+        else:
+            messagebox.showerror("ERROR","Campo asignado no reconocido")
+            
     def mostrarInterfaz(self):
         """
         Configura y muestra la interfaz gráfica para actualizar los datos del cliente.
@@ -229,16 +244,43 @@ class ActualizarCliente:
         lblErrorEmail = Label(marco6, text="", fg="red")
         lblErrorEmail.grid_forget()
 
-        btnActualizarDatosCliente = Button(self.ventana, text="Actualizar")
-        btnActualizarDatosCliente.grid(row=7, column=0, padx=10, pady=10)
+        marco7 = LabelFrame(self.ventana)
+        marco7.grid(row=7, column=0, padx=10, pady=10)
 
-        self.tabla.tabla.grid(row=8, column=0, columnspan=3)
+        txtId=Entry(marco7)
+        txtId.grid(row=0, column=0)
 
+        btnActualizarDatosCliente = Button(self.ventana, text="Actualizar", command=lambda:self.actualizar(txtId.get(), txtNombreCliente.get(), txtApellidoCliente.get(), txtCedulaCliente.get(), txtTelefonoCliente.get(), txtEmailCliente.get()))
+        btnActualizarDatosCliente.grid(row=8, column=0, padx=10, pady=10)
+
+        btnConsultarTodo=Button(self.ventana, text="Consulta los elementos", command=lambda:self.accion_consultar_todo(txtNombreCliente.get(), txtApellidoCliente.get(), txtCedulaCliente.get(), txtTelefonoCliente.get(), txtEmailCliente.get()))
+        btnConsultarTodo.grid(row=8, column=1, padx=10, pady=10)
+        self.tabla.tabla.grid(row=9, column=0, columnspan=3)
+
+        def seleccionar_elemento(_):
+            for i in self.tabla.tabla.selection():
+                valores = self.tabla.tabla.item(i)['values']
+                txtId.delete(0, END)
+                txtId.insert(0, str(valores[0]))
+                txtNombreCliente.delete(0, END)
+                txtNombreCliente.insert(0, str(valores[1]))
+                txtApellidoCliente.delete(0, END)
+                txtApellidoCliente.insert(0, str(valores[2]))
+                txtCedulaCliente.delete(0, END)
+                txtCedulaCliente.insert(0, str(valores[3]))
+                txtTelefonoCliente.delete(0, END)
+                txtTelefonoCliente.insert(0, str(valores[4]))
+                txtEmailCliente.delete(0, END)
+                txtEmailCliente.insert(0, str(valores[5]))
+
+
+
+        #EVENTOS
         cbxSeleccionarCampoActualizar.bind("<<ComboboxSelected>>", lambda event: self.selectCombobox(
             event, cbxSeleccionarCampoActualizar, lblNombreCliente, txtNombreCliente, lblApellidoCliente,
             txtApellidoCliente, lblCedulaCliente, txtCedulaCliente, lblTelefonoCliente, txtTelefonoCliente,
-            lblEmailCliente, txtEmailCliente, lblErrorNombre, lblErrorApellido, lblErrorCedula, lblErrorEmail, lblErrorTelefono))
-
+            lblEmailCliente, txtEmailCliente, lblErrorNombre, lblErrorApellido, lblErrorCedula, lblErrorEmail, lblErrorTelefono))        
+        self.tabla.tabla.bind('<<TreeviewSelect>>', seleccionar_elemento)
         txtNombreCliente.bind("<KeyRelease>", eventoVnombre)
         txtApellidoCliente.bind("<KeyRelease>", eventoVapellido)
         txtCedulaCliente.bind("<KeyRelease>", eventoVCedula)

@@ -1,56 +1,73 @@
-from .agregarcliente import AgregarCliente #Como todos estos archivos relacionados a la manipulación al cliente estan dentro del mismo directorio que 'menusecundario' entonces se debe colocar el punto al principio del n/archivo. en c/u
-from .eliminarcliente import EliminarCliente
-from .actualizarcliente import ActualizarCliente
-from .consultarcliente import ConsultarCliente
-from .serviciosDeLavelopues import ServiciosLaveloPues
+from .agregarcliente import AgregarCliente  # Importa la clase AgregarCliente del archivo agregarcliente
+from .eliminarcliente import EliminarCliente  # Importa la clase EliminarCliente del archivo eliminarcliente
+from .actualizarcliente import ActualizarCliente  # Importa la clase ActualizarCliente del archivo actualizarcliente
+from .consultarcliente import ConsultarCliente  # Importa la clase ConsultarCliente del archivo consultarcliente
+from .serviciosDeLavelopues import ServiciosLaveloPues  # Importa la clase ServiciosLaveloPues del archivo serviciosDeLavelopues
 from tkinter import *
-class Menu2():
+
+class Menu2:
+    """
+    Clase que representa el menú principal de la aplicación, 
+    permitiendo gestionar clientes y acceder a servicios.
+    """
 
     def agregarCliente(self):
-        agregar_cliente=AgregarCliente(self.root) #A todas las llamadas de la ventana por el 'self' del método agregarCliente debo colocar a la ventana 'self.root'
-        agregar_cliente.mostrarInterfaz() #Sino se coloca el metodo de la clase 'AgregarCliente' denominado mostrarInterfaz, entonces solo me aparecerá la ventana con toplevel pero sin su contenido
+        """
+        Abre la interfaz para agregar un nuevo cliente.
+        """
+        agregar_cliente = AgregarCliente(self.root)  # Crea una instancia de la clase AgregarCliente
+        agregar_cliente.mostrarInterfaz()  # Muestra la interfaz de agregar cliente
 
     def eliminarCliente(self):
-        eliminar_cliente=EliminarCliente(self.root)
-        eliminar_cliente.mostrarInterfaz()
+        """
+        Abre la interfaz para eliminar un cliente existente.
+        """
+        eliminar_cliente = EliminarCliente(self.root)  # Crea una instancia de la clase EliminarCliente
+        eliminar_cliente.mostrarInterfaz()  # Muestra la interfaz de eliminar cliente
 
     def actualizarCliente(self):
-        actualizar_cliente=ActualizarCliente(self.root)
-        actualizar_cliente.mostrarInterfaz()
+        """
+        Abre la interfaz para actualizar la información de un cliente existente.
+        """
+        actualizar_cliente = ActualizarCliente(self.root)  # Crea una instancia de la clase ActualizarCliente
+        actualizar_cliente.mostrarInterfaz()  # Muestra la interfaz de actualizar cliente
 
     def consultarCliente(self):
-        consultar_cliente=ConsultarCliente(self.root)
-        consultar_cliente.mostrarInterfaz()
+        """
+        Abre la interfaz para consultar la información de un cliente existente.
+        """
+        consultar_cliente = ConsultarCliente(self.root)  # Crea una instancia de la clase ConsultarCliente
+        consultar_cliente.mostrarInterfaz()  # Muestra la interfaz de consultar cliente
 
     def accederAServicio1(self):
-        acceder_servicio_1=ServiciosLaveloPues(self.root)
-        acceder_servicio_1.mostrarInterfaz()
+        """
+        Abre la interfaz para acceder a un servicio específico.
+        """
+        acceder_servicio_1 = ServiciosLaveloPues(self.root)  # Crea una instancia de la clase ServiciosLaveloPues
+        acceder_servicio_1.mostrarInterfaz()  # Muestra la interfaz del servicio
 
     def __init__(self):
-        
-    
-        self.root  = Tk()
+        """
+        Inicializa la ventana principal de la aplicación y configura el menú.
+        """
+        self.root = Tk()  # Crea la ventana principal
 
-        self.root.geometry("800x600")
-        self.root.minsize(400, 300)
+        self.root.geometry("800x600")  # Establece el tamaño de la ventana
+        self.root.minsize(400, 300)  # Establece el tamaño mínimo de la ventana
 
+        menu = Menu(self.root)  # Crea un menú para la ventana
+        self.root.config(menu=menu)  # Configura el menú en la ventana
 
-        menu = Menu(self.root)
-        self.root.config(menu = menu)
+        Gestionar_clientes = Menu(menu, tearoff=0)  # Crea un submenú para gestionar clientes
+        Gestionar_clientes.add_command(label='Registrar clientes', command=lambda: self.agregarCliente())
+        Gestionar_clientes.add_command(label='Actualizar clientes', command=lambda: self.actualizarCliente())
+        Gestionar_clientes.add_command(label='Consultar clientes', command=lambda: self.consultarCliente())
+        Gestionar_clientes.add_command(label='Borrar clientes', command=lambda: self.eliminarCliente())
 
+        Acceder_a_servicios = Menu(menu, tearoff=0)  # Crea un submenú para acceder a servicios
+        Acceder_a_servicios.add_command(label='Seleccione el servicio aquí', command=lambda: self.accederAServicio1())
 
-        Gestionar_clientes = Menu(menu, tearoff = 0)
-        Gestionar_clientes.add_command(label = 'Registrar clientes', command=lambda:self.agregarCliente())
-        Gestionar_clientes.add_command(label = 'Actualizar clientes', command=lambda:self.actualizarCliente())
-        Gestionar_clientes.add_command(label = 'Consultar clientes', command=lambda:self.consultarCliente())
-        Gestionar_clientes.add_command(label = 'Borrar clientes', command=lambda:self.eliminarCliente())
+        menu.add_cascade(label='Gestionar clientes', menu=Gestionar_clientes)  # Añade el submenú de gestionar clientes al menú principal
+        menu.add_cascade(label='Acceder a servicios', menu=Acceder_a_servicios)  # Añade el submenú de acceder a servicios al menú principal
 
-
-        Acceder_a_servicios = Menu(menu, tearoff = 0)
-        Acceder_a_servicios.add_command(label = 'Seleccione el servicio aquí', command=lambda:self.accederAServicio1())
-
-
-        menu.add_cascade(label = 'Gestionar clientes', menu = Gestionar_clientes)
-        menu.add_cascade(label = 'Acceder a servicios', menu = Acceder_a_servicios)
-
-        self.root.mainloop()
+        self.root.mainloop()  # Inicia el bucle principal de la aplicación

@@ -5,161 +5,208 @@ from models.modelos import Cliente
 import re
 from tkinter import messagebox
 import requests
-class AgregarCliente():
-    def __init__(self, menuSecundario):
-        self.ventana=tk.Toplevel(menuSecundario)
-        
 
-    #Marco del titulo
+class AgregarCliente:
+    """
+    Clase que representa la interfaz gráfica para agregar un nuevo cliente.
+    """
+
+    def __init__(self, menuSecundario):
+        """
+        Inicializa una nueva ventana secundaria.
+
+        Args:
+            menuSecundario (Tk): La ventana principal o secundaria desde la cual se abre esta interfaz.
+        """
+        self.ventana = tk.Toplevel(menuSecundario)
+
     def mostrarInterfaz(self):
+        """
+        Configura y muestra la interfaz gráfica para agregar un nuevo cliente.
+        """
         def eventoVnombre(event):
+            """
+            Valida el nombre del cliente en tiempo real y muestra un mensaje de error si es inválido.
+
+            Args:
+                event (Event): El evento de liberación de una tecla en el campo de entrada del nombre.
+            """
             global nombre
             if Validaciones.validarNombre(cliente.nombre):
-                textoVnombre=""
+                textoVnombre = ""
             else:
-                textoVnombre="Nombre debe tener solo letras"
+                textoVnombre = "Nombre debe tener solo letras"
             lblErrorNombre.config(text=textoVnombre)
 
         def eventoVapellido(event):
+            """
+            Valida el apellido del cliente en tiempo real y muestra un mensaje de error si es inválido.
+
+            Args:
+                event (Event): El evento de liberación de una tecla en el campo de entrada del apellido.
+            """
             global apellido
             if Validaciones.validarApellido(cliente.apellido):
-                textVapellido=""
+                textVapellido = ""
             else:
-                textVapellido="Apellido debe tener solo letras"
+                textVapellido = "Apellido debe tener solo letras"
             lblErrorApellidoCliente.config(text=textVapellido)
 
         def eventoVCedula(event):
+            """
+            Valida la cédula del cliente en tiempo real y muestra un mensaje de error si es inválida.
+
+            Args:
+                event (Event): El evento de liberación de una tecla en el campo de entrada de la cédula.
+            """
             global cedula
             if Validaciones.validarCedula(cliente.cedula):
-                textoVCedula=""
+                textoVCedula = ""
             else:
-                textoVCedula="Cédula debe tener entre 7 a 10 dígitos"
+                textoVCedula = "Cédula debe tener entre 7 a 10 dígitos"
             lblErrorCedulaCliente.config(text=textoVCedula)
 
         def eventoVTelefono(event):
+            """
+            Valida el teléfono del cliente en tiempo real y muestra un mensaje de error si es inválido.
+
+            Args:
+                event (Event): El evento de liberación de una tecla en el campo de entrada del teléfono.
+            """
             global telefono
             if Validaciones.validarTelefono(cliente.telefono):
-                textoVtelefono=""
+                textoVtelefono = ""
             else:
-                textoVtelefono="el teléfono debe empezar con el prefijo 3 y max 10 dígitos"
+                textoVtelefono = "El teléfono debe empezar con el prefijo 3 y tener máximo 10 dígitos"
             lblErrorTelefonoCliente.config(text=textoVtelefono)
 
         def eventoVemail(event):
+            """
+            Valida el email del cliente en tiempo real y muestra un mensaje de error si es inválido.
+
+            Args:
+                event (Event): El evento de liberación de una tecla en el campo de entrada del email.
+            """
             global email
             if Validaciones.validarCorreo(cliente.email):
-                textoVemail=""
+                textoVemail = ""
             else:
-                textoVemail="Debe ser con carácteres alfanuméricos antes del @ y con dominios gmail o hotmail.com"
+                textoVemail = "Debe ser con caracteres alfanuméricos antes del @ y con dominios gmail o hotmail.com"
             lblErrorEmailCliente.config(text=textoVemail)
 
         def validarInformacion():
+
+            """
+            Valida toda la información del cliente y la envía al servidor si es válida. 
+            Muestra un mensaje de éxito o error dependiendo del resultado.
+            """
             nombreV = re.match(r"^[A-Za-zñÑ ]*$", cliente.nombre.get())
             apellidoV = re.match(r"^[A-Za-zñÑ ]*$", cliente.apellido.get())
-            cedula = re.match(r"^\d{7,10}$", cliente.cedula.get())
+            cedula = re.match(r"^\d{1,3}(\.?\d{3}){2}$", cliente.cedula.get())
             telefono = re.match(r"^3\d{9}$", cliente.telefono.get())
-            email=re.match(r"^\w{3,}(\.\w{3,})*?@(gmail\.com|@hotmail\.com)$", cliente.email.get())
-
+            email = re.match(r"^\w{3,}(\.\w{3,})*?@(gmail\.com|hotmail\.com)$", cliente.email.get())
 
             if nombreV and apellidoV and cedula and telefono and email:
-                
                 data = {
                     "nombre": cliente.nombre.get(),
                     "apellido": cliente.apellido.get(),
-                    "cedula": cliente.cedula.get(), #Lo que esta dentro de las comillas no debe tener acetos
-                    "telefono": cliente.telefono.get(), #Lo que esta dentro de las comillas no debe tener acetos
+                    "cedula": cliente.cedula.get(),
+                    "telefono": cliente.telefono.get(),
                     "email": cliente.email.get()
                 }
                 respuesta = requests.post("http://127.0.0.1:8000/v1/cliente", data)
                 print(respuesta.status_code)
                 print(respuesta.content)
                 
-                messagebox.showinfo("Informacion", "Se guardo correctamente")
+                messagebox.showinfo("Información", "Se guardó correctamente")
+
+                txtNombreCliente.delete(0, tk.END)
+                txtApellidoCliente.delete(0,tk.END)
+                txtCedulaCliente.delete(0,tk.END)
+                txtEmailCliente.delete(0,tk.END)
+                txtTelefonoCliente.delete(0,tk.END)
+
             else:
-                messagebox.showerror("Informacion", "No se pudo guardar, confirme si está correcto")
+                messagebox.showerror("Información", "No se pudo guardar, confirme si está correcto")
+
         self.ventana.focus_set()
         self.ventana.title("Agregar al cliente")
-        self.ventana.resizable(0,0)
-        cliente=Cliente(self.ventana)
+        self.ventana.resizable(0, 0)
+        cliente = Cliente(self.ventana)
 
-    #Se establece el contenido del marco1
-        marcoTitulo=LabelFrame(self.ventana)
+        # Marco del título
+        marcoTitulo = LabelFrame(self.ventana)
         marcoTitulo.grid(row=0, column=0, padx=10, pady=10)
-        lblTitulo=Label(marcoTitulo, text="Agregar al Cliente")
+        lblTitulo = Label(marcoTitulo, text="Agregar al Cliente")
         lblTitulo.grid(row=0, column=0, padx=10, pady=10)
-    
-    
-        marco1=LabelFrame(self.ventana)
+
+        marco1 = LabelFrame(self.ventana)
         marco1.grid(row=1, column=0, padx=10, pady=10)
 
-        lblNombreCliente=Label(marco1, text="Nombre*:")
+        lblNombreCliente = Label(marco1, text="Nombre*:")
         lblNombreCliente.grid(row=0, column=0)
 
-        txtNombreCliente=Entry(marco1, textvariable=cliente.nombre)
-        txtNombreCliente.grid(row=0,column=1)
+        txtNombreCliente = Entry(marco1, textvariable=cliente.nombre)
+        txtNombreCliente.grid(row=0, column=1)
 
-        lblErrorNombre=Label(marco1, text='', fg="red")
-        lblErrorNombre.grid(row=1,column=1)
+        lblErrorNombre = Label(marco1, text='', fg="red")
+        lblErrorNombre.grid(row=1, column=1)
 
-        marco2=LabelFrame(self.ventana)
+        marco2 = LabelFrame(self.ventana)
         marco2.grid(row=2, column=0, padx=10, pady=10)
 
-        lblApellidoCliente=Label(marco2, text="Apellido*:")
+        lblApellidoCliente = Label(marco2, text="Apellido*:")
         lblApellidoCliente.grid(row=0, column=0)
 
-        txtApellidoCliente=Entry(marco2, textvariable=cliente.apellido)
+        txtApellidoCliente = Entry(marco2, textvariable=cliente.apellido)
         txtApellidoCliente.grid(row=0, column=1)
 
-        lblErrorApellidoCliente=Label(marco2, text='', fg="red")
+        lblErrorApellidoCliente = Label(marco2, text='', fg="red")
         lblErrorApellidoCliente.grid(row=1, column=1)
 
-        marco3=LabelFrame(self.ventana)
+        marco3 = LabelFrame(self.ventana)
         marco3.grid(row=3, column=0, padx=10, pady=10)
 
-
-        lblCedulaCliente=Label(marco3, text="Cédula*:")
+        lblCedulaCliente = Label(marco3, text="Cédula*:")
         lblCedulaCliente.grid(row=0, column=0)
 
-        txtCedulaCliente=Entry(marco3, textvariable=cliente.cedula)
+        txtCedulaCliente = Entry(marco3, textvariable=cliente.cedula)
         txtCedulaCliente.grid(row=0, column=1)
 
-        lblErrorCedulaCliente=Label(marco3, text='', fg="red")
+        lblErrorCedulaCliente = Label(marco3, text='', fg="red")
         lblErrorCedulaCliente.grid(row=1, column=1)
 
-        marco4=LabelFrame(self.ventana)
+        marco4 = LabelFrame(self.ventana)
         marco4.grid(row=4, column=0, padx=10, pady=10)
 
-        lblTelefonoCliente=Label(marco4, text="Teléfono*:")
+        lblTelefonoCliente = Label(marco4, text="Teléfono*:")
         lblTelefonoCliente.grid(row=0, column=0)
 
-        txtTelefonoCliente=Entry(marco4, textvariable=cliente.telefono)
+        txtTelefonoCliente = Entry(marco4, textvariable=cliente.telefono)
         txtTelefonoCliente.grid(row=0, column=1)
 
-        lblErrorTelefonoCliente=Label(marco4, text='', fg="red")
+        lblErrorTelefonoCliente = Label(marco4, text='', fg="red")
         lblErrorTelefonoCliente.grid(row=1, column=1)
 
-        marco5=LabelFrame(self.ventana)
+        marco5 = LabelFrame(self.ventana)
         marco5.grid(row=5, column=0, padx=10, pady=10)
 
-        lblEmailCliente=Label(marco5, text="Email*:")
+        lblEmailCliente = Label(marco5, text="Email*:")
         lblEmailCliente.grid(row=0, column=0)
 
-        txtEmailCliente=Entry(marco5, textvariable=cliente.email)
+        txtEmailCliente = Entry(marco5, textvariable=cliente.email)
         txtEmailCliente.grid(row=0, column=1)
 
-        lblErrorEmailCliente=Label(marco5, text='', fg="red")
+        lblErrorEmailCliente = Label(marco5, text='', fg="red")
         lblErrorEmailCliente.grid(row=1, column=1)
 
-
-        btnGuardar=Button(self.ventana, text="Guardar", padx=10, pady=10,command=validarInformacion)
-        btnGuardar.grid(row=6,column=0, padx=10, pady=10)
-
+        btnGuardar = Button(self.ventana, text="Guardar", padx=10, pady=10, command=validarInformacion)
+        btnGuardar.grid(row=6, column=0, padx=10, pady=10)
 
         txtNombreCliente.bind("<KeyRelease>", eventoVnombre)
         txtApellidoCliente.bind("<KeyRelease>", eventoVapellido)
         txtCedulaCliente.bind("<KeyRelease>", eventoVCedula)
         txtTelefonoCliente.bind("<KeyRelease>", eventoVTelefono)
         txtEmailCliente.bind("<KeyRelease>", eventoVemail)
-
-
 
         self.ventana.mainloop()

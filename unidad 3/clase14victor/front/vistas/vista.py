@@ -28,13 +28,13 @@ class Interfaz():
         else:
             self.comunicador.actualizar(id, nombre, apellido, estatura, peso)
 
-    def accion_consultar_boton(self, lblConsultarNombre,lblConsultarPeso, id):
+    def accion_consultar_boton(self,id):
         
         resultado=self.comunicador.consultar(id)
         print(resultado)
         print(type(resultado))
-        lblConsultarNombre.config(text=resultado.get('nombre'))
-        lblConsultarPeso.config(text=resultado.get('peso'))
+        #lblConsultarNombre.config(text=resultado.get('nombre'))
+        #lblConsultarPeso.config(text=resultado.get('peso'))
         
     
     def accion_consultar_todo(self, nombre, apellido, estatura, peso):
@@ -169,7 +169,7 @@ class Interfaz():
         lblConsultarPeso.grid(row=0,column=1)
         btnGuardar2=Button(marco5,text="Guardar 2", command=lambda: self.accion_guardar_boton(txtId.get(), txtAtr1.get(), txtAtr2.get(), txtAtr3.get(), txtAtr4.get()))
         btnGuardar2.grid(row=1,column=0, padx=10, pady=10)
-        btnConsultar1=Button(marco5, text="Consultar 1", command=lambda:self.accion_consultar_boton(lblConsultarNombre,lblConsultarPeso, txtAtr4.get()))
+        btnConsultar1=Button(marco5, text="Consultar 1", command=lambda:self.accion_consultar_boton(txtAtr4.get()))
         btnConsultar1.grid(row=1, column=1, padx=10, pady=10)
         btnConsultarTodo=Button(marco5, text="Consultar todo", command=lambda:self.accion_consultar_todo(txtAtr1.get(), txtAtr2.get(), txtAtr3.get(), txtAtr4.get()))
         btnConsultarTodo.grid(row=1, column=2, padx=10, pady=10)

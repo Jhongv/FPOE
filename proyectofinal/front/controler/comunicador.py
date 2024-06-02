@@ -28,12 +28,13 @@ class Comunicacion():
         resultado = requests.delete(self.url + '/' + str(id))
         return resultado.status_code
 
+
     def consultar(self, id):
         resultado = requests.get(self.url + '/' + str(id))
         return resultado.json()
 
     
-    def actualizar(self, id,nombre, apellido, cedula, telefono, email):
+    def actualizar(self, id, nombre, apellido, cedula, telefono, email):
         
         try:
             print(nombre, apellido, cedula, telefono, email)

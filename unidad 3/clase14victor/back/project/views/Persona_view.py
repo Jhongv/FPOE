@@ -1,12 +1,8 @@
-
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
-
 from ..Serializers.persona_serializer import *
 from api.models.persona import Persona
 from rest_framework import status
-
 from django.http import Http404
 
 
@@ -30,11 +26,15 @@ class Persona_APIView(APIView):
 
 class Persona_APIView_Detail(APIView):
 
+    def get_object(self, pk):
+        try:
+            return Persona.objects.get(pk=pk)
+        except Persona.DoesNotExist:
+            raise Http404
     def get(self, request, pk, format=None):
         post = self.get_object(pk)
         serializer = ClaseSerializers(post)  
         return Response(serializer.data)
-
     def put(self, request, pk, format=None):
         post = self.get_object(pk)
         serializer = ClaseSerializers(post, data=request.data)
@@ -42,9 +42,7 @@ class Persona_APIView_Detail(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
     def delete(self, request, pk, format=None):
         post = self.get_object(pk)
         post.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-

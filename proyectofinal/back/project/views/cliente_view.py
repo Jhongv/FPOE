@@ -30,11 +30,15 @@ class Cliente_APIView(APIView):
 
 class Cliente_APIView_Detail(APIView):
 
+    def get_object(self, pk):
+        try:
+            return Cliente.objects.get(pk=pk)
+        except Cliente.DoesNotExist:
+            raise Http404
     def get(self, request, pk, format=None):
         post = self.get_object(pk)
         serializer = ClaseSerializers(post)  
         return Response(serializer.data)
-
     def put(self, request, pk, format=None):
         post = self.get_object(pk)
         serializer = ClaseSerializers(post, data=request.data)
@@ -42,9 +46,7 @@ class Cliente_APIView_Detail(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
     def delete(self, request, pk, format=None):
         post = self.get_object(pk)
         post.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-

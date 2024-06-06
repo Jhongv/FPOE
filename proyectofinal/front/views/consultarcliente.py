@@ -26,8 +26,8 @@ class ConsultarCliente:
         pass
 
 
-    def accion_consultar_boton(self, id):
-        resultado = self.comunicador.consultar(id)
+    def accion_consultar_boton(self, cedula):
+        resultado = self.comunicador.consultar(cedula)
         print(resultado)
         print(type(resultado))
 

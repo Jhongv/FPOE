@@ -1,102 +1,91 @@
+import json
+import requests
 from tkinter import *
 import tkinter as tk
 from tkinter import ttk
-import re
+from tkinter import messagebox
 from controler.controlador import Validaciones
-from models.modelos import Servicio
-from models.modelos import Cliente
+from models.modelos import Servicio, Cliente
+from controler.comunicador import Comunicacion
 
 class ServiciosLaveloPues:
-    """
-    Clase que representa la interfaz gráfica para seleccionar y visualizar 
-    los servicios de LaveloPues.
-    """
-
     def __init__(self, menuSecundario):
-        """
-        Inicializa una nueva ventana secundaria y la lista de servicios.
-
-        Args:
-            menuSecundario (Tk): La ventana principal o secundaria desde la cual se abre esta interfaz.
-        """
         self.ventana = tk.Toplevel(menuSecundario)
-        self.listaServicios = []
+        self.comunicador = Comunicacion(self.ventana)
 
-    def seleccionarServicio(self, event, listaServicios, txtCedula, cbxcomboServicio, lblprecio, txtPrecioestablecido, lblDescripcion, txtDescripcion):
-        """
-        Actualiza la descripción y el precio del servicio seleccionado en el combobox.
-
-        Args:
-            event (Event): El evento de selección del combobox.
-            listaServicios (list): Lista de servicios disponibles.
-            txtCedula (Entry): Campo de entrada de la cédula del cliente.
-            cbxcomboServicio (ttk.Combobox): Combobox para seleccionar un servicio.
-            lblprecio (Label): Etiqueta para el precio del servicio.
-            txtPrecioestablecido (Entry): Campo de entrada para el precio del servicio.
-            lblDescripcion (Label): Etiqueta para la descripción del servicio.
-            txtDescripcion (Entry): Campo de entrada para la descripción del servicio.
-        """
+    def seleccionarServicio(self, event, txtCedula, cbxcomboServicio, lblprecio, txtPrecioestablecido, lblDescripcion, txtDescripcion):
         select = cbxcomboServicio.get()
-
         if select == "Lavado+Brillado+Aspirado":
             txtDescripcion.delete(0, tk.END)
             txtPrecioestablecido.delete(0, tk.END)
             txtDescripcion.insert(0, "Transforma tu auto:\nLavado, brillado y aspirado para un resplandor impecable\ny una frescura interior revitalizante.")
-            txtPrecioestablecido.insert(0, "$1000")
+            txtPrecioestablecido.insert(0, "1000")
             lblprecio.grid(row=0, column=0)
             txtPrecioestablecido.grid(row=0, column=1)
             lblDescripcion.grid(row=0, column=0)
             txtDescripcion.grid(row=0, column=1)
-            
-
         elif select == "Lavado+Limpieza/Motor+Porcelanizado+Aspirado":
             txtDescripcion.delete(0, tk.END)
             txtPrecioestablecido.delete(0, tk.END)
             txtDescripcion.insert(0, "Revitaliza tu auto:\nLavado, limpieza de motor,\nporcelanizado y aspirado para un brillo y\nrendimiento excepcionales, dentro y fuera.")
-            txtPrecioestablecido.insert(0, "$1200")
+            txtPrecioestablecido.insert(0, "1200")
             lblprecio.grid(row=0, column=0)
             txtPrecioestablecido.grid(row=0, column=1)
             lblDescripcion.grid(row=0, column=0)
             txtDescripcion.grid(row=0, column=1)
-
         elif select == "Lavado+Brillado+Lavado/Cojinería":
             txtDescripcion.delete(0, tk.END)
             txtPrecioestablecido.delete(0, tk.END)
             txtDescripcion.insert(0, "Transforma tu auto:\nLavado exterior,\nbrillado y lavado de\ncojinería para un\nbrillo impecable y una comodidad renovada.")
-            txtPrecioestablecido.insert(0, "$1300")
+            txtPrecioestablecido.insert(0, "1300")
             lblprecio.grid(row=0, column=0)
             txtPrecioestablecido.grid(row=0, column=1)
             lblDescripcion.grid(row=0, column=0)
             txtDescripcion.grid(row=0, column=1)
-
         elif select == "Lavado Interno+Brillado/Lámparas":
             txtDescripcion.delete(0, tk.END)
             txtPrecioestablecido.delete(0, tk.END)
             txtDescripcion.insert(0, "Renueva tu auto por dentro:\nlavado interno, brillado de\nsuperficies y\nlamparaz para un\ninterior reluciente y acogedor.")
-            txtPrecioestablecido.insert(0, "$4500")
+            txtPrecioestablecido.insert(0, "4500")
             lblprecio.grid(row=0, column=0)
             txtPrecioestablecido.grid(row=0, column=1)
             lblDescripcion.grid(row=0, column=0)
             txtDescripcion.grid(row=0, column=1)
 
-    def mostrarInterfaz(self):
-        """
-        Configura y muestra la interfaz gráfica para seleccionar y visualizar los servicios.
-        """
-        def eventoVCedula(event):
-            """
-            Valida la cédula del cliente en tiempo real y muestra un mensaje de error si es inválida.
+    def consultarBoton(self, cedula, labelDescripcion, textoDesc, labelPalPrecio, textoPrecio, botonAS):
+        cliente = self.comunicador.consultar(cedula)
+        if cliente:
+            labelDescripcion.grid(row=0, column=0)
+            textoDesc.grid(row=0, column=1)
+            labelPalPrecio.grid(row=0, column=0)
+            textoPrecio.grid(row=0, column=1)
+            botonAS.config(state="normal")
+            messagebox.showinfo("Información", "Cliente encontrado. Puede agregar el servicio.")
+        else:
+            messagebox.showerror("Información", "Cliente no encontrado. No se puede agregar el servicio.")
 
-            Args:
-                event (Event): El evento de liberación de una tecla en el campo de entrada de la cédula.
-            """
+    def mostrarInterfaz(self):
+        def eventoVCedula(event):
             global cedula
             if Validaciones.validarCedula(servicio.cedulaCliente):
                 textoVCedula = ""
             else:
                 textoVCedula = "Cédula debe tener entre 7 a 10 dígitos"
             lblErrorCedula.config(text=textoVCedula)
-        
+
+        def agregarServicio():
+            cedulaV = servicio.cedulaCliente.get()
+            servicioV = servicio.nombreServicio.get()
+            descripcionV = servicio.descripcion.get()
+            precioV = servicio.precio.get()
+
+            if cedulaV and servicioV and descripcionV and precioV:
+                resultado=self.comunicador.guardarServicio(cedulaV, servicioV, descripcionV, precioV)
+                
+                messagebox.showinfo("Información", "Servicio agregado correctamente.")
+            else:
+                messagebox.showerror("Información", "No se pudo guardar, confirme si está correcto")
+
         self.ventana.focus_set()
         self.ventana.title("Servicios de LaveloPues")
         self.ventana.resizable(0, 0)
@@ -117,6 +106,8 @@ class ServiciosLaveloPues:
         txtCedulaClienteAccSer.grid(row=0, column=1)
         lblErrorCedula = Label(marco1, text="", fg="red")
         lblErrorCedula.grid(row=1, column=1)
+        btnConsultar = Button(marco1, text="Consultar", command=lambda: self.consultarBoton(txtCedulaClienteAccSer.get(), lblDescripcion, txtDescripcion, lblPalabraPrecio, txtPrecio, btnAgregar))
+        btnConsultar.grid(row=0, column=2, padx=10, pady=10)
 
         marco2 = LabelFrame(self.ventana)
         marco2.grid(row=2, column=0, padx=10, pady=10)
@@ -130,7 +121,7 @@ class ServiciosLaveloPues:
 
         lblDescripcion = Label(marco3, text="Descripción:")
         lblDescripcion.grid_forget()
-        txtDescripcion = ttk.Entry(marco3, justify=tk.CENTER, textvariable=servicio.descripcion)
+        txtDescripcion = ttk.Entry(marco3, justify=tk.CENTER,textvariable=servicio.descripcion)
         txtDescripcion.grid_forget()
 
         marco4 = LabelFrame(self.ventana)
@@ -141,7 +132,11 @@ class ServiciosLaveloPues:
         txtPrecio = ttk.Entry(marco4, justify=tk.CENTER, textvariable=servicio.precio)
         txtPrecio.grid_forget()
 
-        cbxServicio.bind("<<ComboboxSelected>>", lambda event: self.seleccionarServicio(event, self.listaServicios, txtCedulaClienteAccSer, cbxServicio, lblPalabraPrecio, txtPrecio, lblDescripcion, txtDescripcion))
+        btnAgregar = Button(self.ventana, text="Agregar\nServicio", command=agregarServicio)
+        btnAgregar.grid(row=5, column=0)
+        btnAgregar.config(state="disabled")
+        cbxServicio.bind("<<ComboboxSelected>>", lambda event: self.seleccionarServicio(event, txtCedulaClienteAccSer, cbxServicio, lblPalabraPrecio, txtPrecio, lblDescripcion, txtDescripcion))
         txtCedulaClienteAccSer.bind("<KeyRelease>", eventoVCedula)
 
         self.ventana.mainloop()
+

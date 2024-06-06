@@ -35,7 +35,7 @@ class Hilo6(threading.Thread):
             else:
                 variable = self.variable
 
-                f = open("Name.txt", "w") 
+                f = open("nombres.txt", "w") 
                 f.write(variable)
                 f.close()
                 logging.debug("Se guardó la variable"+ variable+"\n")

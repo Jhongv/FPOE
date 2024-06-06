@@ -178,83 +178,91 @@ class ActualizarCliente:
         marco1 = LabelFrame(self.ventana)
         marco1.grid(row=1, column=0, padx=10, pady=10)
 
-        lblSeleccionar = Label(marco1, text="Seleccione el campo que quiere modificar:")
-        lblSeleccionar.grid(row=0, column=0, padx=5, pady=5)
+        lblInfoSelectBtnAct=Label(marco1, text="Debe presionar este botón primero, para que visualize la información que desea modificar.")
+        lblInfoSelectBtnAct.grid(row=0, column=0)
 
-        cbxSeleccionarCampoActualizar = ttk.Combobox(marco1, values=["Nombre", "Apellido", "Cédula", "Teléfono", "Email"])
-        cbxSeleccionarCampoActualizar.grid(row=0, column=1, padx=5, pady=5)
+        btnConsultarTodo=Button(marco1, text="Consulta los elementos", command=lambda:self.accion_consultar_todo(txtNombreCliente.get(), txtApellidoCliente.get(), txtCedulaCliente.get(), txtTelefonoCliente.get(), txtEmailCliente.get()))
+        btnConsultarTodo.grid(row=0, column=1, padx=10, pady=10)
 
         marco2 = LabelFrame(self.ventana)
         marco2.grid(row=2, column=0, padx=10, pady=10)
 
-        lblNombreCliente = Label(marco2, text="Nombre*:")
-        lblNombreCliente.grid_forget()
+        lblSeleccionar = Label(marco2, text="Seleccione el campo que quiere modificar:")
+        lblSeleccionar.grid(row=0, column=0, padx=5, pady=5)
 
-        txtNombreCliente = Entry(marco2, textvariable=cliente.nombre)
-        txtNombreCliente.grid_forget()
-
-        lblErrorNombre = Label(marco2, text="", fg="red")
-        lblErrorNombre.grid_forget()
+        cbxSeleccionarCampoActualizar = ttk.Combobox(marco2, values=["Nombre", "Apellido", "Cédula", "Teléfono", "Email"])
+        cbxSeleccionarCampoActualizar.grid(row=0, column=1, padx=5, pady=5)
 
         marco3 = LabelFrame(self.ventana)
         marco3.grid(row=3, column=0, padx=10, pady=10)
 
-        lblApellidoCliente = Label(marco3, text="Apellido*:")
-        lblApellidoCliente.grid_forget()
+        lblNombreCliente = Label(marco3, text="Nombre*:")
+        lblNombreCliente.grid_forget()
 
-        txtApellidoCliente = Entry(marco3, textvariable=cliente.apellido)
-        txtApellidoCliente.grid_forget()
+        txtNombreCliente = Entry(marco3, textvariable=cliente.nombre)
+        txtNombreCliente.grid_forget()
 
-        lblErrorApellido = Label(marco3, text="", fg="red")
-        lblErrorApellido.grid_forget()
+        lblErrorNombre = Label(marco3, text="", fg="red")
+        lblErrorNombre.grid_forget()
 
         marco4 = LabelFrame(self.ventana)
         marco4.grid(row=4, column=0, padx=10, pady=10)
 
-        lblCedulaCliente = Label(marco4, text="Cédula*:")
-        lblCedulaCliente.grid_forget()
+        lblApellidoCliente = Label(marco4, text="Apellido*:")
+        lblApellidoCliente.grid_forget()
 
-        txtCedulaCliente = Entry(marco4, textvariable=cliente.cedula)
-        txtCedulaCliente.grid_forget()
+        txtApellidoCliente = Entry(marco4, textvariable=cliente.apellido)
+        txtApellidoCliente.grid_forget()
 
-        lblErrorCedula = Label(marco4, text="", fg="red")
-        lblErrorCedula.grid_forget()
+        lblErrorApellido = Label(marco4, text="", fg="red")
+        lblErrorApellido.grid_forget()
 
         marco5 = LabelFrame(self.ventana)
         marco5.grid(row=5, column=0, padx=10, pady=10)
 
-        lblTelefonoCliente = Label(marco5, text="Teléfono*:")
-        lblTelefonoCliente.grid_forget()
+        lblCedulaCliente = Label(marco5, text="Cédula*:")
+        lblCedulaCliente.grid_forget()
 
-        txtTelefonoCliente = Entry(marco5, textvariable=cliente.telefono)
-        txtTelefonoCliente.grid_forget()
+        txtCedulaCliente = Entry(marco5, textvariable=cliente.cedula)
+        txtCedulaCliente.grid_forget()
 
-        lblErrorTelefono = Label(marco5, text="", fg="red")
-        lblErrorTelefono.grid_forget()
+        lblErrorCedula = Label(marco5, text="", fg="red")
+        lblErrorCedula.grid_forget()
 
         marco6 = LabelFrame(self.ventana)
         marco6.grid(row=6, column=0, padx=10, pady=10)
 
-        lblEmailCliente = Label(marco6, text="Email*:")
-        lblEmailCliente.grid_forget()
+        lblTelefonoCliente = Label(marco6, text="Teléfono*:")
+        lblTelefonoCliente.grid_forget()
 
-        txtEmailCliente = Entry(marco6, textvariable=cliente.email)
-        txtEmailCliente.grid_forget()
+        txtTelefonoCliente = Entry(marco6, textvariable=cliente.telefono)
+        txtTelefonoCliente.grid_forget()
 
-        lblErrorEmail = Label(marco6, text="", fg="red")
-        lblErrorEmail.grid_forget()
+        lblErrorTelefono = Label(marco6, text="", fg="red")
+        lblErrorTelefono.grid_forget()
 
         marco7 = LabelFrame(self.ventana)
         marco7.grid(row=7, column=0, padx=10, pady=10)
 
-        txtId=Entry(marco7)
+        lblEmailCliente = Label(marco7, text="Email*:")
+        lblEmailCliente.grid_forget()
+
+        txtEmailCliente = Entry(marco7, textvariable=cliente.email)
+        txtEmailCliente.grid_forget()
+
+        lblErrorEmail = Label(marco7, text="", fg="red")
+        lblErrorEmail.grid_forget()
+
+        marco8 = LabelFrame(self.ventana)
+        marco8.grid(row=8, column=0, padx=10, pady=10)
+
+        txtId=Entry(marco8)
         txtId.grid(row=0, column=0)
 
         btnActualizarDatosCliente = Button(self.ventana, text="Actualizar", command=lambda:self.actualizar(txtId.get(), txtNombreCliente.get(), txtApellidoCliente.get(), txtCedulaCliente.get(), txtTelefonoCliente.get(), txtEmailCliente.get()))
-        btnActualizarDatosCliente.grid(row=8, column=0, padx=10, pady=10)
+        btnActualizarDatosCliente.grid(row=7, column=0, padx=10, pady=10)
 
-        btnConsultarTodo=Button(self.ventana, text="Consulta los elementos", command=lambda:self.accion_consultar_todo(txtNombreCliente.get(), txtApellidoCliente.get(), txtCedulaCliente.get(), txtTelefonoCliente.get(), txtEmailCliente.get()))
-        btnConsultarTodo.grid(row=8, column=1, padx=10, pady=10)
+        
         self.tabla.tabla.grid(row=9, column=0, columnspan=3)
 
         def seleccionar_elemento(_):

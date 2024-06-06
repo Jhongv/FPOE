@@ -41,19 +41,6 @@ class EliminarCliente:
         """
         Configura y muestra la interfaz gráfica para eliminar un cliente.
         """
-        def eventoVCedula(event):
-            """
-            Valida la cédula del cliente en tiempo real y muestra un mensaje de error si es inválida.
-
-            Args:
-                event (Event): El evento de liberación de una tecla en el campo de entrada de la cédula.
-            """
-            global cedula
-            if Validaciones.validarCedula(cliente.cedula):
-                textoVCedula = ""
-            else:
-                textoVCedula = "Cédula debe tener entre 7 a 10 dígitos"
-            lblErrorCedula.config(text=textoVCedula)
 
 
         self.ventana.focus_set()
@@ -68,7 +55,7 @@ class EliminarCliente:
         lblTitulo.grid(row=0, column=0, padx=10, pady=10)
 
         marco1 = LabelFrame(self.ventana)
-        marco1.grid(row=1, column=0, padx=10, pady=10)
+        marco1.grid_forget()
 
         lblCedulaCliente = Label(marco1, text="Cédula*:")
         lblCedulaCliente.grid(row=0, column=0, padx=5, pady=5)
@@ -80,7 +67,7 @@ class EliminarCliente:
         lblErrorCedula.grid(row=1, column=1)
 
         marco2 = LabelFrame(self.ventana)
-        marco2.grid(row=2, column=0, padx=10, pady=10)
+        marco2.grid_forget()
 
         lblNombreCliente = Label(marco2, text="Nombre*:")
         lblNombreCliente.grid_forget()
@@ -92,7 +79,7 @@ class EliminarCliente:
         lblErrorNombre.grid_forget()
 
         marco3 = LabelFrame(self.ventana)
-        marco3.grid(row=3, column=0, padx=10, pady=10)
+        marco3.grid_forget()
 
         lblApellidoCliente = Label(marco3, text="Apellido*:")
         lblApellidoCliente.grid_forget()
@@ -104,7 +91,11 @@ class EliminarCliente:
         lblErrorApellido.grid_forget()
 
         marco4 = LabelFrame(self.ventana)
+<<<<<<< HEAD
         marco4.grid(row=4, column=0, padx=10, pady=10)
+=======
+        marco4.grid_forget()
+>>>>>>> 169cf54a5288c494e9d639158de025d38760e3b6
 
         lblTelefonoCliente = Label(marco4, text="Teléfono*:")
         lblTelefonoCliente.grid_forget()
@@ -116,7 +107,11 @@ class EliminarCliente:
         lblErrorTelefono.grid_forget()
 
         marco5 = LabelFrame(self.ventana)
+<<<<<<< HEAD
         marco5.grid(row=6, column=0, padx=10, pady=10)
+=======
+        marco5.grid_forget()
+>>>>>>> 169cf54a5288c494e9d639158de025d38760e3b6
 
         lblEmailCliente = Label(marco5, text="Email*:")
         lblEmailCliente.grid_forget()
@@ -129,13 +124,18 @@ class EliminarCliente:
 
 
 
+<<<<<<< HEAD
         lblEliminar = Label(self.ventana, text="¡Presiona 'supr'!\¡nCon esto eliminaras al cliente seleccionado\ncon el mouse!")
+=======
+        lblEliminar = Label(self.ventana, text="¡Presiona 'supr'!\n¡Con esto eliminaras al cliente seleccionado\ncon el mouse!")
+>>>>>>> 169cf54a5288c494e9d639158de025d38760e3b6
         lblEliminar.grid(row=8, column=0, padx=5, pady=5)
 
         btnConsultarTodo=Button(self.ventana, text="Consulta los elementos", command=lambda:self.accion_consultar_todo(txtNombreCliente.get(), txtApellidoCliente.get(), txtCedulaCliente.get(), txtTelefonoCliente.get(), txtEmailCliente.get()))
         btnConsultarTodo.grid(row=9, column=0, padx=10, pady=10)
 
         self.tabla.tabla.grid(row=10, column=0, columnspan=3)
+<<<<<<< HEAD
 
         def borrar_elemento(_):
             for i in self.tabla.tabla.selection():
@@ -145,3 +145,13 @@ class EliminarCliente:
         txtCedulaCliente.bind("<KeyRelease>", eventoVCedula)
         self.tabla.tabla.bind('<Delete>', borrar_elemento)
         self.ventana.mainloop()
+=======
+
+        def borrar_elemento(_):
+            for i in self.tabla.tabla.selection():
+                self.comunicador.eliminar(self.tabla.tabla.item(i)['values'][0])
+                self.tabla.tabla.delete(i)
+
+        self.tabla.tabla.bind('<Delete>', borrar_elemento)
+        self.ventana.mainloop()
+>>>>>>> 169cf54a5288c494e9d639158de025d38760e3b6

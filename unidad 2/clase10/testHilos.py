@@ -44,9 +44,9 @@ hilo_6 = Hilo6('hilo_6', 5, '')
 
 
 
-#hilo_1.start()
+hilo_1.start()
 #hilo_1.join()
-#hilo_2.start()
+hilo_2.start()
 #hilo_2.join()
 #hilo_3.start()
 #hilo_3.join()
@@ -55,7 +55,7 @@ hilo_6 = Hilo6('hilo_6', 5, '')
 #hilo_5.start()
 #hilo_5.join()
 #hilo_6.join()
-hilo_6.start()
+#hilo_6.start()
 
 while True:
     variable = input("Por favor ingrese el nombre: ")

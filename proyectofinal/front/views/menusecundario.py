@@ -1,3 +1,13 @@
+<<<<<<< HEAD
+=======
+from .agregarcliente import AgregarCliente  # Importa la clase AgregarCliente del archivo agregarcliente
+from .eliminarcliente import EliminarCliente  # Importa la clase EliminarCliente del archivo eliminarcliente
+from .actualizarcliente import ActualizarCliente  # Importa la clase ActualizarCliente del archivo actualizarcliente
+from .consultarcliente import ConsultarCliente  # Importa la clase ConsultarCliente del archivo consultarcliente
+from .agregarServicio import AgregarServicio  # Importa la clase ServiciosLaveloPues del archivo serviciosDeLavelopues
+from .consultarServicios import ConsultarServicios
+
+>>>>>>> 169cf54a5288c494e9d639158de025d38760e3b6
 from tkinter import *
 import tkinter as tk
 from models.modelos import Cliente
@@ -55,11 +65,31 @@ class EliminarCliente:
                 textoVCedula = "Cédula debe tener entre 7 a 10 dígitos"
             lblErrorCedula.config(text=textoVCedula)
 
+<<<<<<< HEAD
 
         self.ventana.focus_set()
         self.ventana.title("Eliminar Cliente")
         self.ventana.resizable(0, 0)
         cliente = Cliente(self.ventana)
+=======
+    def accederAServicio1(self):
+        """
+        Abre la interfaz para acceder a un servicio específico.
+        """
+        acceder_servicio_1 = AgregarServicio(self.root)  # Crea una instancia de la clase ServiciosLaveloPues
+        acceder_servicio_1.mostrarInterfaz()  # Muestra la interfaz del servicio
+
+    def consultarServicio(self):
+        consultar_servicio=ConsultarServicios(self.root)
+        consultar_servicio.mostrarInterfaz()
+
+
+    def __init__(self):
+        """
+        Inicializa la ventana principal de la aplicación y configura el menú.
+        """
+        self.root = Tk()  # Crea la ventana principal
+>>>>>>> 169cf54a5288c494e9d639158de025d38760e3b6
 
         # Marco del título
         marcoTitulo = LabelFrame(self.ventana)
@@ -73,8 +103,14 @@ class EliminarCliente:
         lblCedulaCliente = Label(marco1, text="Cédula*:")
         lblCedulaCliente.grid(row=0, column=0, padx=5, pady=5)
 
+<<<<<<< HEAD
         txtCedulaCliente = Entry(marco1, textvariable=cliente.cedula)
         txtCedulaCliente.grid(row=0, column=1, padx=5, pady=5)
+=======
+        Acceder_a_servicios = Menu(menu, tearoff=0)  # Crea un submenú para acceder a servicios
+        Acceder_a_servicios.add_command(label='Seleccione el servicio aquí', command=lambda: self.accederAServicio1())
+        Acceder_a_servicios.add_command(label='Consulta los servicios', command=lambda: self.consultarServicio())
+>>>>>>> 169cf54a5288c494e9d639158de025d38760e3b6
 
         lblErrorCedula = Label(marco1, text='', fg="red")
         lblErrorCedula.grid(row=1, column=1)

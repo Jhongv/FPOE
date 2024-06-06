@@ -10,7 +10,7 @@ class EliminarCliente:
     Clase que representa la interfaz gráfica para eliminar un cliente.
     """
 
-    def __init__(self, menuSecundario):
+    def _init_(self, menuSecundario):
         """
         Inicializa una nueva ventana secundaria.
 
@@ -23,9 +23,10 @@ class EliminarCliente:
         self.ventana = tk.Toplevel(menuSecundario)
         self.comunicador=Comunicacion(self.ventana)
         self.tabla=Tabla(self.ventana, titulos, columnas, data)
+        self.ventana = tk.Toplevel(menuSecundario)
         pass
 
-        self.ventana = tk.Toplevel(menuSecundario)
+        
 
 
     def accion_consultar_todo(self, nombre, apellido, cedula, telefono, email):
@@ -102,48 +103,45 @@ class EliminarCliente:
         lblErrorApellido = Label(marco3, text="", fg="red")
         lblErrorApellido.grid_forget()
 
-        marco5 = LabelFrame(self.ventana)
-        marco5.grid(row=5, column=0, padx=10, pady=10)
+        marco4 = LabelFrame(self.ventana)
+        marco4.grid(row=4, column=0, padx=10, pady=10)
 
-        lblTelefonoCliente = Label(marco5, text="Teléfono*:")
+        lblTelefonoCliente = Label(marco4, text="Teléfono*:")
         lblTelefonoCliente.grid_forget()
 
-        txtTelefonoCliente = Entry(marco5, textvariable=cliente.telefono)
+        txtTelefonoCliente = Entry(marco4, textvariable=cliente.telefono)
         txtTelefonoCliente.grid_forget()
 
-        lblErrorTelefono = Label(marco5, text="", fg="red")
+        lblErrorTelefono = Label(marco4, text="", fg="red")
         lblErrorTelefono.grid_forget()
 
-        marco6 = LabelFrame(self.ventana)
-        marco6.grid(row=6, column=0, padx=10, pady=10)
+        marco5 = LabelFrame(self.ventana)
+        marco5.grid(row=6, column=0, padx=10, pady=10)
 
-        lblEmailCliente = Label(marco6, text="Email*:")
+        lblEmailCliente = Label(marco5, text="Email*:")
         lblEmailCliente.grid_forget()
 
-        txtEmailCliente = Entry(marco6, textvariable=cliente.email)
+        txtEmailCliente = Entry(marco5, textvariable=cliente.email)
         txtEmailCliente.grid_forget()
 
-        lblErrorEmail = Label(marco6, text="", fg="red")
+        lblErrorEmail = Label(marco5, text="", fg="red")
         lblErrorEmail.grid_forget()
 
-        marco7 = LabelFrame(self.ventana)
-        marco7.grid(row=7, column=0, padx=10, pady=10)
-
-        txtId=Entry(marco7)
-        txtId.grid(row=0, column=0)
 
 
-        btnEliminar = Button(self.ventana, text="Eliminar", padx=5, pady=5)
-        btnEliminar.grid(row=6, column=0, padx=5, pady=5)
-
-        btnConsultar = Button(self.ventana, text="Consultar", padx=5, pady=5)
-        btnConsultar.grid(row=7, column=0, padx=5, pady=5)
+        lblEliminar = Label(self.ventana, text="¡Presiona 'supr'!\¡nCon esto eliminaras al cliente seleccionado\ncon el mouse!")
+        lblEliminar.grid(row=8, column=0, padx=5, pady=5)
 
         btnConsultarTodo=Button(self.ventana, text="Consulta los elementos", command=lambda:self.accion_consultar_todo(txtNombreCliente.get(), txtApellidoCliente.get(), txtCedulaCliente.get(), txtTelefonoCliente.get(), txtEmailCliente.get()))
-        btnConsultarTodo.grid(row=8, column=1, padx=10, pady=10)
+        btnConsultarTodo.grid(row=9, column=0, padx=10, pady=10)
 
-        self.tabla.tabla.grid(row=9, column=0, columnspan=3)
+        self.tabla.tabla.grid(row=10, column=0, columnspan=3)
+
+        def borrar_elemento(_):
+            for i in self.tabla.tabla.selection():
+                self.comunicador.eliminar(self.tabla.tabla.item(i)['values'][0])
+                self.tabla.tabla.delete(i)
 
         txtCedulaCliente.bind("<KeyRelease>", eventoVCedula)
-
+        self.tabla.tabla.bind('<Delete>', borrar_elemento)
         self.ventana.mainloop()

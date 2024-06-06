@@ -1,73 +1,147 @@
-from .agregarcliente import AgregarCliente  # Importa la clase AgregarCliente del archivo agregarcliente
-from .eliminarcliente import EliminarCliente  # Importa la clase EliminarCliente del archivo eliminarcliente
-from .actualizarcliente import ActualizarCliente  # Importa la clase ActualizarCliente del archivo actualizarcliente
-from .consultarcliente import ConsultarCliente  # Importa la clase ConsultarCliente del archivo consultarcliente
-from .serviciosDeLavelopues import ServiciosLaveloPues  # Importa la clase ServiciosLaveloPues del archivo serviciosDeLavelopues
 from tkinter import *
+import tkinter as tk
+from models.modelos import Cliente
+from controler.controlador import Validaciones
+from .tabla import Tabla
+from controler.comunicador import Comunicacion
 
-class Menu2:
+class EliminarCliente:
     """
-    Clase que representa el menú principal de la aplicación, 
-    permitiendo gestionar clientes y acceder a servicios.
+    Clase que representa la interfaz gráfica para eliminar un cliente.
     """
 
-    def agregarCliente(self):
+    def _init_(self, menuSecundario):
         """
-        Abre la interfaz para agregar un nuevo cliente.
-        """
-        agregar_cliente = AgregarCliente(self.root)  # Crea una instancia de la clase AgregarCliente
-        agregar_cliente.mostrarInterfaz()  # Muestra la interfaz de agregar cliente
+        Inicializa una nueva ventana secundaria.
 
-    def eliminarCliente(self):
+        Args:
+            menuSecundario (Tk): La ventana principal o secundaria desde la cual se abre esta interfaz.
         """
-        Abre la interfaz para eliminar un cliente existente.
+        titulos=['Identificador','Nombre','Apellido','Cédula','Teléfono','Email']
+        columnas=['id', 'nombre', 'apellido', 'cedula', 'telefono', 'email']
+        data=[]
+        self.ventana = tk.Toplevel(menuSecundario)
+        self.comunicador=Comunicacion(self.ventana)
+        self.tabla=Tabla(self.ventana, titulos, columnas, data)
+        self.ventana = tk.Toplevel(menuSecundario)
+        pass
+
+        
+
+
+    def accion_consultar_todo(self, nombre, apellido, cedula, telefono, email):
+        resultado=self.comunicador.consultar_todo(nombre, apellido, cedula, telefono, email)
+        data=[]
+        for elemento in resultado:
+            data.append((elemento.get('id'),elemento.get('nombre'),elemento.get('apellido'),elemento.get('cedula'),elemento.get('telefono'), elemento.get('email')))
+        self.tabla.refrescar(data)
+
+
+    def mostrarInterfaz(self):
         """
-        eliminar_cliente = EliminarCliente(self.root)  # Crea una instancia de la clase EliminarCliente
-        eliminar_cliente.mostrarInterfaz()  # Muestra la interfaz de eliminar cliente
-
-    def actualizarCliente(self):
+        Configura y muestra la interfaz gráfica para eliminar un cliente.
         """
-        Abre la interfaz para actualizar la información de un cliente existente.
-        """
-        actualizar_cliente = ActualizarCliente(self.root)  # Crea una instancia de la clase ActualizarCliente
-        actualizar_cliente.mostrarInterfaz()  # Muestra la interfaz de actualizar cliente
+        def eventoVCedula(event):
+            """
+            Valida la cédula del cliente en tiempo real y muestra un mensaje de error si es inválida.
 
-    def consultarCliente(self):
-        """
-        Abre la interfaz para consultar la información de un cliente existente.
-        """
-        consultar_cliente = ConsultarCliente(self.root)  # Crea una instancia de la clase ConsultarCliente
-        consultar_cliente.mostrarInterfaz()  # Muestra la interfaz de consultar cliente
+            Args:
+                event (Event): El evento de liberación de una tecla en el campo de entrada de la cédula.
+            """
+            global cedula
+            if Validaciones.validarCedula(cliente.cedula):
+                textoVCedula = ""
+            else:
+                textoVCedula = "Cédula debe tener entre 7 a 10 dígitos"
+            lblErrorCedula.config(text=textoVCedula)
 
-    def accederAServicio1(self):
-        """
-        Abre la interfaz para acceder a un servicio específico.
-        """
-        acceder_servicio_1 = ServiciosLaveloPues(self.root)  # Crea una instancia de la clase ServiciosLaveloPues
-        acceder_servicio_1.mostrarInterfaz()  # Muestra la interfaz del servicio
 
-    def __init__(self):
-        """
-        Inicializa la ventana principal de la aplicación y configura el menú.
-        """
-        self.root = Tk()  # Crea la ventana principal
+        self.ventana.focus_set()
+        self.ventana.title("Eliminar Cliente")
+        self.ventana.resizable(0, 0)
+        cliente = Cliente(self.ventana)
 
-        self.root.geometry("800x600")  # Establece el tamaño de la ventana
-        self.root.minsize(400, 300)  # Establece el tamaño mínimo de la ventana
+        # Marco del título
+        marcoTitulo = LabelFrame(self.ventana)
+        marcoTitulo.grid(row=0, column=0, padx=10, pady=10)
+        lblTitulo = Label(marcoTitulo, text="Eliminar Cliente")
+        lblTitulo.grid(row=0, column=0, padx=10, pady=10)
 
-        menu = Menu(self.root)  # Crea un menú para la ventana
-        self.root.config(menu=menu)  # Configura el menú en la ventana
+        marco1 = LabelFrame(self.ventana)
+        marco1.grid(row=1, column=0, padx=10, pady=10)
 
-        Gestionar_clientes = Menu(menu, tearoff=0)  # Crea un submenú para gestionar clientes
-        Gestionar_clientes.add_command(label='Registrar clientes', command=lambda: self.agregarCliente())
-        Gestionar_clientes.add_command(label='Actualizar clientes', command=lambda: self.actualizarCliente())
-        Gestionar_clientes.add_command(label='Consultar clientes', command=lambda: self.consultarCliente())
-        Gestionar_clientes.add_command(label='Borrar clientes', command=lambda: self.eliminarCliente())
+        lblCedulaCliente = Label(marco1, text="Cédula*:")
+        lblCedulaCliente.grid(row=0, column=0, padx=5, pady=5)
 
-        Acceder_a_servicios = Menu(menu, tearoff=0)  # Crea un submenú para acceder a servicios
-        Acceder_a_servicios.add_command(label='Seleccione el servicio aquí', command=lambda: self.accederAServicio1())
+        txtCedulaCliente = Entry(marco1, textvariable=cliente.cedula)
+        txtCedulaCliente.grid(row=0, column=1, padx=5, pady=5)
 
-        menu.add_cascade(label='Gestionar clientes', menu=Gestionar_clientes)  # Añade el submenú de gestionar clientes al menú principal
-        menu.add_cascade(label='Acceder a servicios', menu=Acceder_a_servicios)  # Añade el submenú de acceder a servicios al menú principal
+        lblErrorCedula = Label(marco1, text='', fg="red")
+        lblErrorCedula.grid(row=1, column=1)
 
-        self.root.mainloop()  # Inicia el bucle principal de la aplicación
+        marco2 = LabelFrame(self.ventana)
+        marco2.grid(row=2, column=0, padx=10, pady=10)
+
+        lblNombreCliente = Label(marco2, text="Nombre*:")
+        lblNombreCliente.grid_forget()
+
+        txtNombreCliente = Entry(marco2, textvariable=cliente.nombre)
+        txtNombreCliente.grid_forget()
+
+        lblErrorNombre = Label(marco2, text="", fg="red")
+        lblErrorNombre.grid_forget()
+
+        marco3 = LabelFrame(self.ventana)
+        marco3.grid(row=3, column=0, padx=10, pady=10)
+
+        lblApellidoCliente = Label(marco3, text="Apellido*:")
+        lblApellidoCliente.grid_forget()
+
+        txtApellidoCliente = Entry(marco3, textvariable=cliente.apellido)
+        txtApellidoCliente.grid_forget()
+
+        lblErrorApellido = Label(marco3, text="", fg="red")
+        lblErrorApellido.grid_forget()
+
+        marco4 = LabelFrame(self.ventana)
+        marco4.grid(row=4, column=0, padx=10, pady=10)
+
+        lblTelefonoCliente = Label(marco4, text="Teléfono*:")
+        lblTelefonoCliente.grid_forget()
+
+        txtTelefonoCliente = Entry(marco4, textvariable=cliente.telefono)
+        txtTelefonoCliente.grid_forget()
+
+        lblErrorTelefono = Label(marco4, text="", fg="red")
+        lblErrorTelefono.grid_forget()
+
+        marco5 = LabelFrame(self.ventana)
+        marco5.grid(row=6, column=0, padx=10, pady=10)
+
+        lblEmailCliente = Label(marco5, text="Email*:")
+        lblEmailCliente.grid_forget()
+
+        txtEmailCliente = Entry(marco5, textvariable=cliente.email)
+        txtEmailCliente.grid_forget()
+
+        lblErrorEmail = Label(marco5, text="", fg="red")
+        lblErrorEmail.grid_forget()
+
+
+
+        lblEliminar = Label(self.ventana, text="¡Presiona 'supr'!\¡nCon esto eliminaras al cliente seleccionado\ncon el mouse!")
+        lblEliminar.grid(row=8, column=0, padx=5, pady=5)
+
+        btnConsultarTodo=Button(self.ventana, text="Consulta los elementos", command=lambda:self.accion_consultar_todo(txtNombreCliente.get(), txtApellidoCliente.get(), txtCedulaCliente.get(), txtTelefonoCliente.get(), txtEmailCliente.get()))
+        btnConsultarTodo.grid(row=9, column=0, padx=10, pady=10)
+
+        self.tabla.tabla.grid(row=10, column=0, columnspan=3)
+
+        def borrar_elemento(_):
+            for i in self.tabla.tabla.selection():
+                self.comunicador.eliminar(self.tabla.tabla.item(i)['values'][0])
+                self.tabla.tabla.delete(i)
+
+        txtCedulaCliente.bind("<KeyRelease>", eventoVCedula)
+        self.tabla.tabla.bind('<Delete>', borrar_elemento)
+        self.ventana.mainloop()

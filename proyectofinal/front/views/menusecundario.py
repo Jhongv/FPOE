@@ -2,7 +2,9 @@ from .agregarcliente import AgregarCliente  # Importa la clase AgregarCliente de
 from .eliminarcliente import EliminarCliente  # Importa la clase EliminarCliente del archivo eliminarcliente
 from .actualizarcliente import ActualizarCliente  # Importa la clase ActualizarCliente del archivo actualizarcliente
 from .consultarcliente import ConsultarCliente  # Importa la clase ConsultarCliente del archivo consultarcliente
-from .serviciosDeLavelopues import ServiciosLaveloPues  # Importa la clase ServiciosLaveloPues del archivo serviciosDeLavelopues
+from .agregarServicio import AgregarServicio  # Importa la clase ServiciosLaveloPues del archivo serviciosDeLavelopues
+from .consultarServicios import ConsultarServicios
+
 from tkinter import *
 
 class Menu2:
@@ -43,8 +45,13 @@ class Menu2:
         """
         Abre la interfaz para acceder a un servicio específico.
         """
-        acceder_servicio_1 = ServiciosLaveloPues(self.root)  # Crea una instancia de la clase ServiciosLaveloPues
+        acceder_servicio_1 = AgregarServicio(self.root)  # Crea una instancia de la clase ServiciosLaveloPues
         acceder_servicio_1.mostrarInterfaz()  # Muestra la interfaz del servicio
+
+    def consultarServicio(self):
+        consultar_servicio=ConsultarServicios(self.root)
+        consultar_servicio.mostrarInterfaz()
+
 
     def __init__(self):
         """
@@ -66,6 +73,7 @@ class Menu2:
 
         Acceder_a_servicios = Menu(menu, tearoff=0)  # Crea un submenú para acceder a servicios
         Acceder_a_servicios.add_command(label='Seleccione el servicio aquí', command=lambda: self.accederAServicio1())
+        Acceder_a_servicios.add_command(label='Consulta los servicios', command=lambda: self.consultarServicio())
 
         menu.add_cascade(label='Gestionar clientes', menu=Gestionar_clientes)  # Añade el submenú de gestionar clientes al menú principal
         menu.add_cascade(label='Acceder a servicios', menu=Acceder_a_servicios)  # Añade el submenú de acceder a servicios al menú principal

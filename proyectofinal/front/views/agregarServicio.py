@@ -8,7 +8,7 @@ from controler.controlador import Validaciones
 from models.modelos import Servicio, Cliente
 from controler.comunicador import Comunicacion
 
-class ServiciosLaveloPues:
+class AgregarServicio:
     def __init__(self, menuSecundario):
         self.ventana = tk.Toplevel(menuSecundario)
         self.comunicador = Comunicacion(self.ventana)
@@ -81,7 +81,10 @@ class ServiciosLaveloPues:
 
             if cedulaV and servicioV and descripcionV and precioV:
                 resultado=self.comunicador.guardarServicio(cedulaV, servicioV, descripcionV, precioV)
-                
+                txtCedulaClienteAccSer.delete(0, tk.END)
+                cbxServicio.delete(0, tk.END)
+                txtDescripcion.delete(0, tk.END)
+                txtPrecio.delete(0, tk.END)
                 messagebox.showinfo("Información", "Servicio agregado correctamente.")
             else:
                 messagebox.showerror("Información", "No se pudo guardar, confirme si está correcto")

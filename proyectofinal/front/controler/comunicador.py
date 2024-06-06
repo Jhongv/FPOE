@@ -49,6 +49,10 @@ class Comunicacion():
     def consultar(self, cedula):
         resultado = requests.get(self.url + '?cedula=' + str(cedula))
         return resultado.json()
+    
+    def consultarServicio(self, cedula):
+        resultado = requests.get(self.url2 + '?cedulaCliente=' + str(cedula))
+        return resultado.json()
 
     
     def actualizar(self, id, nombre, apellido, cedula, telefono, email):
@@ -75,6 +79,17 @@ class Comunicacion():
             url = url + 'cedula=' + str(cedula) + "&"
         if nombre != '':
             url = url + 'nombre=' + str(nombre) + "&"
+        print(url)
+        resultado = requests.get(url)
+        return resultado.json()
+    
+    def consultarTodoServicio(self, cedula, nombreServicio, descripcion,precio):
+        url = self.url2+ "?"
+        print(type(cedula))
+        if cedula != '':
+            url = url + 'cedula=' + str(cedula) + "&"
+        if nombreServicio != '':
+            url = url + 'nombreServicio=' + str(nombreServicio) + "&"
         print(url)
         resultado = requests.get(url)
         return resultado.json()

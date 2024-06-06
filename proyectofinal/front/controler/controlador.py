@@ -73,7 +73,7 @@ class Validaciones:
         Returns:
             bool: True si el valor es válido, False de lo contrario.
         """
-        patronA = re.compile(r"^\w{3,}(\.\w{3,})*?@(gmail\.com|@hotmail\.com)$")
+        patronA = re.compile(r"^\w{3,}(\.\w{3,})*?@(gmail\.com|hotmail\.com)$")
         resultadoN = patronA.match(valor.get()) is not None
         if not resultadoN:
             return False

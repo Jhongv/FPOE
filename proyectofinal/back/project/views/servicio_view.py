@@ -10,9 +10,9 @@ from django.http import Http404
 class Servicio_APIView(APIView):
     def get(self, request, format=None, *args, **kwargs):
         queryset = Servicio.objects.all()
-        cedulaCliente = self.request.query_params.get('cedulaCliente')
-        if cedulaCliente is not None:
-            queryset = queryset.filter(cedulaCliente=cedulaCliente)
+        cedula = self.request.query_params.get('cedulaCliente')
+        if cedula is not None:
+            queryset = queryset.filter(cedula=cedula)
         serializer = ClaseServicioSerializers(queryset, many=True)
         return Response(serializer.data)
     

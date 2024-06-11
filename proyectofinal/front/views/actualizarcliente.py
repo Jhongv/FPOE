@@ -8,59 +8,33 @@ from tkinter import messagebox
 from .tabla import Tabla
 
 class ActualizarCliente:
-    """
-    Clase que representa la interfaz gráfica para actualizar los datos de un cliente.
-    """
+
 
     def __init__(self, menuSecundario):
-        """
-        Inicializa una nueva ventana secundaria.
 
-        Args:
-            menuSecundario (Tk): La ventana principal o secundaria desde la cual se abre esta interfaz.
-        """
         titulos=['Identificador','Nombre','Apellido','Cédula','Teléfono','Email']
         columnas=['id', 'nombre', 'apellido', 'cedula', 'telefono', 'email']
         data=[]
         self.ventana = tk.Toplevel(menuSecundario)
         self.comunicador=Comunicacion(self.ventana)
         self.tabla=Tabla(self.ventana, titulos, columnas, data)
-        pass
+        self.cargar_tabla()
 
-    def accion_consultar_todo(self, nombre, apellido, cedula, telefono, email):
-        resultado=self.comunicador.consultar_todo(nombre, apellido, cedula, telefono, email)
+    def cargar_tabla(self):
+        resultado=self.comunicador.consultar_todo('','','','','')
         data=[]
         for elemento in resultado:
-            data.append((elemento.get('id'),elemento.get('nombre'),elemento.get('apellido'),elemento.get('cedula'),elemento.get('telefono'), elemento.get('email')))
+            data.append((elemento.get('id'), elemento.get('nombre'), elemento.get('apellido'), elemento.get('cedula'), elemento.get('telefono'), elemento.get('email')))
         self.tabla.refrescar(data)
+    
 
     def actualizar(self,id, nombre, apellido, cedula, telefono, email):
         self.comunicador.actualizar(id, nombre, apellido, cedula, telefono, email)
+        messagebox.showinfo("Información","Datos actualizados correctamente")
         
 
     def selectCombobox(self, event, combobox, lblNombre, txtNombre, lblApellido, txtApellido, lblCedula, txtCedula, lblTelefono, txtTelefono, lblEmail, txtEmail, lblErrorNombre, lblErrorApellido, lblErrorCedula, lblErrorEmail, lblErrorTelefono):
-        """
-        Muestra los campos correspondientes para actualizar según la selección del combobox.
 
-        Args:
-            event (Event): El evento de selección del combobox.
-            combobox (ttk.Combobox): Combobox para seleccionar el campo a actualizar.
-            lblNombre (Label): Etiqueta para el nombre.
-            txtNombre (Entry): Campo de entrada para el nombre.
-            lblApellido (Label): Etiqueta para el apellido.
-            txtApellido (Entry): Campo de entrada para el apellido.
-            lblCedula (Label): Etiqueta para la cédula.
-            txtCedula (Entry): Campo de entrada para la cédula.
-            lblTelefono (Label): Etiqueta para el teléfono.
-            txtTelefono (Entry): Campo de entrada para el teléfono.
-            lblEmail (Label): Etiqueta para el email.
-            txtEmail (Entry): Campo de entrada para el email.
-            lblErrorNombre (Label): Etiqueta para el error en el nombre.
-            lblErrorApellido (Label): Etiqueta para el error en el apellido.
-            lblErrorCedula (Label): Etiqueta para el error en la cédula.
-            lblErrorEmail (Label): Etiqueta para el error en el email.
-            lblErrorTelefono (Label): Etiqueta para el error en el teléfono.
-        """
         select = combobox.get()
         if select == "Nombre":
             lblNombre.grid(row=0, column=0)
@@ -91,16 +65,9 @@ class ActualizarCliente:
             messagebox.showerror("ERROR","Campo asignado no reconocido")
             
     def mostrarInterfaz(self):
-        """
-        Configura y muestra la interfaz gráfica para actualizar los datos del cliente.
-        """
-        def eventoVnombre(event):
-            """
-            Valida el nombre del cliente en tiempo real y muestra un mensaje de error si es inválido.
 
-            Args:
-                event (Event): El evento de liberación de una tecla en el campo de entrada del nombre.
-            """
+        def eventoVnombre(event):
+
             global nombre
             if Validaciones.validarNombre(cliente.nombre):
                 textoVnombre = ""
@@ -109,12 +76,7 @@ class ActualizarCliente:
             lblErrorNombre.config(text=textoVnombre)
 
         def eventoVapellido(event):
-            """
-            Valida el apellido del cliente en tiempo real y muestra un mensaje de error si es inválido.
-
-            Args:
-                event (Event): El evento de liberación de una tecla en el campo de entrada del apellido.
-            """
+            
             global apellido
             if Validaciones.validarApellido(cliente.apellido):
                 textVapellido = ""
@@ -123,12 +85,7 @@ class ActualizarCliente:
             lblErrorApellido.config(text=textVapellido)
 
         def eventoVCedula(event):
-            """
-            Valida la cédula del cliente en tiempo real y muestra un mensaje de error si es inválida.
 
-            Args:
-                event (Event): El evento de liberación de una tecla en el campo de entrada de la cédula.
-            """
             global cedula
             if Validaciones.validarCedula(cliente.cedula):
                 textoVCedula = ""
@@ -146,12 +103,7 @@ class ActualizarCliente:
             lblErrorTelefono.config(text=textoVtelefono)
 
         def eventoVemail(event):
-            """
-            Valida el email del cliente en tiempo real y muestra un mensaje de error si es inválido.
 
-            Args:
-                event (Event): El evento de liberación de una tecla en el campo de entrada del email.
-            """
             global email
             if Validaciones.validarEmail(cliente.email):
                 textoVemail = ""
@@ -176,8 +128,6 @@ class ActualizarCliente:
         lblInfoSelectBtnAct=Label(marco1, text="Debe presionar este botón primero, para que visualize la información que desea modificar.")
         lblInfoSelectBtnAct.grid(row=0, column=0)
 
-        btnConsultarTodo=Button(marco1, text="Consulta los elementos", command=lambda:self.accion_consultar_todo(txtNombreCliente.get(), txtApellidoCliente.get(), txtCedulaCliente.get(), txtTelefonoCliente.get(), txtEmailCliente.get()))
-        btnConsultarTodo.grid(row=0, column=1, padx=10, pady=10)
 
         marco2 = LabelFrame(self.ventana)
         marco2.grid(row=2, column=0, padx=10, pady=10)

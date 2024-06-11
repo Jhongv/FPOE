@@ -2,7 +2,7 @@ from tkinter import *
 import tkinter as tk
 from tkinter import ttk
 from controler.controlador import Validaciones
-from models.modelos import Servicio
+from models.modelos import Cliente
 from controler.comunicador import Comunicacion
 from tkinter import messagebox
 from .tabla import Tabla
@@ -19,11 +19,12 @@ class ActualizarServicio:
         self.ventana = tk.Toplevel(menuSecundario)
         self.comunicador=Comunicacion(self.ventana)
         self.tabla=Tabla(self.ventana, titulos, columnas, data)
-        pass
+        self.cargar_tabla()
 
-    def accion_consultar_todo_Servicio(self, cedula, nombreServicio, descripcion, precio):
-        resultado=self.comunicador.consultar_todo_servicio(cedula, nombreServicio, descripcion, precio)
-        data=[]
+    
+    def cargar_tabla(self):
+        resultado = self.comunicador.consultar_todo_servicio('','','','')
+        data = []
         for elemento in resultado:
             data.append((elemento.get('id'),elemento.get('cedula'),elemento.get('nombreServicio'),elemento.get('descripcion'),elemento.get('precio')))
         self.tabla.refrescar(data)
@@ -48,7 +49,7 @@ class ActualizarServicio:
         self.ventana.focus_set()
         self.ventana.title("Actualizar al servicio")
         self.ventana.resizable(0, 0)
-        servicio= Servicio(self.ventana)
+        servicio= Cliente(self.ventana)
 
         # Marco del título
         marcoTitulo = LabelFrame(self.ventana)
@@ -97,9 +98,6 @@ class ActualizarServicio:
 
         txtId=Entry(marco5)
         txtId.grid(row=0, column=0)
-
-        btnConsultarTodo=Button(self.ventana, text="Consulta los elementos", command=lambda:self.accion_consultar_todo_Servicio(txtCedulaCliente.get(), cbxServicioEscogido.get(), txtDescripcionServicio.get(), txtPrecioServicio.get()))
-        btnConsultarTodo.grid(row=6, column=1, padx=10, pady=10)
 
         
         btnActualizarDatosCliente = Button(self.ventana, text="Actualizar", command=lambda:self.actualizar(txtId.get(), txtCedulaCliente.get(), cbxServicioEscogido.get(), txtDescripcionServicio.get(), txtPrecioServicio.get()))

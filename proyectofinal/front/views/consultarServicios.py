@@ -1,22 +1,15 @@
 from tkinter import *
 import tkinter as tk
 from controler.controlador import Validaciones
-from models.modelos import Servicio
+from models.modelos import Cliente
 from .tabla import Tabla
 from controler.comunicador import Comunicacion
 
 class ConsultarServicios:
-    """
-    Clase que representa la interfaz gráfica para consultar un cliente.
-    """
+
 
     def __init__(self, menuSecundario):
-        """
-        Inicializa una nueva ventana secundaria.
 
-        Args:
-            menuSecundario (Tk): La ventana principal o secundaria desde la cual se abre esta interfaz.
-        """
         
         self.ventana = tk.Toplevel(menuSecundario)
         self.comunicador=Comunicacion(self.ventana)
@@ -30,16 +23,9 @@ class ConsultarServicios:
 
 
     def mostrarInterfaz(self):
-        """
-        Configura y muestra la interfaz gráfica para consultar un cliente.
-        """
-        def eventoVCedula(event):
-            """
-            Valida la cédula del cliente en tiempo real y muestra un mensaje de error si es inválida.
 
-            Args:
-                event (Event): El evento de liberación de una tecla en el campo de entrada de la cédula.
-            """
+        def eventoVCedula(event):
+
             global cedula
             if Validaciones.validarCedula(servicio.cedulaCliente):
                 textoVCedula = ""
@@ -52,7 +38,7 @@ class ConsultarServicios:
         self.ventana.focus_set()
         self.ventana.title("Consultar Servicio")
         self.ventana.resizable(0, 0)
-        servicio = Servicio(self.ventana)
+        servicio = Cliente(self.ventana)
 
         # Marco del título
         marcoTitulo = LabelFrame(self.ventana)

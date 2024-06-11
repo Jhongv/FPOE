@@ -5,6 +5,7 @@ from .consultarcliente import ConsultarCliente  # Importa la clase ConsultarClie
 from .agregarServicio import AgregarServicio  # Importa la clase ServiciosLaveloPues del archivo serviciosDeLavelopues
 from .consultarServicios import ConsultarServicios
 from .actualizarServicio import ActualizarServicio
+from .eliminarServicio import EliminarServicio
 
 from tkinter import *
 
@@ -57,6 +58,9 @@ class Menu2:
         actualizar_servicio=ActualizarServicio(self.root)
         actualizar_servicio.mostrarInterfaz()
 
+    def eliminarServicio(self):
+        eliminar_servicio=EliminarServicio(self.root)
+        eliminar_servicio.mostrarInterfaz()
 
     def __init__(self):
         """
@@ -80,6 +84,7 @@ class Menu2:
         Acceder_a_servicios.add_command(label='Seleccione el servicio aquí', command=lambda: self.accederAServicio1())
         Acceder_a_servicios.add_command(label='Consulta los servicios', command=lambda: self.consultarServicio())
         Acceder_a_servicios.add_command(label="Actualizar Servicios", command=lambda:self.actualizarServicio())
+        Acceder_a_servicios.add_command(label="Eliminar Servicios", command=lambda:self.eliminarServicio())
 
         menu.add_cascade(label='Gestionar clientes', menu=Gestionar_clientes)  # Añade el submenú de gestionar clientes al menú principal
         menu.add_cascade(label='Acceder a servicios', menu=Acceder_a_servicios)  # Añade el submenú de acceder a servicios al menú principal

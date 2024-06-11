@@ -72,6 +72,22 @@ class Comunicacion():
         except:
             pass
 
+    def actualizarServicio(self, id, cedula, nombreServicio, descripcion, precio):
+        
+        try:
+            print(cedula, nombreServicio, descripcion, precio)
+            data={
+                'cedulaCliente': cedula,
+                'nombreServicio': nombreServicio,
+                'descripcion': descripcion,
+                'precio': precio
+            }
+            resultado=requests.put(self.url2 + '/' + id + '/', json=data)
+            print(resultado.json())
+            return resultado
+        except:
+            pass
+
     def consultar_todo(self, nombre, apellido, cedula,telefono, email):
         url = self.url+ "?"
         print(type(cedula))
@@ -83,13 +99,20 @@ class Comunicacion():
         resultado = requests.get(url)
         return resultado.json()
     
-    def consultarTodoServicio(self, cedula, nombreServicio, descripcion,precio):
-        url = self.url2+ "?"
-        print(type(cedula))
-        if cedula != '':
-            url = url + 'cedula=' + str(cedula) + "&"
-        if nombreServicio != '':
-            url = url + 'nombreServicio=' + str(nombreServicio) + "&"
-        print(url)
-        resultado = requests.get(url)
-        return resultado.json()
+    def consultar_todo_servicio(self, cedula, nombreServicio, descripcion, precio):
+        try:
+            url = self.url2 + "?"
+            if cedula:
+                url += f'cedulaCliente={cedula}&'
+            if nombreServicio:
+                url += f'nombreServicio={nombreServicio}&'
+            if descripcion:
+                url += f'descripcion={descripcion}&'
+            if precio:
+                url += f'precio={precio}&'
+            url = url.rstrip('&')
+            print(url)
+            resultado = requests.get(url)
+            return resultado.json()
+        except Exception as e:
+            print(f"Error: {e}")

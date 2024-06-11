@@ -137,12 +137,7 @@ class ActualizarCliente:
             lblErrorCedula.config(text=textoVCedula)
 
         def eventoVTelefono(event):
-            """
-            Valida el teléfono del cliente en tiempo real y muestra un mensaje de error si es inválido.
-
-            Args:
-                event (Event): El evento de liberación de una tecla en el campo de entrada del teléfono.
-            """
+            
             global telefono
             if Validaciones.validarTelefono(cliente.telefono):
                 textoVtelefono = ""

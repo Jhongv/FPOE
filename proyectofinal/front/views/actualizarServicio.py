@@ -2,7 +2,7 @@ from tkinter import *
 import tkinter as tk
 from tkinter import ttk
 from controler.controlador import Validaciones
-from models.modelos import Cliente
+from models.modelos import Servicio
 from controler.comunicador import Comunicacion
 from tkinter import messagebox
 from .tabla import Tabla
@@ -29,11 +29,18 @@ class ActualizarServicio:
             data.append((elemento.get('id'),elemento.get('cedula'),elemento.get('nombreServicio'),elemento.get('descripcion'),elemento.get('precio')))
         self.tabla.refrescar(data)
         
-    def actualizar(self,id, cedula, nombreServicio, descripcion, precio):
-        self.comunicador.actualizarServicio(id, cedula, nombreServicio, descripcion, precio)
+    def actualizar(self,id, cedula, nombreServicio, descripcion, precio, txtcedula, cbxnombreServicio, txtdescripcion, txtprecio):
         
-    
-    
+        if not cedula or not nombreServicio or not descripcion or not precio:
+            messagebox.showerror("ERROR", "Deben estar completos todos los campos")
+        else:
+            self.comunicador.actualizarServicio(id, cedula, nombreServicio, descripcion, precio)
+            messagebox.showinfo("Información", "Se actualizaron los campos")
+            txtcedula.delete(0, tk.END)
+            cbxnombreServicio.delete(0, tk.END)
+            txtdescripcion.delete(0, tk.END)
+            txtprecio.delete(0, tk.END)
+
             
     def mostrarInterfaz(self):
         
@@ -49,16 +56,16 @@ class ActualizarServicio:
         self.ventana.focus_set()
         self.ventana.title("Actualizar al servicio")
         self.ventana.resizable(0, 0)
-        servicio= Cliente(self.ventana)
+        servicio= Servicio(self.ventana)
 
         # Marco del título
         marcoTitulo = LabelFrame(self.ventana)
-        marcoTitulo.grid(row=0, column=0, padx=10, pady=10)
+        marcoTitulo.grid(row=0, column=1, padx=10, pady=10)
         lblTitulo = Label(marcoTitulo, text="Actualizar al servicio")
         lblTitulo.grid(row=0, column=0, padx=10, pady=10)
     
         marco1 = LabelFrame(self.ventana)
-        marco1.grid(row=1, column=0, padx=10, pady=10)
+        marco1.grid(row=1, column=1, padx=10, pady=10)
 
         lblCedulaCliente=Label(marco1, text="¿Qué cliente será actualizado con un servicio?")
         lblCedulaCliente.grid(row=0, column=0)
@@ -68,7 +75,7 @@ class ActualizarServicio:
         lblErrorCedula.grid(row=1, column=1)
         
         marco2=LabelFrame(self.ventana)
-        marco2.grid(row=2, column=0)
+        marco2.grid(row=2, column=1, padx=10, pady=10)
         lblServicioEscogido=Label(marco2, text="Servicio que tiene en este momento")
         lblServicioEscogido.grid(row=0, column=0)
 
@@ -76,7 +83,7 @@ class ActualizarServicio:
         cbxServicioEscogido.grid(row=0, column=1)
 
         marco3=LabelFrame(self.ventana)
-        marco3.grid(row=3, column=0)
+        marco3.grid(row=3, column=1, padx=10, pady=10)
 
         lblDescripcionServicio=Label(marco3, text="Descripción")
         lblDescripcionServicio.grid(row=0, column=0)
@@ -85,7 +92,7 @@ class ActualizarServicio:
         txtDescripcionServicio.grid(row=0, column=1)
 
         marco4=LabelFrame(self.ventana)
-        marco4.grid(row=4, column=0)
+        marco4.grid(row=4, column=1, padx=10, pady=10)
 
         lblPrecioServicio=Label(marco4, text="Precio:")
         lblPrecioServicio.grid(row=0, column=0)
@@ -94,14 +101,14 @@ class ActualizarServicio:
         txtPrecioServicio.grid(row=0, column=1)
 
         marco5=LabelFrame(self.ventana)
-        marco5.grid(row=5, column=0)
+        marco5.grid(row=5, column=1, padx=10, pady=10)
 
         txtId=Entry(marco5)
-        txtId.grid(row=0, column=0)
+        txtId.grid(row=0, column=1)
 
         
-        btnActualizarDatosCliente = Button(self.ventana, text="Actualizar", command=lambda:self.actualizar(txtId.get(), txtCedulaCliente.get(), cbxServicioEscogido.get(), txtDescripcionServicio.get(), txtPrecioServicio.get()))
-        btnActualizarDatosCliente.grid(row=6, column=0, padx=10, pady=10)
+        btnActualizarDatosCliente = Button(self.ventana, text="Actualizar", command=lambda:self.actualizar(txtId.get(), txtCedulaCliente.get(), cbxServicioEscogido.get(), txtDescripcionServicio.get(), txtPrecioServicio.get(), txtCedulaCliente, cbxServicioEscogido, txtDescripcionServicio, txtPrecioServicio))
+        btnActualizarDatosCliente.grid(row=6, column=1, padx=10, pady=10)
         
         self.tabla.tabla.grid(row=9, column=0, columnspan=3)
 

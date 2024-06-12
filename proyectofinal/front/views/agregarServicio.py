@@ -1,11 +1,10 @@
-import json
-import requests
+
 from tkinter import *
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox
 from controler.controlador import Validaciones
-from models.modelos import Cliente, Cliente
+from models.modelos import Cliente, Servicio
 from controler.comunicador import Comunicacion
 
 class AgregarServicio:
@@ -93,7 +92,7 @@ class AgregarServicio:
         self.ventana.title("Servicios de LaveloPues")
         self.ventana.resizable(0, 0)
         cliente = Cliente(self.ventana)
-        servicio = Cliente(self.ventana)
+        servicio = Servicio(self.ventana)
 
         marcoTitulo = LabelFrame(self.ventana)
         marcoTitulo.grid(row=0, column=0, padx=10, pady=10)
@@ -103,7 +102,7 @@ class AgregarServicio:
         marco1 = LabelFrame(self.ventana)
         marco1.grid(row=1, column=0, padx=10, pady=10)
 
-        lblCedulaClienteAccSer = Label(marco1, text="CC del cliente\nque va ha acceder al servicio*:")
+        lblCedulaClienteAccSer = Label(marco1, text="CC del cliente\nque va ha acceder al servicio*: ")
         lblCedulaClienteAccSer.grid(row=0, column=0)
         txtCedulaClienteAccSer = Entry(marco1, textvariable=servicio.cedulaCliente)
         txtCedulaClienteAccSer.grid(row=0, column=1)

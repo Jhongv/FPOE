@@ -7,30 +7,15 @@ from tkinter import messagebox
 import requests
 
 class AgregarCliente:
-    """
-    Clase que representa la interfaz gráfica para agregar un nuevo cliente.
-    """
+
 
     def __init__(self, menuSecundario):
-        """
-        Inicializa una nueva ventana secundaria.
-
-        Args:
-            menuSecundario (Tk): La ventana principal o secundaria desde la cual se abre esta interfaz.
-        """
+        
         self.ventana = tk.Toplevel(menuSecundario)
 
     def mostrarInterfaz(self):
-        """
-        Configura y muestra la interfaz gráfica para agregar un nuevo cliente.
-        """
+        
         def eventoVnombre(event):
-            """
-            Valida el nombre del cliente en tiempo real y muestra un mensaje de error si es inválido.
-
-            Args:
-                event (Event): El evento de liberación de una tecla en el campo de entrada del nombre.
-            """
             global nombre
             if Validaciones.validarNombre(cliente.nombre):
                 textoVnombre = ""
@@ -39,12 +24,7 @@ class AgregarCliente:
             lblErrorNombre.config(text=textoVnombre)
 
         def eventoVapellido(event):
-            """
-            Valida el apellido del cliente en tiempo real y muestra un mensaje de error si es inválido.
-
-            Args:
-                event (Event): El evento de liberación de una tecla en el campo de entrada del apellido.
-            """
+            
             global apellido
             if Validaciones.validarApellido(cliente.apellido):
                 textVapellido = ""
@@ -53,12 +33,7 @@ class AgregarCliente:
             lblErrorApellidoCliente.config(text=textVapellido)
 
         def eventoVCedula(event):
-            """
-            Valida la cédula del cliente en tiempo real y muestra un mensaje de error si es inválida.
-
-            Args:
-                event (Event): El evento de liberación de una tecla en el campo de entrada de la cédula.
-            """
+            
             global cedula
             if Validaciones.validarCedula(cliente.cedula):
                 textoVCedula = ""
@@ -67,12 +42,7 @@ class AgregarCliente:
             lblErrorCedulaCliente.config(text=textoVCedula)
 
         def eventoVTelefono(event):
-            """
-            Valida el teléfono del cliente en tiempo real y muestra un mensaje de error si es inválido.
-
-            Args:
-                event (Event): El evento de liberación de una tecla en el campo de entrada del teléfono.
-            """
+            
             global telefono
             if Validaciones.validarTelefono(cliente.telefono):
                 textoVtelefono = ""
@@ -81,12 +51,7 @@ class AgregarCliente:
             lblErrorTelefonoCliente.config(text=textoVtelefono)
 
         def eventoVemail(event):
-            """
-            Valida el email del cliente en tiempo real y muestra un mensaje de error si es inválido.
-
-            Args:
-                event (Event): El evento de liberación de una tecla en el campo de entrada del email.
-            """
+            
             global email
             if Validaciones.validarCorreo(cliente.email):
                 textoVemail = ""
@@ -96,10 +61,7 @@ class AgregarCliente:
 
         def validarInformacion():
 
-            """
-            Valida toda la información del cliente y la envía al servidor si es válida. 
-            Muestra un mensaje de éxito o error dependiendo del resultado.
-            """
+            
             nombreV = re.match(r"^[A-Za-zñÑ ]*$", cliente.nombre.get())
             apellidoV = re.match(r"^[A-Za-zñÑ ]*$", cliente.apellido.get())
             cedula = re.match(r"^\d{1,3}(\.?\d{3}){2}$", cliente.cedula.get())

@@ -1,7 +1,7 @@
 from tkinter import *
 import tkinter as tk
 from controler.controlador import Validaciones
-from models.modelos import Cliente
+from models.modelos import Servicio
 from .tabla import Tabla
 from controler.comunicador import Comunicacion
 
@@ -38,7 +38,7 @@ class ConsultarServicios:
         self.ventana.focus_set()
         self.ventana.title("Consultar Servicio")
         self.ventana.resizable(0, 0)
-        servicio = Cliente(self.ventana)
+        servicio = Servicio(self.ventana)
 
         # Marco del título
         marcoTitulo = LabelFrame(self.ventana)

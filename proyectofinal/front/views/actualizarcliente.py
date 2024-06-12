@@ -28,10 +28,18 @@ class ActualizarCliente:
         self.tabla.refrescar(data)
     
 
-    def actualizar(self,id, nombre, apellido, cedula, telefono, email):
-        self.comunicador.actualizar(id, nombre, apellido, cedula, telefono, email)
-        messagebox.showinfo("Información","Datos actualizados correctamente")
-        
+    def actualizar(self,id, nombre, apellido, cedula, telefono, email, txtid,txtn, txta, txtc, txttf, txte):
+        if not id or not nombre or not apellido or not cedula or not telefono or not email:
+            messagebox.showerror("ERROR", "Deben estar completos todos los campos")
+        else:
+            self.comunicador.actualizar(id, nombre, apellido, cedula, telefono, email)
+            messagebox.showinfo("Información","Datos actualizados correctamente")
+            txtid.delete(0, tk.END)
+            txtn.delete(0, tk.END)
+            txta.delete(0, tk.END)
+            txtc.delete(0, tk.END)
+            txttf.delete(0, tk.END)
+            txte.delete(0,tk.END)
 
     def selectCombobox(self, event, combobox, lblNombre, txtNombre, lblApellido, txtApellido, lblCedula, txtCedula, lblTelefono, txtTelefono, lblEmail, txtEmail, lblErrorNombre, lblErrorApellido, lblErrorCedula, lblErrorEmail, lblErrorTelefono):
 
@@ -118,19 +126,19 @@ class ActualizarCliente:
 
         # Marco del título
         marcoTitulo = LabelFrame(self.ventana)
-        marcoTitulo.grid(row=0, column=0, padx=10, pady=10)
+        marcoTitulo.grid(row=0, column=1, padx=10, pady=10)
         lblTitulo = Label(marcoTitulo, text="Actualizar al Cliente")
         lblTitulo.grid(row=0, column=0, padx=10, pady=10)
     
         marco1 = LabelFrame(self.ventana)
-        marco1.grid(row=1, column=0, padx=10, pady=10)
+        marco1.grid(row=1, column=1, padx=10, pady=10)
 
         lblInfoSelectBtnAct=Label(marco1, text="Debe presionar este botón primero, para que visualize la información que desea modificar.")
         lblInfoSelectBtnAct.grid(row=0, column=0)
 
 
         marco2 = LabelFrame(self.ventana)
-        marco2.grid(row=2, column=0, padx=10, pady=10)
+        marco2.grid(row=2, column=1, padx=10, pady=10)
 
         lblSeleccionar = Label(marco2, text="Seleccione el campo que quiere modificar:")
         lblSeleccionar.grid(row=0, column=0, padx=5, pady=5)
@@ -139,7 +147,7 @@ class ActualizarCliente:
         cbxSeleccionarCampoActualizar.grid(row=0, column=1, padx=5, pady=5)
 
         marco3 = LabelFrame(self.ventana)
-        marco3.grid(row=3, column=0, padx=10, pady=10)
+        marco3.grid(row=3, column=1, padx=10, pady=10)
 
         lblNombreCliente = Label(marco3, text="Nombre*:")
         lblNombreCliente.grid_forget()
@@ -151,7 +159,7 @@ class ActualizarCliente:
         lblErrorNombre.grid_forget()
 
         marco4 = LabelFrame(self.ventana)
-        marco4.grid(row=4, column=0, padx=10, pady=10)
+        marco4.grid(row=4, column=1, padx=10, pady=10)
 
         lblApellidoCliente = Label(marco4, text="Apellido*:")
         lblApellidoCliente.grid_forget()
@@ -163,7 +171,7 @@ class ActualizarCliente:
         lblErrorApellido.grid_forget()
 
         marco5 = LabelFrame(self.ventana)
-        marco5.grid(row=5, column=0, padx=10, pady=10)
+        marco5.grid(row=5, column=1, padx=10, pady=10)
 
         lblCedulaCliente = Label(marco5, text="Cédula*:")
         lblCedulaCliente.grid_forget()
@@ -175,7 +183,7 @@ class ActualizarCliente:
         lblErrorCedula.grid_forget()
 
         marco6 = LabelFrame(self.ventana)
-        marco6.grid(row=6, column=0, padx=10, pady=10)
+        marco6.grid(row=6, column=1, padx=10, pady=10)
 
         lblTelefonoCliente = Label(marco6, text="Teléfono*:")
         lblTelefonoCliente.grid_forget()
@@ -187,7 +195,7 @@ class ActualizarCliente:
         lblErrorTelefono.grid_forget()
 
         marco7 = LabelFrame(self.ventana)
-        marco7.grid(row=7, column=0, padx=10, pady=10)
+        marco7.grid(row=7, column=1, padx=10, pady=10)
 
         lblEmailCliente = Label(marco7, text="Email*:")
         lblEmailCliente.grid_forget()
@@ -199,13 +207,13 @@ class ActualizarCliente:
         lblErrorEmail.grid_forget()
 
         marco8 = LabelFrame(self.ventana)
-        marco8.grid(row=8, column=0, padx=10, pady=10)
+        marco8.grid(row=8, column=1, padx=10, pady=10)
 
         txtId=Entry(marco8)
         txtId.grid(row=0, column=0)
 
-        btnActualizarDatosCliente = Button(self.ventana, text="Actualizar", command=lambda:self.actualizar(txtId.get(), txtNombreCliente.get(), txtApellidoCliente.get(), txtCedulaCliente.get(), txtTelefonoCliente.get(), txtEmailCliente.get()))
-        btnActualizarDatosCliente.grid(row=7, column=0, padx=10, pady=10)
+        btnActualizarDatosCliente = Button(self.ventana, text="Actualizar", command=lambda:self.actualizar(txtId.get(), txtNombreCliente.get(), txtApellidoCliente.get(), txtCedulaCliente.get(), txtTelefonoCliente.get(), txtEmailCliente.get(), txtId,txtNombreCliente, txtApellidoCliente, txtCedulaCliente, txtTelefonoCliente, txtEmailCliente))
+        btnActualizarDatosCliente.grid(row=7, column=1, padx=10, pady=10)
 
         
         self.tabla.tabla.grid(row=9, column=0, columnspan=3)

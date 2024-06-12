@@ -6,17 +6,10 @@ from .tabla import Tabla
 from controler.comunicador import Comunicacion
 
 class ConsultarCliente:
-    """
-    Clase que representa la interfaz gráfica para consultar un cliente.
-    """
+    
 
     def __init__(self, menuSecundario):
-        """
-        Inicializa una nueva ventana secundaria.
-
-        Args:
-            menuSecundario (Tk): La ventana principal o secundaria desde la cual se abre esta interfaz.
-        """
+        
         titulos=['Identificador','Nombre','Apellido','Cédula','Teléfono','Email']
         columnas=['id', 'nombre', 'apellido', 'cedula', 'telefono', 'email']
         data=[]
@@ -33,16 +26,9 @@ class ConsultarCliente:
 
 
     def mostrarInterfaz(self):
-        """
-        Configura y muestra la interfaz gráfica para consultar un cliente.
-        """
+        
         def eventoVCedula(event):
-            """
-            Valida la cédula del cliente en tiempo real y muestra un mensaje de error si es inválida.
-
-            Args:
-                event (Event): El evento de liberación de una tecla en el campo de entrada de la cédula.
-            """
+            
             global cedula
             if Validaciones.validarCedula(cliente.cedula):
                 textoVCedula = ""
@@ -59,12 +45,12 @@ class ConsultarCliente:
 
         # Marco del título
         marcoTitulo = LabelFrame(self.ventana)
-        marcoTitulo.grid(row=0, column=0, padx=10, pady=10)
+        marcoTitulo.grid(row=0, column=1, padx=10, pady=10)
         lblTitulo = Label(marcoTitulo, text="Consultar Cliente")
         lblTitulo.grid(row=0, column=0, padx=10, pady=10)
 
         marco1 = LabelFrame(self.ventana)
-        marco1.grid(row=1, column=0, padx=10, pady=10)
+        marco1.grid(row=1, column=1, padx=10, pady=10)
 
         lblCedulaCliente = Label(marco1, text="Cédula*:")
         lblCedulaCliente.grid(row=0, column=0, padx=5, pady=5)
@@ -76,7 +62,7 @@ class ConsultarCliente:
         lblErrorCedula.grid(row=1, column=1)
 
         btnConsultar = Button(self.ventana, text="Consultar", padx=5, pady=5, command = lambda: self.accion_consultar_boton(txtCedulaCliente.get()))
-        btnConsultar.grid(row=7, column=0, padx=5, pady=5)
+        btnConsultar.grid(row=7, column=1, padx=5, pady=5)
         
 
         self.tabla.tabla.grid(row=9, column=0, columnspan=3)

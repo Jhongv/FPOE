@@ -77,7 +77,7 @@ class Comunicacion():
         try:
             print(cedula, nombreServicio, descripcion, precio)
             data={
-                'cedulaCliente': cedula,
+                'cedula': cedula,
                 'nombreServicio': nombreServicio,
                 'descripcion': descripcion,
                 'precio': precio

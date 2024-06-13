@@ -20,7 +20,7 @@
     "servicios": [
         {
             "id": 3,
-            "nombreServicio": "Lavado+Brillado+Aspirado",
+            "nombreServicio": "Lavado Interno+Brillado/L\u00e1mparas",
             "cedula": "1000000",
             "descripcion": "Renueva tu auto por dentro:\nlavado interno, brillado de\nsuperficies y\nlamparaz para un\ninterior reluciente y acogedor.",
             "precio": 4500

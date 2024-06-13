@@ -24,6 +24,46 @@ class ActualizarServicio:
         self.tabla=Tabla(self.ventana, titulos, columnas, data)
         self.cargar_tabla()
 
+    def seleccionarServicio(self, event, txtCedula, cbxcomboServicio, lblprecio, txtPrecioestablecido, lblDescripcion, txtDescripcion):
+        select = cbxcomboServicio.get()
+        if select == "Lavado+Brillado+Aspirado":
+            txtDescripcion.delete(0, tk.END)
+            txtPrecioestablecido.delete(0, tk.END)
+            txtDescripcion.insert(0, "Transforma tu auto:\nLavado, brillado y aspirado para un resplandor impecable\ny una frescura interior revitalizante.")
+            txtPrecioestablecido.insert(0, "1000")
+            lblprecio.grid(row=0, column=0)
+            txtPrecioestablecido.grid(row=0, column=1)
+            lblDescripcion.grid(row=0, column=0)
+            txtDescripcion.grid(row=0, column=1)
+        elif select == "Lavado+Limpieza/Motor+Porcelanizado+Aspirado":
+            txtDescripcion.delete(0, tk.END)
+            txtPrecioestablecido.delete(0, tk.END)
+            txtDescripcion.insert(0, "Revitaliza tu auto:\nLavado, limpieza de motor,\nporcelanizado y aspirado para un brillo y\nrendimiento excepcionales, dentro y fuera.")
+            txtPrecioestablecido.insert(0, "1200")
+            lblprecio.grid(row=0, column=0)
+            txtPrecioestablecido.grid(row=0, column=1)
+            lblDescripcion.grid(row=0, column=0)
+            txtDescripcion.grid(row=0, column=1)
+        elif select == "Lavado+Brillado+Lavado/Cojinería":
+            txtDescripcion.delete(0, tk.END)
+            txtPrecioestablecido.delete(0, tk.END)
+            txtDescripcion.insert(0, "Transforma tu auto:\nLavado exterior,\nbrillado y lavado de\ncojinería para un\nbrillo impecable y una comodidad renovada.")
+            txtPrecioestablecido.insert(0, "1300")
+            lblprecio.grid(row=0, column=0)
+            txtPrecioestablecido.grid(row=0, column=1)
+            lblDescripcion.grid(row=0, column=0)
+            txtDescripcion.grid(row=0, column=1)
+        elif select == "Lavado Interno+Brillado/Lámparas":
+            txtDescripcion.delete(0, tk.END)
+            txtPrecioestablecido.delete(0, tk.END)
+            txtDescripcion.insert(0, "Renueva tu auto por dentro:\nlavado interno, brillado de\nsuperficies y\nlamparaz para un\ninterior reluciente y acogedor.")
+            txtPrecioestablecido.insert(0, "4500")
+            lblprecio.grid(row=0, column=0)
+            txtPrecioestablecido.grid(row=0, column=1)
+            lblDescripcion.grid(row=0, column=0)
+            txtDescripcion.grid(row=0, column=1)
+
+
     
     def cargar_tabla(self):
         resultado = self.comunicador.consultar_todo_servicio('','','','')
@@ -130,6 +170,7 @@ class ActualizarServicio:
                 txtDescripcionServicio.delete(0, END)
                 txtDescripcionServicio.insert(0, str(valores[3]))
         self.tabla.tabla.bind('<<TreeviewSelect>>', seleccionar_elemento)
+        cbxServicioEscogido.bind("<<ComboboxSelected>>", lambda event: self.seleccionarServicio(event, txtCedulaCliente, cbxServicioEscogido, lblDescripcionServicio, txtPrecioServicio, lblDescripcionServicio, txtDescripcionServicio))
         txtCedulaCliente.bind("<KeyRelease>", eventoVCedula)
         
         self.ventana.mainloop()

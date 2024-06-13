@@ -5,6 +5,7 @@ from models.modelos import Cliente
 import re
 from tkinter import messagebox
 import requests
+from controler.hilo import HiloGuardadoInfo
 
 class AgregarCliente:
 
@@ -12,6 +13,8 @@ class AgregarCliente:
     def __init__(self, menuSecundario):
         
         self.ventana = tk.Toplevel(menuSecundario)
+        self.hilo_guardado_info = HiloGuardadoInfo()  
+        self.hilo_guardado_info.iniciar()
 
     def mostrarInterfaz(self):
         

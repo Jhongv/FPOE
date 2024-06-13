@@ -4,6 +4,7 @@ from tkinter import ttk
 from controler.controlador import Validaciones
 from models.modelos import Servicio
 from controler.comunicador import Comunicacion
+from controler.hilo import HiloGuardadoInfo
 from tkinter import messagebox
 from .tabla import Tabla
 
@@ -18,6 +19,8 @@ class ActualizarServicio:
         data=[]
         self.ventana = tk.Toplevel(menuSecundario)
         self.comunicador=Comunicacion(self.ventana)
+        self.hilo_guardado_info = HiloGuardadoInfo()  
+        self.hilo_guardado_info.iniciar()
         self.tabla=Tabla(self.ventana, titulos, columnas, data)
         self.cargar_tabla()
 

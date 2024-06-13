@@ -4,6 +4,7 @@ from models.modelos import Servicio
 from controler.controlador import Validaciones
 from .tabla import Tabla
 from controler.comunicador import Comunicacion
+from controler.hilo import HiloGuardadoInfo
 from tkinter import messagebox
 
 class EliminarServicio:
@@ -46,7 +47,7 @@ class EliminarServicio:
 
         def borrar_elemento(_):
             for i in self.tabla.tabla.selection():
-                self.comunicador.eliminar(self.tabla.tabla.item(i)['values'][0])
+                self.comunicador.eliminarservicio(self.tabla.tabla.item(i)['values'][0])
                 self.tabla.tabla.delete(i)
                 messagebox.showinfo("Informa","Se eliminó el servicio")
 

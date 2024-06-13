@@ -44,6 +44,10 @@ class Comunicacion():
     def eliminar(self, id):
         resultado = requests.delete(self.url + '/' + str(id))
         return resultado.status_code
+    
+    def eliminarservicio(self, id):
+        resultado = requests.delete(self.url2 + '/' + str(id))
+        return resultado.status_code
 
 
     def consultar(self, cedula):
@@ -103,7 +107,7 @@ class Comunicacion():
         try:
             url = self.url2 + "?"
             if cedula:
-                url += f'cedulaCliente={cedula}&'
+                url += f'cedula={cedula}&'
             if nombreServicio:
                 url += f'nombreServicio={nombreServicio}&'
             if descripcion:

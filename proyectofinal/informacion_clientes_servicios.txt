@@ -1,0 +1,120 @@
+{
+    "clientes": [
+        {
+            "id": 12,
+            "nombre": "miguel angel",
+            "apellido": "tabares toro",
+            "cedula": "1111111",
+            "email": "miguel.tabares@hotmail.com",
+            "telefono": "3505723864"
+        },
+        {
+            "id": 13,
+            "nombre": "gregorio",
+            "apellido": "asteca",
+            "cedula": "111518056",
+            "email": "grego@gmail.com",
+            "telefono": "3217890000"
+        }
+    ],
+    "servicios": [
+        {
+            "id": 3,
+            "nombreServicio": "Lavado+Brillado+Aspirado",
+            "cedula": "1000000",
+            "descripcion": "Renueva tu auto por dentro:\nlavado interno, brillado de\nsuperficies y\nlamparaz para un\ninterior reluciente y acogedor.",
+            "precio": 4500
+        },
+        {
+            "id": 4,
+            "nombreServicio": "Lavado+Brillado+Lavado/Cojiner\u00eda",
+            "cedula": "1000000",
+            "descripcion": "Transforma tu auto:\nLavado exterior,\nbrillado y lavado de\ncojiner\u00eda para un\nbrillo impecable y una comodidad renovada.",
+            "precio": 1300
+        },
+        {
+            "id": 5,
+            "nombreServicio": "Lavado+Brillado+Aspirado",
+            "cedula": "1234567",
+            "descripcion": "Transforma tu auto:\nLavado, brillado y aspirado para un resplandor impecable\ny una frescura interior revitalizante.",
+            "precio": 1000
+        },
+        {
+            "id": 6,
+            "nombreServicio": "Lavado+Brillado+Aspirado",
+            "cedula": "1234567",
+            "descripcion": "Transforma tu auto:\nLavado, brillado y aspirado para un resplandor impecable\ny una frescura interior revitalizante.",
+            "precio": 1000
+        },
+        {
+            "id": 7,
+            "nombreServicio": "Lavado+Limpieza/Motor+Porcelanizado+Aspirado",
+            "cedula": "1234567",
+            "descripcion": "Revitaliza tu auto:\nLavado, limpieza de motor,\nporcelanizado y aspirado para un brillo y\nrendimiento excepcionales, dentro y fuera.",
+            "precio": 1200
+        },
+        {
+            "id": 8,
+            "nombreServicio": "Lavado+Brillado+Lavado/Cojiner\u00eda",
+            "cedula": "1234567",
+            "descripcion": "Transforma tu auto:\nLavado exterior,\nbrillado y lavado de\ncojiner\u00eda para un\nbrillo impecable y una comodidad renovada.",
+            "precio": 1300
+        },
+        {
+            "id": 9,
+            "nombreServicio": "Lavado+Limpieza/Motor+Porcelanizado+Aspirado",
+            "cedula": "29464860",
+            "descripcion": "Revitaliza tu auto:\nLavado, limpieza de motor,\nporcelanizado y aspirado para un brillo y\nrendimiento excepcionales, dentro y fuera.",
+            "precio": 1200
+        },
+        {
+            "id": 10,
+            "nombreServicio": "Lavado+Brillado+Lavado/Cojiner\u00eda",
+            "cedula": "2856790",
+            "descripcion": "Transforma tu auto:\nLavado exterior,\nbrillado y lavado de\ncojiner\u00eda para un\nbrillo impecable y una comodidad renovada.",
+            "precio": 1300
+        },
+        {
+            "id": 11,
+            "nombreServicio": "Lavado+Brillado+Lavado/Cojiner\u00eda",
+            "cedula": "1234567",
+            "descripcion": "Transforma tu auto:\nLavado exterior,\nbrillado y lavado de\ncojiner\u00eda para un\nbrillo impecable y una comodidad renovada.",
+            "precio": 1300
+        },
+        {
+            "id": 12,
+            "nombreServicio": "Lavado+Brillado+Lavado/Cojiner\u00eda",
+            "cedula": "1234567",
+            "descripcion": "Transforma tu auto:\nLavado exterior,\nbrillado y lavado de\ncojiner\u00eda para un\nbrillo impecable y una comodidad renovada.",
+            "precio": 1300
+        },
+        {
+            "id": 13,
+            "nombreServicio": "Lavado+Limpieza/Motor+Porcelanizado+Aspirado",
+            "cedula": "1234567",
+            "descripcion": "Revitaliza tu auto:\nLavado, limpieza de motor,\nporcelanizado y aspirado para un brillo y\nrendimiento excepcionales, dentro y fuera.",
+            "precio": 1200
+        },
+        {
+            "id": 14,
+            "nombreServicio": "Lavado Interno+Brillado/L\u00e1mparas",
+            "cedula": "2468111",
+            "descripcion": "Renueva tu auto por dentro:\nlavado interno, brillado de\nsuperficies y\nlamparaz para un\ninterior reluciente y acogedor.",
+            "precio": 4500
+        },
+        {
+            "id": 15,
+            "nombreServicio": "Lavado+Brillado+Aspirado",
+            "cedula": "111519551",
+            "descripcion": "Revitaliza tu auto:\nLavado, limpieza de motor,\nporcelanizado y aspirado para un brillo y\nrendimiento excepcionales, dentro y fuera.",
+            "precio": 1200
+        },
+        {
+            "id": 18,
+            "nombreServicio": "Lavado Interno+Brillado/L\u00e1mparas",
+            "cedula": "111518056",
+            "descripcion": "Renueva tu auto por dentro:\nlavado interno, brillado de\nsuperficies y\nlamparaz para un\ninterior reluciente y acogedor.",
+            "precio": 4500
+        }
+    ]
+}

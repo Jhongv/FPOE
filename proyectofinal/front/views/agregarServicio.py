@@ -6,11 +6,14 @@ from tkinter import messagebox
 from controler.controlador import Validaciones
 from models.modelos import Cliente, Servicio
 from controler.comunicador import Comunicacion
+from controler.hilo import HiloGuardadoInfo
 
 class AgregarServicio:
     def __init__(self, menuSecundario):
         self.ventana = tk.Toplevel(menuSecundario)
         self.comunicador = Comunicacion(self.ventana)
+        self.hilo_guardado_info = HiloGuardadoInfo()  
+        self.hilo_guardado_info.iniciar()
 
     def seleccionarServicio(self, event, txtCedula, cbxcomboServicio, lblprecio, txtPrecioestablecido, lblDescripcion, txtDescripcion):
         select = cbxcomboServicio.get()

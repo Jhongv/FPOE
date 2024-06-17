@@ -18,4 +18,6 @@ class Servicio():
         self.cedulaCliente=StringVar()
         self.descripcion=StringVar()
         self.precio=StringVar()
+
+    
         

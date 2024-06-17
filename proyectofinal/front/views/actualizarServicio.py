@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import ttk
 from controler.controlador import Validaciones
 from models.modelos import Servicio
+from models.modelos import Cliente
 from controler.comunicador import Comunicacion
 from controler.hilo import HiloGuardadoInfo
 from tkinter import messagebox
@@ -23,6 +24,8 @@ class ActualizarServicio:
         self.hilo_guardado_info.iniciar()
         self.tabla=Tabla(self.ventana, titulos, columnas, data)
         self.cargar_tabla()
+
+    
 
     def seleccionarServicio(self, event, txtCedula, cbxcomboServicio, lblprecio, txtPrecioestablecido, lblDescripcion, txtDescripcion):
         select = cbxcomboServicio.get()
@@ -62,6 +65,7 @@ class ActualizarServicio:
             txtPrecioestablecido.grid(row=0, column=1)
             lblDescripcion.grid(row=0, column=0)
             txtDescripcion.grid(row=0, column=1)
+        
 
 
     
@@ -83,6 +87,7 @@ class ActualizarServicio:
             cbxnombreServicio.delete(0, tk.END)
             txtdescripcion.delete(0, tk.END)
             txtprecio.delete(0, tk.END)
+            self.cargar_tabla() 
 
             
     def mostrarInterfaz(self):
@@ -95,11 +100,21 @@ class ActualizarServicio:
                 textoVCedula = "Cédula debe tener entre 7 a 10 dígitos"
             lblErrorCedula.config(text=textoVCedula)
 
-
+        def eventoVerificadorExistenciaCC(event):
+            cedula=txtCedulaCliente.get()
+            cliente=self.comunicador.consultar(cedula)
+            if cliente:
+                pass
+            else:
+                messagebox.showerror("ERROR","Cliente no encontrado")
+                cbxServicioEscogido.config(state='disabled')
+                txtDescripcionServicio.config(state='disabled')
+                txtPrecioServicio.config(state='disabled')
         self.ventana.focus_set()
         self.ventana.title("Actualizar al servicio")
         self.ventana.resizable(0, 0)
         servicio= Servicio(self.ventana)
+        
 
         # Marco del título
         marcoTitulo = LabelFrame(self.ventana)
@@ -172,5 +187,6 @@ class ActualizarServicio:
         self.tabla.tabla.bind('<<TreeviewSelect>>', seleccionar_elemento)
         cbxServicioEscogido.bind("<<ComboboxSelected>>", lambda event: self.seleccionarServicio(event, txtCedulaCliente, cbxServicioEscogido, lblDescripcionServicio, txtPrecioServicio, lblDescripcionServicio, txtDescripcionServicio))
         txtCedulaCliente.bind("<KeyRelease>", eventoVCedula)
+        txtCedulaCliente.bind("<FocusOut>", eventoVerificadorExistenciaCC)
         
         self.ventana.mainloop()

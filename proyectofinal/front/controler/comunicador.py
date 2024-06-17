@@ -1,5 +1,5 @@
 import requests
-
+from tkinter import messagebox
 class Comunicacion():
 
     def __init__(self, ventanaPrincipal):
@@ -37,9 +37,7 @@ class Comunicacion():
             print(resultado.json())
             return resultado
         except:
-            pass
-
-
+            pass   
 
     def eliminar(self, id):
         resultado = requests.delete(self.url + '/' + str(id))

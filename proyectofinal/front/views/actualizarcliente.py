@@ -37,12 +37,14 @@ class ActualizarCliente:
         else:
             self.comunicador.actualizar(id, nombre, apellido, cedula, telefono, email)
             messagebox.showinfo("Información","Datos actualizados correctamente")
+            
             txtid.delete(0, tk.END)
             txtn.delete(0, tk.END)
             txta.delete(0, tk.END)
             txtc.delete(0, tk.END)
             txttf.delete(0, tk.END)
             txte.delete(0,tk.END)
+            self.cargar_tabla()
 
     def selectCombobox(self, event, combobox, lblNombre, txtNombre, lblApellido, txtApellido, lblCedula, txtCedula, lblTelefono, txtTelefono, lblEmail, txtEmail, lblErrorNombre, lblErrorApellido, lblErrorCedula, lblErrorEmail, lblErrorTelefono):
 

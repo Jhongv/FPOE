@@ -101,12 +101,21 @@ class ActualizarServicio:
             lblErrorCedula.config(text=textoVCedula)
 
         def eventoVerificadorExistenciaCC(event):
-            cedula=txtCedulaCliente.get()
-            cliente=self.comunicador.consultar(cedula)
+            cedula = txtCedulaCliente.get()
+            cliente = self.comunicador.consultar(cedula)
             if cliente:
-                pass
+                servicio = self.comunicador.consultarServicio(cedula)
+                if servicio:
+                    servicio_id = servicio[0]['id']  # Suponiendo que el servicio es una lista de diccionarios y tomamos el primer elemento
+                    txtId.delete(0, END)
+                    txtId.insert(0, servicio_id)
+                    cbxServicioEscogido.config(state='normal')
+                    txtDescripcionServicio.config(state='normal')
+                    txtPrecioServicio.config(state='normal')
+                else:
+                    messagebox.showerror("ERROR", "Servicio no encontrado para este cliente")
             else:
-                messagebox.showerror("ERROR","Cliente no encontrado")
+                messagebox.showerror("ERROR", "Cliente no encontrado")
                 cbxServicioEscogido.config(state='disabled')
                 txtDescripcionServicio.config(state='disabled')
                 txtPrecioServicio.config(state='disabled')

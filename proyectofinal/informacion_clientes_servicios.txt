@@ -1,14 +1,6 @@
 {
     "clientes": [
         {
-            "id": 12,
-            "nombre": "miguel angel",
-            "apellido": "xssffdd",
-            "cedula": "10092333",
-            "email": "miguel.tabares@hotmail.com",
-            "telefono": "3505723864"
-        },
-        {
             "id": 13,
             "nombre": "gregorio",
             "apellido": "asteca",
@@ -23,6 +15,14 @@
             "cedula": "111518514",
             "email": "fred@gmail.com",
             "telefono": "3167890000"
+        },
+        {
+            "id": 16,
+            "nombre": "anastacio",
+            "apellido": "perra",
+            "cedula": "29467850",
+            "email": "rrrr@hotmail.com",
+            "telefono": "3216789090"
         }
     ],
     "servicios": [

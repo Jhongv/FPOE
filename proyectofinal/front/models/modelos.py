@@ -17,7 +17,7 @@ class Servicio():
         self.nombreServicio=StringVar()
         self.cedulaCliente=StringVar()
         self.descripcion=StringVar()
-        self.precio=StringVar()
+        self.precio=IntVar()
 
     
         

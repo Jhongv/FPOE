@@ -3,8 +3,8 @@ from tkinter import messagebox
 class Comunicacion():
 
     def __init__(self, ventanaPrincipal):
-        self.url = 'http://192.168.0.108:8000/v1/cliente'
-        self.url2= 'http://192.168.0.108:8000/v1/servicio'
+        self.url = 'http://192.168.225.145:8000/v1/cliente'
+        self.url2= 'http://192.168.225.145:8000/v1/servicio'
 
     def guardar(self, nombre, apellido, cedula, telefono, email):
         
@@ -118,3 +118,6 @@ class Comunicacion():
             return resultado.json()
         except Exception as e:
             print(f"Error: {e}")
+    
+if __name__ == "__main__":
+    comunicacion = Comunicacion()

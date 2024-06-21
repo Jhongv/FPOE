@@ -79,7 +79,7 @@ class AgregarCliente:
                     "telefono": cliente.telefono.get(),
                     "email": cliente.email.get()
                 }
-                respuesta = requests.post("http://127.0.0.1:8000/v1/cliente", data)
+                respuesta = requests.post("http://192.168.225.145:8000/v1/cliente", data)
                 print(respuesta.status_code)
                 print(respuesta.content)
                 

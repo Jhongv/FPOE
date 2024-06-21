@@ -6,8 +6,8 @@ import requests
 
 class HiloGuardadoInfo:
     def __init__(self):
-        self.url_clientes = 'http://127.0.0.1:8000/v1/cliente'
-        self.url_servicios = 'http://127.0.0.1:8000/v1/servicio'
+        self.url_clientes = 'http://192.168.225.145:8000/v1/cliente'
+        self.url_servicios = 'http://192.168.225.145:8000/v1/servicio'
         self.file_path = os.path.join(os.getcwd(), 'informacion_clientes_servicios.txt')
 
     def iniciar(self):
